@@ -1,4 +1,11 @@
 -------------------------------------------------------------------------------------------------------------------------------
+PYTHON REQUESTS
+
+Instalar pip:
+Bajar get-pip.py de aca https://pip.pypa.io/en/latest/installing.html, luego ejecutar: sudo python get-pip.py
+
+Ejecutar: pip install requests
+-------------------------------------------------------------------------------------------------------------------------------
 ROCKSDB
 (https://github.com/facebook/rocksdb)
 
