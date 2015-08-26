@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------------------------------------------------------
+CMAKE
+
+Instalar cmake con: sudo apt-get install cmake
+Crear el CMakeLists.txt en la carpeta src del proyecto donde estan todos los fuentes
+Para generar el make ejecutar: cmake CMakeLists.txt  
+Luego ejecutar: make
+Finalmente correr con ./nombre_ejecutable
+-------------------------------------------------------------------------------------------------------------------------------
 PYTHON REQUESTS
 
 Instalar pip:
