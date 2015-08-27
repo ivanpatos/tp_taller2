@@ -86,3 +86,20 @@ git push origin master		(manda master local a repo)
 git pull origin			(baja lo que hay en el repo, fetch + merge)
 git fetch origin		(baja pero no mergea, sirve para ver que hay en el repo)
 -------------------------------------------------------------------------------------------------------------------------------
+Docker
+
+Si no tenes intalado wget:
+
+$ sudo apt-get update
+$ sudo apt-get install wget
+
+Instalar docker:
+
+wget -qO- https://get.docker.com/ | sh
+
+Para ver si instalo correctamente:
+
+$ docker run hello-world
+
+http://docs.docker.com/linux/step_one/
+---------------------------------------------------------------------------------------------------------------------------------
