@@ -1,0 +1,238 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "Dropbox Fiuba"
+    },
+    "paths": {
+        "/login": {
+            "post": {
+                "description": "Login the `User`.\n",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "description": "email",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "description": "password",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user response",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "default": {
+                        "description": "failure authentication",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "description": "Register the `User`.\n",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "description": "name",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "lastname",
+                        "description": "lastname",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "description": "email",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "description": "password",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "user response",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "default": {
+                        "description": "failure authentication",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/file": {
+            "get": {
+                "description": "List all `File` of a `User`\n",
+                "responses": {
+                    "200": {
+                        "description": "files",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/file"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "failure",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/file/{id}": {
+            "get": {
+                "description": "Get `File` by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "file",
+                        "schema": {
+                            "$ref": "#/definitions/file"
+                        }
+                    },
+                    "default": {
+                        "description": "failure",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "delete": {
+                "description": "Delete `File` by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete file",
+                        "schema": {
+                            "$ref": "#/definitions/file"
+                        }
+                    },
+                    "default": {
+                        "description": "failure",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        }
+    },
+    "securityDefinitions": {
+        "api_key": {
+            "type": "apiKey",
+            "name": "api_key",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "user": {
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "file": {
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "errorModel": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
