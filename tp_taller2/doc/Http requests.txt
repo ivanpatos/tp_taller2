@@ -1,0 +1,379 @@
+-------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------ USER -------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+Login
+
+- request: 
+
+url: /login
+method: POST
+query string: -
+header: username, password
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: username, name, mail, profilePicture, lastLocation, token
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error (falta password, falta username, etc)
+-------------------------------------------------------------------------------------------------------------------------------
+Logout
+
+- request: 
+
+url: /logout
+method: POST
+query string: -
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error (mal token, no reseteo la token, etc)
+-------------------------------------------------------------------------------------------------------------------------------
+Create user
+
+- request: 
+
+url: /user
+method: POST
+query string: -
+header: -
+json: username, name, mail, profilePicture, password
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: username, name, mail, profilePicture, lastLocation, token
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error (ya existe usuario, falta password, falta username, etc)
+-------------------------------------------------------------------------------------------------------------------------------
+Update user
+
+- request: 
+
+url: /user
+method: PUT
+query string: -
+header: username, token
+json: name, mail, profilePicture, lastLocation
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: username, name, mail, profilePicture, lastLocation, token
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Get user
+
+- request: 
+
+url: /user
+method: GET
+query string: username
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: username, name, mail, profilePicture, lastLocation
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Get all users
+
+- request: 
+
+url: /user
+method: GET
+query string: -
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: lista con (username, name, mail, profilePicture, lastLocation)
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------- FOLDER -------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+Create Folder
+
+- request: 
+
+url: /user
+method: POST
+query string: -
+header: username, token
+json: name, label (lista)
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: idFolder, name, lastModified, lastUser, label (lista), owner, users (lista username)
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Get Folder
+
+- request: 
+
+url: /user
+method: GET 
+query string: idFolder
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: idFolder, name, lastModified, lastUser, label (lista), owner, users (lista con username), children (lista con [type (folder/file), id (idFolder/idFile), name])
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Get Folders (query de varias carpetas)
+
+- request: 
+
+url: /user
+method: GET 
+query string: name, label (lista), owner
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: lista con (idFolder, name, lastModified, lastUser, label (lista), owner, users (lista con username), children (lista con [type (folder/file), id (idFolder/idFile), name]))
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Update Folder
+
+- request: 
+
+url: /user
+method: PUT
+query string: idFolder
+header: username, token
+json: name, label (lista), users (lista username)
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: idFolder, name, lastModified, lastUser, label (lista), owner, users (lista username)
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Delete Folder
+
+- request: 
+
+url: /user
+method: DELETE
+query string: idFolder
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------- FILE ---------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+Create File (seria el upload)
+
+- request: 
+
+url: /user
+method: POST
+query string: -
+header: username, token
+json: name, extension, label (lista), data
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username)
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Get File (logico, obtengo solo los metadatos)
+
+- request: 
+
+url: /user
+method: GET 
+query string: idFile
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username)
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Get Files (query de varios archivos, metadatos)
+
+- request: 
+
+url: /user
+method: GET 
+query string: name, extension, label (lista), owner
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: lista con (idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username))
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Get File (fisico, o sea download)
+
+- request: 
+
+url: /user
+method: GET 
+query string: idFile
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: data
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Update File (logico, modifico solo los metadatos)
+
+- request: 
+
+url: /user
+method: PUT
+query string: idFile
+header: username, token
+json: name, extension, label (lista), users (lista username)
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username)
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Update File (fisico)
+
+- request: 
+
+url: /user
+method: PUT
+query string: idFile
+header: username, token
+json: data
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+data: idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username)
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+Delete File
+
+- request: 
+
+url: /user
+method: DELETE
+query string: idFile
+header: username, token
+json: -
+
+- respuesta: 
+
+si salio ok, json con:
+result : OK
+
+si salio mal:
+result : ERROR
+errorCode: codigo de error
+-------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+
