@@ -13,37 +13,10 @@
 
 
 
-2) "Folder": <idFolder><json>
+2) "Document": <idDocument><json>
 
-
-si la carpeta es el directorio raíz del usuario -----> <idFolder> = <userName propietario>
-si la carpeta no es el directorio raíz del usuario ----->  <idFolder> = <userName propietario + timestamp>
-
-<json>:
-- name
-- deleted (boolean que indique borrado lógico)
-- lastModified
-- lastUser
-- label (lista de etiquetas)
-- owner
-- users (lista de userName con los que se compartió la carpeta)
-- parents -----> lista con todos los idFolder que incluyen a la carpeta
-
-- children ----> lista de con los siguientes datos: 
-
-Si la carpeta tiene una subcarpeta: 
-type: "folder"
-id: idFolder
-
-Si la carpeta tiene un archivo:
-type: "file"
-id: idFile
-
-
-
-3) "File": <idFile><json>
-
-<id File> = <userName propietario + timestamp>
+Si el documento es la carpeta raíz del usuario -----> <idDocument> = <userName propietario>
+Si el documento no es la carpeta raíz del usuario o es un archivo ----->  <idDocument> = <userName propietario + timestamp>
 
 <json>:
 - name
@@ -53,8 +26,11 @@ id: idFile
 - label (lista de etiquetas)
 - owner
 - users (lista de userName con los que se compartió la carpeta)
-- parents -----> lista con todos los idFolder que incluyen al archivo
-
+- parents
+- children
 - extension
-- path (path donde está ubicado el archivo en el server)
+- path
 
+
+Si el documento es una carpeta, no va a tener extension ni path
+Si el documento es un archivo, no va a tener children

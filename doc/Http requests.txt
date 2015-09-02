@@ -132,7 +132,7 @@ Create Folder
 
 - request: 
 
-url: /user
+url: /folder
 method: POST
 query string: -
 header: username, token
@@ -152,7 +152,7 @@ Get Folder
 
 - request: 
 
-url: /user
+url: /folder
 method: GET 
 query string: idFolder
 header: username, token
@@ -172,7 +172,7 @@ Get Folders (query de varias carpetas)
 
 - request: 
 
-url: /user
+url: /folder
 method: GET 
 query string: name, label (lista), owner
 header: username, token
@@ -192,11 +192,11 @@ Update Folder
 
 - request: 
 
-url: /user
+url: /folder
 method: PUT
 query string: idFolder
 header: username, token
-json: name, label (lista), users (lista username)
+json: name, label (lista), users (lista username), deleted
 
 - respuesta: 
 
@@ -212,7 +212,7 @@ Delete Folder
 
 - request: 
 
-url: /user
+url: /folder
 method: DELETE
 query string: idFolder
 header: username, token
@@ -239,7 +239,7 @@ Create File (seria el upload)
 
 - request: 
 
-url: /user
+url: /file
 method: POST
 query string: -
 header: username, token
@@ -259,7 +259,7 @@ Get File (logico, obtengo solo los metadatos)
 
 - request: 
 
-url: /user
+url: /file
 method: GET 
 query string: idFile
 header: username, token
@@ -279,7 +279,7 @@ Get Files (query de varios archivos, metadatos)
 
 - request: 
 
-url: /user
+url: /file
 method: GET 
 query string: name, extension, label (lista), owner
 header: username, token
@@ -299,7 +299,7 @@ Get File (fisico, o sea download)
 
 - request: 
 
-url: /user
+url: /file
 method: GET 
 query string: idFile
 header: username, token
@@ -319,11 +319,11 @@ Update File (logico, modifico solo los metadatos)
 
 - request: 
 
-url: /user
+url: /file
 method: PUT
 query string: idFile
 header: username, token
-json: name, extension, label (lista), users (lista username)
+json: name, extension, label (lista), users (lista username), deleted
 
 - respuesta: 
 
@@ -339,7 +339,7 @@ Update File (fisico)
 
 - request: 
 
-url: /user
+url: /file
 method: PUT
 query string: idFile
 header: username, token
@@ -359,7 +359,7 @@ Delete File
 
 - request: 
 
-url: /user
+url: /file
 method: DELETE
 query string: idFile
 header: username, token
