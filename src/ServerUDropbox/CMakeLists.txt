@@ -1,6 +1,6 @@
 # Para generar el make ejecutar: cmake CMakeLists.txt  
 # Luego ejecutar: make
-# Finalmente correr con ./hello_world
+# Finalmente correr con ./server_udropbox
 
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
