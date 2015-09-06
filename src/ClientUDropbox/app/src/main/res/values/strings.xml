@@ -1,6 +1,21 @@
 <resources>
-    <string name="app_name">ClientUDropbox</string>
+    <string name="app_name">UDropbox</string>
 
+    <!-- Strings General -->
     <string name="fiuba_udropbox">Fiuba UDropbox!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Strings Main Activity -->
+    <string name="title_activity_main">Bienvenido!</string>
+    <string name="register_activity_main">Registrarse</string>
+    <string name="has_account_activity_main">Ya tenes una cuenta?</string>
+    <string name="login_activity_main">Inicia Sesion</string>
+
+    <!-- Strings Register Activity -->
+    <string name="title_activity_register">RegisterActivity</string>
+
+    <!-- Strings Login Activity -->
+    <string name="title_activity_login">LoginActivity</string>
+
+
 </resources>
