@@ -5,7 +5,7 @@
 #include "rocksdb/db.h"
 #include "rocksdb/slice.h"
 #include "rocksdb/options.h"
-#include "User.h"
+#include "../resources/User.h"
 
 
 class DataManager{

@@ -1,4 +1,4 @@
-#include "RestServer.h"
+#include "../include/server/RestServer.h"
 
 int main() {
 

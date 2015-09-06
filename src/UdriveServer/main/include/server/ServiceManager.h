@@ -3,10 +3,7 @@
 
 #include <string>
 #include <functional>
-#include "json/json.h"
-#include "User.h"
-#include "DataManager.h"
-#include "HttpResponse.h"
+#include "../resources/User.h"
 
 
 class ServiceManager{

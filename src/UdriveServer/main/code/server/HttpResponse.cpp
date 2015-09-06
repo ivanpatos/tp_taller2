@@ -1,4 +1,4 @@
-#include "HttpResponse.h"
+#include "../../include/server/HttpResponse.h"
 
 std::string HttpResponse::GetHttpOkResponse(const Json::Value& data){
 	Json::Value jsonResponse;

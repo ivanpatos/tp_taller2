@@ -1,5 +1,9 @@
-#include "ServiceManager.h"
-#include "Time.h"
+#include "../../include/server/ServiceManager.h"
+#include "../../include/server/HttpResponse.h"
+#include "../../include/utilities/Time.h"
+#include "../../include/database/DataManager.h"
+#include "../../others/json/json.h"
+
 
 ServiceManager::ServiceManager(){
 }

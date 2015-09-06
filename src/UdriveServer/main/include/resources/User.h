@@ -2,7 +2,7 @@
 #define _USER_H_
 
 #include <string>
-#include "json/json.h"
+#include "../../others/json/json.h"
 
 
 class User {

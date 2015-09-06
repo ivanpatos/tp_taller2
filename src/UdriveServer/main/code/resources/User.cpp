@@ -1,4 +1,4 @@
-#include "User.h"
+#include "../../include/resources/User.h"
 
 User::User(const std::string& username, const std::string& name, const std::string& mail, const std::string& profilePicture, const std::string& password){
 	this->username = username;
