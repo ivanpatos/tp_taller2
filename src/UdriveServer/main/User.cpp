@@ -1,6 +1,6 @@
 #include "User.h"
 
-User::User(const string& username, const string& name, const string& mail, const string& profilePicture, const string& password){
+User::User(const std::string& username, const std::string& name, const std::string& mail, const std::string& profilePicture, const std::string& password){
 	this->username = username;
 	this->name = name;
 	this->mail = mail;
@@ -20,7 +20,7 @@ User::User(const Json::Value& json){
 	this->token = "";
 }
 
-User::User(const string& jsonString){
+User::User(const std::string& jsonString){
 	Json::Value json(Json::objectValue);
 	Json::Reader reader;
 	reader.parse(jsonString, json);
@@ -36,19 +36,19 @@ User::User(const string& jsonString){
 User::~User(){
 }
 
-string User::getUsername() const{
+std::string User::getUsername() const{
 	return this->username;
 }
 
-string User::getPassword() const{
+std::string User::getPassword() const{
 	return this->password;
 }
 
-string User::getToken() const{
+std::string User::getToken() const{
 	return this->token;
 }
 
-string User::getJsonString() const{
+std::string User::getJsonString() const{
 	Json::Value json = this->getJsonProfile();
 	json["password"] = this->password;
 	json["token"] = this->token;

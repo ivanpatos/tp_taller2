@@ -1,4 +1,4 @@
-# Para generar el make ejecutar: cmake CMakeLists.txt  
+# Para generar el make ejecutar en la carpeta donde se quiere buildear: cmake path_dir_con_fuentes  (recomendacion no hacerlo en la misma carpeta donde estan los fuentes)
 # Luego ejecutar: make
 # Finalmente correr con ./udrive_server
 
@@ -6,7 +6,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 # Nombre del proyecto
-PROJECT(udrive_server)
+PROJECT(TP_TALLER2)
 
 # Setea flags del compilador
 SET(CMAKE_CXX_FLAGS "-std=c++11")

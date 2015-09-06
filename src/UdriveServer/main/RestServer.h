@@ -5,8 +5,6 @@
 #include "mongoose.h"
 #include "ServiceManager.h"
 
-using namespace std;
-
 
 class RestServer{
 
@@ -16,8 +14,8 @@ private:
 
 	static int handleEvent(mg_connection *connection, mg_event event);
 	void handleConnection(mg_connection *connection);
-	string getValueFromHttpRequestHeader(mg_connection *connection, string name);
-	string getDataFromHttpRequest(mg_connection *connection);
+	std::string getValueFromHttpRequestHeader(mg_connection *connection, std::string name);
+	std::string getDataFromHttpRequest(mg_connection *connection);
 
 	void createUserRequest(mg_connection *connection);
 	void getUserRequest(mg_connection *connection);

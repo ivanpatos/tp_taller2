@@ -40,7 +40,7 @@ si salio mal:
 result : ERROR
 errorCode: codigo de error (mal token, no reseteo la token, etc)
 -------------------------------------------------------------------------------------------------------------------------------
-Create user
+Create user (###### LISTO ######)
 
 - request: 
 
@@ -54,11 +54,15 @@ json: username, name, mail, profilePicture, password
 
 si salio ok, json con:
 result : OK
-data: username, name, mail, profilePicture, lastLocation, token
+data: username, name, mail, profilePicture, lastLocation
 
 si salio mal:
 result : ERROR
-errorCode: codigo de error (ya existe usuario, falta password, falta username, etc)
+errorCode: codigo de error
+3 - ERROR_USERNAME_EXISTS
+4 - ERROR_USERNAME_MISSING
+5 - ERROR_PASSWORD_MISSING
+6 - ERROR_SAVING_DATA
 -------------------------------------------------------------------------------------------------------------------------------
 Update user
 
@@ -80,7 +84,7 @@ si salio mal:
 result : ERROR
 errorCode: codigo de error
 -------------------------------------------------------------------------------------------------------------------------------
-Get user
+Get user (###### LISTO ######)
 
 - request: 
 
@@ -99,6 +103,8 @@ data: username, name, mail, profilePicture, lastLocation
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+2 - ERROR_INVALID_USERNAME
 -------------------------------------------------------------------------------------------------------------------------------
 Get all users
 

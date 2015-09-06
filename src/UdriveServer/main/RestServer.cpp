@@ -32,8 +32,8 @@ int RestServer::handleEvent(mg_connection *connection, mg_event event){
 }
 
 void RestServer::handleConnection(mg_connection *connection){
-	string uri(connection->uri);
-	string method(connection->request_method);
+	std::string uri(connection->uri);
+	std::string method(connection->request_method);
 	//string queryString(connection->query_string);
 
 	if (uri == "/user"){
@@ -48,19 +48,19 @@ void RestServer::handleConnection(mg_connection *connection){
 	}
 }
 
-string RestServer::getValueFromHttpRequestHeader(mg_connection *connection, string name){
+std::string RestServer::getValueFromHttpRequestHeader(mg_connection *connection, std::string name){
 	const char* header = mg_get_header(connection, name.c_str());
 	if (header){
-		string value(header);
+		std::string value(header);
 		return value;
 	}
 	else
 		return "";
 }
 
-string RestServer::getDataFromHttpRequest(mg_connection *connection){
+std::string RestServer::getDataFromHttpRequest(mg_connection *connection){
 	if (connection->content_len != 0){
-		string data(connection->content, connection->content_len);
+		std::string data(connection->content, connection->content_len);
 		return data;
 	}
 	else
@@ -69,20 +69,20 @@ string RestServer::getDataFromHttpRequest(mg_connection *connection){
 
 void RestServer::createUserRequest(mg_connection *connection){
 
-	string data = this->getDataFromHttpRequest(connection);
-	string response = this->serviceManager->createUser(data);
+	std::string data = this->getDataFromHttpRequest(connection);
+	std::string response = this->serviceManager->createUser(data);
 	mg_printf_data(connection, response.c_str());
 }
 
 void RestServer::getUserRequest(mg_connection *connection){
 
-	string username = this->getValueFromHttpRequestHeader(connection, "user");
-	string token = this->getValueFromHttpRequestHeader(connection, "token");
+	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
 
-	string query("username=");
-	string queryString(connection->query_string);
-	string queryUsername = queryString.substr(queryString.find(query)+query.length());
+	std::string query("username=");
+	std::string queryString(connection->query_string);
+	std::string queryUsername = queryString.substr(queryString.find(query)+query.length());
 
-	string response = this->serviceManager->getUser(username, token, queryUsername);
+	std::string response = this->serviceManager->getUser(username, token, queryUsername);
 	mg_printf_data(connection, response.c_str());
 }

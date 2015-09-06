@@ -6,29 +6,29 @@ ServiceManager::ServiceManager(){
 ServiceManager::~ServiceManager(){
 }
 
-bool ServiceManager::authenticateRequest(const User& user, const string& token){
+bool ServiceManager::authenticateRequest(const User& user, const std::string& token){
 	if (user.getToken().compare(token) == 0)
 		return true;
 	else
 		return false;
 }
 
-string ServiceManager::createUser(const string& data){
+std::string ServiceManager::createUser(const std::string& data){
 
-	string response = "";
+	std::string response = "";
 	Json::Value jsonData(Json::objectValue);
 	Json::Reader reader;
 	reader.parse(data, jsonData);
 
 	User user(jsonData);
-	string username = user.getUsername();
+	std::string username = user.getUsername();
 	User *userQuery = DataManager::Instance().getUser(username);
 	if (userQuery != NULL){
 		delete userQuery;
 		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_USERNAME_EXISTS);
 	}
 	else{
-		string password = user.getPassword();
+		std::string password = user.getPassword();
 		if (username == "")
 			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_USERNAME_MISSING);
 		else if (password == "")
@@ -36,14 +36,14 @@ string ServiceManager::createUser(const string& data){
 		else if (DataManager::Instance().saveUser(user))
 			response = HttpResponse::GetHttpOkResponse(user.getJsonProfile());
 		else
-			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DB);
+			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
 	}
 	return response;
 }
 
-string ServiceManager::getUser(const string& username, const string& token, const string& queryUsername){
+std::string ServiceManager::getUser(const std::string& username, const std::string& token, const std::string& queryUsername){
 
-	string response = "";
+	std::string response = "";
 	User *user = DataManager::Instance().getUser(username);
 	if (user){
 		if (this->authenticateRequest(*user, token)){
@@ -62,7 +62,7 @@ string ServiceManager::getUser(const string& username, const string& token, cons
 		delete user;
 	}
 	else
-		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_USERNAME);
+		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
 
 	return response;
 }
