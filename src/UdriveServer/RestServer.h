@@ -1,0 +1,34 @@
+#ifndef _REST_SERVER_H_
+#define _REST_SERVER_H_
+
+#include <string>
+#include "mongoose.h"
+#include "ServiceManager.h"
+
+using namespace std;
+
+
+class RestServer{
+
+private:
+	mg_server *server;
+	ServiceManager *serviceManager;
+
+	static int handleEvent(mg_connection *connection, mg_event event);
+	void handleConnection(mg_connection *connection);
+	string getValueFromHttpRequestHeader(mg_connection *connection, string name);
+	string getDataFromHttpRequest(mg_connection *connection);
+
+	void createUserRequest(mg_connection *connection);
+	void getUserRequest(mg_connection *connection);
+
+
+public:
+	RestServer();
+	~RestServer();
+
+	void start();
+};
+
+
+#endif
