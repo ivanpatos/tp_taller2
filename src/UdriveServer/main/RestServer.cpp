@@ -37,14 +37,13 @@ void RestServer::handleConnection(mg_connection *connection){
 	//string queryString(connection->query_string);
 
 	if (uri == "/user"){
-		if (method == "GET"){
+		if (method == "GET")
 			this->getUserRequest(connection);
-			return;
-		}
-		else if (method == "POST"){
+		else if (method == "POST")
 			this->createUserRequest(connection);
-			return;
-		}
+	}
+	else if (uri == "/login" && method == "POST"){
+		this->loginRequest(connection);
 	}
 }
 
@@ -65,6 +64,13 @@ std::string RestServer::getDataFromHttpRequest(mg_connection *connection){
 	}
 	else
 		return "";
+}
+
+void RestServer::loginRequest(mg_connection *connection){
+	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string password = this->getValueFromHttpRequestHeader(connection, "password");
+	std::string response = this->serviceManager->login(username, password);
+	mg_printf_data(connection, response.c_str());
 }
 
 void RestServer::createUserRequest(mg_connection *connection){

@@ -1,4 +1,5 @@
 #include "ServiceManager.h"
+#include "Time.h"
 
 ServiceManager::ServiceManager(){
 }
@@ -11,6 +12,39 @@ bool ServiceManager::authenticateRequest(const User& user, const std::string& to
 		return true;
 	else
 		return false;
+}
+
+void ServiceManager::generateToken(User *user){
+	std::string tokenSource = user->getUsername() + user->getPassword() + Time::getCurrentTime();
+	std::hash<std::string> hasher;
+	std::stringstream stringStream;
+	stringStream << hasher(tokenSource);
+	std::string token = stringStream.str();
+	user->setToken(token);
+}
+
+std::string ServiceManager::login(const std::string& username, const std::string& password){
+	std::string response = "";
+	User *user = DataManager::Instance().getUser(username);
+	if (user){
+		if (user->getPassword() == password){
+			this->generateToken(user);
+			if (DataManager::Instance().saveUser(*user))
+				response = HttpResponse::GetHttpOkResponse(user->getJsonProfileWithToken());
+			else
+				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+		}
+		else
+			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_PASSWORD);
+
+		delete user;
+	}
+	else
+		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_USERNAME);
+
+	return response;
+
+
 }
 
 std::string ServiceManager::createUser(const std::string& data){

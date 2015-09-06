@@ -22,11 +22,13 @@ public:
 	User(const std::string& jsonString);
 	~User();
 
+	void setToken(const std::string& token);
 	std::string getUsername() const;
 	std::string getPassword() const;
 	std::string getToken() const;
 	std::string getJsonString() const;				// devuelve string de json con todos los atributos
-	Json::Value getJsonProfile() const;			// devuelve json sin password y token
+	Json::Value getJsonProfile() const;				// devuelve json sin password y token
+	Json::Value getJsonProfileWithToken() const;	// devuelve json sin password
 
 
 };

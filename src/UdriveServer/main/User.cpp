@@ -36,6 +36,10 @@ User::User(const std::string& jsonString){
 User::~User(){
 }
 
+void User::setToken(const std::string& token){
+	this->token = token;
+}
+
 std::string User::getUsername() const{
 	return this->username;
 }
@@ -64,5 +68,11 @@ Json::Value User::getJsonProfile() const{
 	json["mail"] = this->mail;
 	json["profilePicture"] = this->profilePicture;
 	json["lastLocation"] = this->lastLocation;
+	return json;
+}
+
+Json::Value User::getJsonProfileWithToken() const{
+	Json::Value json = this->getJsonProfile();
+	json["token"] = this->token;
 	return json;
 }

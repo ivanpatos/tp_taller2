@@ -2,6 +2,7 @@
 #define _SERVICE_MANAGER_H_
 
 #include <string>
+#include <functional>
 #include "json/json.h"
 #include "User.h"
 #include "DataManager.h"
@@ -12,11 +13,13 @@ class ServiceManager{
 
 private:
 	bool authenticateRequest(const User& user, const std::string& token);
+	void generateToken(User *user);
 
 public:
 	ServiceManager();
 	~ServiceManager();
 
+	std::string login(const std::string& username, const std::string& password);
 	std::string createUser(const std::string& data);
 	std::string getUser(const std::string& username, const std::string& token, const std::string& queryUsername);
 

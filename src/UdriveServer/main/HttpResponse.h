@@ -15,7 +15,8 @@ public:
 		ERROR_USERNAME_EXISTS,
 		ERROR_USERNAME_MISSING,
 		ERROR_PASSWORD_MISSING,
-		ERROR_SAVING_DATA
+		ERROR_SAVING_DATA,
+		ERROR_INVALID_PASSWORD
 	};
 
 	static std::string GetHttpOkResponse(const Json::Value& data);

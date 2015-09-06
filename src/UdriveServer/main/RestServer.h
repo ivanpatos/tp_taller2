@@ -17,6 +17,7 @@ private:
 	std::string getValueFromHttpRequestHeader(mg_connection *connection, std::string name);
 	std::string getDataFromHttpRequest(mg_connection *connection);
 
+	void loginRequest(mg_connection *connection);
 	void createUserRequest(mg_connection *connection);
 	void getUserRequest(mg_connection *connection);
 
