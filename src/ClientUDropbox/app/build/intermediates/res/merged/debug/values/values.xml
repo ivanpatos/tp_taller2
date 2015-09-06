@@ -232,8 +232,7 @@
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>
     <!-- From: file:/home/jscialabba/workspace/tp_taller2/src/ClientUDropbox/app/src/main/res/values/styles.xml -->
     <eat-comment/>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
     <style name="AppTheme.ButtonConfirmation">
         <item name="android:background">#FAFAFA</item>
