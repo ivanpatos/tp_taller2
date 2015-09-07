@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------ USER -------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------
-Login
+Login (###### LISTO ######)
 
 - request: 
 
@@ -19,9 +19,12 @@ data: username, name, mail, profilePicture, lastLocation, token
 
 si salio mal:
 result : ERROR
-errorCode: codigo de error (falta password, falta username, etc)
+errorCode: codigo de error
+2 - ERROR_INVALID_USERNAME
+6 - ERROR_SAVING_DATA
+7 - ERROR_INVALID_PASSWORD
 -------------------------------------------------------------------------------------------------------------------------------
-Logout
+Logout (###### LISTO ######)
 
 - request: 
 
@@ -35,10 +38,13 @@ json: -
 
 si salio ok, json con:
 result : OK
+data: "" (vacio, no se devuelve nada en el campo data)
 
 si salio mal:
 result : ERROR
-errorCode: codigo de error (mal token, no reseteo la token, etc)
+errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
 -------------------------------------------------------------------------------------------------------------------------------
 Create user (###### LISTO ######)
 
