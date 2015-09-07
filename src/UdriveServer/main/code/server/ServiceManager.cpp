@@ -135,11 +135,12 @@ std::string ServiceManager::getAllUsers(const std::string& username, const std::
 
 			Json::Value jsonUserList;
 			std::vector<User*> userList = DataManager::Instance().getAllUsers();
-			for (int i=0; i<userList.size(); i++){
-				Json::Value userProfileJson = userList[i]->getJsonProfile();
+			for(std::vector<User*>::iterator it = userList.begin(); it != userList.end(); ++it) {
+				Json::Value userProfileJson = (*it)->getJsonProfile();
 				jsonUserList.append(userProfileJson);
-				delete userList[i];
+				delete *it;
 			}
+
 			response = HttpResponse::GetHttpOkResponse(jsonUserList);
 		}
 		else
