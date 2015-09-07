@@ -48,3 +48,14 @@ bool DataManager::saveUser(const User& user){
 	return status.ok();
 }
 
+std::vector<User*> DataManager::getAllUsers(){
+	std::vector<User*> userList;
+	rocksdb::Iterator* iterator = this->database->NewIterator(rocksdb::ReadOptions(), this->columnFamilyHandler[1]);
+	for (iterator->SeekToFirst(); iterator->Valid(); iterator->Next()){
+		User* user = new User(iterator->value().ToString());
+		userList.push_back(user);
+	}
+	delete iterator;
+	return userList;
+}
+

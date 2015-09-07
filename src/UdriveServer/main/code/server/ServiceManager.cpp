@@ -73,7 +73,7 @@ std::string ServiceManager::logout(const std::string& username, const std::strin
 std::string ServiceManager::createUser(const std::string& data){
 
 	std::string response = "";
-	Json::Value jsonData(Json::objectValue);
+	Json::Value jsonData;
 	Json::Reader reader;
 	reader.parse(data, jsonData);
 
@@ -115,6 +115,32 @@ std::string ServiceManager::getUser(const std::string& username, const std::stri
 			}
 			else
 				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_USERNAME);
+		}
+		else
+			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+		delete user;
+	}
+	else
+		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+
+	return response;
+}
+
+std::string ServiceManager::getAllUsers(const std::string& username, const std::string& token){
+
+	std::string response = "";
+	User *user = DataManager::Instance().getUser(username);
+	if (user){
+		if (this->authenticateRequest(*user, token)){
+
+			Json::Value jsonUserList;
+			std::vector<User*> userList = DataManager::Instance().getAllUsers();
+			for (int i=0; i<userList.size(); i++){
+				Json::Value userProfileJson = userList[i]->getJsonProfile();
+				jsonUserList.append(userProfileJson);
+				delete userList[i];
+			}
+			response = HttpResponse::GetHttpOkResponse(jsonUserList);
 		}
 		else
 			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);

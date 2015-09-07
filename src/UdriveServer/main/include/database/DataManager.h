@@ -27,9 +27,8 @@ public:
 
 	User * getUser(const std::string& key);
 	bool saveUser(const User& user);
-
+	std::vector<User*> getAllUsers();
 
 };
-
 
 #endif

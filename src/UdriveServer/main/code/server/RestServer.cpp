@@ -38,6 +38,8 @@ void RestServer::handleConnection(mg_connection *connection){
 	if (uri == "/user"){
 		if (method == "GET" && connection->query_string)
 			this->getUserRequest(connection);
+		else if (method == "GET")
+			this->getAllUsersRequest(connection);
 		else if (method == "POST")
 			this->createUserRequest(connection);
 		else if (method == "PUT")
@@ -99,6 +101,14 @@ void RestServer::getUserRequest(mg_connection *connection){
 	std::string queryUsername = queryString.substr(queryString.find(query)+query.length());
 
 	std::string response = this->serviceManager->getUser(username, token, queryUsername);
+	mg_printf_data(connection, response.c_str());
+}
+
+void RestServer::getAllUsersRequest(mg_connection *connection){
+
+	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
+	std::string response = this->serviceManager->getAllUsers(username, token);
 	mg_printf_data(connection, response.c_str());
 }
 

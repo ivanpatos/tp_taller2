@@ -19,6 +19,7 @@ public:
 	std::string logout(const std::string& username, const std::string& token);
 	std::string createUser(const std::string& data);
 	std::string getUser(const std::string& username, const std::string& token, const std::string& queryUsername);
+	std::string getAllUsers(const std::string& username, const std::string& token);
 	std::string updateUser(const std::string& username, const std::string& token, const std::string& data);
 };
 
