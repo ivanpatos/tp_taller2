@@ -34,17 +34,17 @@ int RestServer::handleEvent(mg_connection *connection, mg_event event){
 void RestServer::handleConnection(mg_connection *connection){
 	std::string uri(connection->uri);
 	std::string method(connection->request_method);
-	//string queryString(connection->query_string);
 
 	if (uri == "/user"){
-		if (method == "GET")
+		if (method == "GET" && connection->query_string)
 			this->getUserRequest(connection);
 		else if (method == "POST")
 			this->createUserRequest(connection);
 	}
-	else if (uri == "/login" && method == "POST"){
-		this->loginRequest(connection);
-	}
+	else if (uri == "/login" && method == "POST")
+			this->loginRequest(connection);
+	else if (uri == "/logout" && method == "POST")
+			this->logoutRequest(connection);
 }
 
 std::string RestServer::getValueFromHttpRequestHeader(mg_connection *connection, std::string name){
@@ -70,6 +70,13 @@ void RestServer::loginRequest(mg_connection *connection){
 	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
 	std::string password = this->getValueFromHttpRequestHeader(connection, "password");
 	std::string response = this->serviceManager->login(username, password);
+	mg_printf_data(connection, response.c_str());
+}
+
+void RestServer::logoutRequest(mg_connection *connection){
+	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
+	std::string response = this->serviceManager->logout(username, token);
 	mg_printf_data(connection, response.c_str());
 }
 

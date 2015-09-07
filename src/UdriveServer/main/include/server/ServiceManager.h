@@ -2,7 +2,6 @@
 #define _SERVICE_MANAGER_H_
 
 #include <string>
-#include <functional>
 #include "../resources/User.h"
 
 
@@ -17,6 +16,7 @@ public:
 	~ServiceManager();
 
 	std::string login(const std::string& username, const std::string& password);
+	std::string logout(const std::string& username, const std::string& token);
 	std::string createUser(const std::string& data);
 	std::string getUser(const std::string& username, const std::string& token, const std::string& queryUsername);
 

@@ -18,6 +18,7 @@ private:
 	std::string getDataFromHttpRequest(mg_connection *connection);
 
 	void loginRequest(mg_connection *connection);
+	void logoutRequest(mg_connection *connection);
 	void createUserRequest(mg_connection *connection);
 	void getUserRequest(mg_connection *connection);
 
