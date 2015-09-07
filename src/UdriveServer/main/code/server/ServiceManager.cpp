@@ -125,3 +125,26 @@ std::string ServiceManager::getUser(const std::string& username, const std::stri
 
 	return response;
 }
+
+std::string ServiceManager::updateUser(const std::string& username, const std::string& token, const std::string& data){
+
+	std::string response = "";
+	User *user = DataManager::Instance().getUser(username);
+	if (user){
+		if (this->authenticateRequest(*user, token)){
+			user->updateProfile(data);
+			if (DataManager::Instance().saveUser(*user))
+				response = HttpResponse::GetHttpOkResponse(user->getJsonProfile());
+			else
+				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+
+		}
+		else
+			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+		delete user;
+	}
+	else
+		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+
+	return response;
+}

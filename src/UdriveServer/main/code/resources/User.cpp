@@ -76,3 +76,14 @@ Json::Value User::getJsonProfileWithToken() const{
 	json["token"] = this->token;
 	return json;
 }
+
+void User::updateProfile(const std::string& jsonString){
+	Json::Value json(Json::objectValue);
+	Json::Reader reader;
+	reader.parse(jsonString, json);
+	this->name = json.get("name", "").asCString();
+	this->mail = json.get("mail", "").asCString();
+	this->profilePicture = json.get("profilePicture", "").asCString();
+	this->lastLocation = json.get("lastLocation", "").asCString();
+	this->password = json.get("password", "").asCString();
+}

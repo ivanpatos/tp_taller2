@@ -21,6 +21,7 @@ private:
 	void logoutRequest(mg_connection *connection);
 	void createUserRequest(mg_connection *connection);
 	void getUserRequest(mg_connection *connection);
+	void updateUserRequest(mg_connection *connection);
 
 
 public:

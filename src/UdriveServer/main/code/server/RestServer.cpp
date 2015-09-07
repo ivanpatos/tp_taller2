@@ -40,6 +40,8 @@ void RestServer::handleConnection(mg_connection *connection){
 			this->getUserRequest(connection);
 		else if (method == "POST")
 			this->createUserRequest(connection);
+		else if (method == "PUT")
+			this->updateUserRequest(connection);
 	}
 	else if (uri == "/login" && method == "POST")
 			this->loginRequest(connection);
@@ -97,5 +99,14 @@ void RestServer::getUserRequest(mg_connection *connection){
 	std::string queryUsername = queryString.substr(queryString.find(query)+query.length());
 
 	std::string response = this->serviceManager->getUser(username, token, queryUsername);
+	mg_printf_data(connection, response.c_str());
+}
+
+void RestServer::updateUserRequest(mg_connection *connection){
+
+	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
+	std::string data = this->getDataFromHttpRequest(connection);
+	std::string response = this->serviceManager->updateUser(username, token, data);
 	mg_printf_data(connection, response.c_str());
 }

@@ -70,7 +70,7 @@ errorCode: codigo de error
 5 - ERROR_PASSWORD_MISSING
 6 - ERROR_SAVING_DATA
 -------------------------------------------------------------------------------------------------------------------------------
-Update user
+Update user (###### LISTO ######)
 
 - request: 
 
@@ -78,17 +78,19 @@ url: /user
 method: PUT
 query string: -
 header: username, token
-json: name, mail, profilePicture, lastLocation
+json: name, mail, profilePicture, lastLocation, password
 
 - respuesta: 
 
 si salio ok, json con:
 result : OK
-data: username, name, mail, profilePicture, lastLocation, token
+data: username, name, mail, profilePicture, lastLocation
 
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
 -------------------------------------------------------------------------------------------------------------------------------
 Get user (###### LISTO ######)
 

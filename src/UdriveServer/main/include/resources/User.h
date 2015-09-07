@@ -26,11 +26,10 @@ public:
 	std::string getUsername() const;
 	std::string getPassword() const;
 	std::string getToken() const;
-	std::string getJsonString() const;				// devuelve string de json con todos los atributos
-	Json::Value getJsonProfile() const;				// devuelve json sin password y token
-	Json::Value getJsonProfileWithToken() const;	// devuelve json sin password
-
-
+	std::string getJsonString() const;					// devuelve string de json con todos los atributos
+	Json::Value getJsonProfile() const;					// devuelve json sin password y token
+	Json::Value getJsonProfileWithToken() const;		// devuelve json sin password
+	void updateProfile(const std::string& jsonString);	// actualiza profile a partir de json string
 };
 
 
