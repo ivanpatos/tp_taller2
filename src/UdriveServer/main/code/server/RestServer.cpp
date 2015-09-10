@@ -71,14 +71,14 @@ std::string RestServer::getDataFromHttpRequest(mg_connection *connection){
 }
 
 void RestServer::loginRequest(mg_connection *connection){
-	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
 	std::string password = this->getValueFromHttpRequestHeader(connection, "password");
 	std::string response = this->serviceManager->login(username, password);
 	mg_printf_data(connection, response.c_str());
 }
 
 void RestServer::logoutRequest(mg_connection *connection){
-	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
 	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
 	std::string response = this->serviceManager->logout(username, token);
 	mg_printf_data(connection, response.c_str());
@@ -93,7 +93,7 @@ void RestServer::createUserRequest(mg_connection *connection){
 
 void RestServer::getUserRequest(mg_connection *connection){
 
-	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
 	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
 
 	std::string query("username=");
@@ -106,7 +106,7 @@ void RestServer::getUserRequest(mg_connection *connection){
 
 void RestServer::getAllUsersRequest(mg_connection *connection){
 
-	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
 	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
 	std::string response = this->serviceManager->getAllUsers(username, token);
 	mg_printf_data(connection, response.c_str());
@@ -114,7 +114,7 @@ void RestServer::getAllUsersRequest(mg_connection *connection){
 
 void RestServer::updateUserRequest(mg_connection *connection){
 
-	std::string username = this->getValueFromHttpRequestHeader(connection, "user");
+	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
 	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
 	std::string data = this->getDataFromHttpRequest(connection);
 	std::string response = this->serviceManager->updateUser(username, token, data);
