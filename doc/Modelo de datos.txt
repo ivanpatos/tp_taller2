@@ -1,9 +1,9 @@
 1) "User": <idUser><json>
 
-<idUser> = userName
+<idUser> = username
 
 <json>: 
-- userName
+- username
 - name (nombre y apellido)
 - mail
 - profilePicture
@@ -13,24 +13,32 @@
 
 
 
-2) "Document": <idDocument><json>
+2) "Folder": <idFolder><json>
 
-Si el documento es la carpeta raíz del usuario -----> <idDocument> = <userName propietario>
-Si el documento no es la carpeta raíz del usuario o es un archivo ----->  <idDocument> = <userName propietario + timestamp>
+Si es la carpeta raíz del usuario -----> <idDocument> = <username propietario>
+Si es la carpeta con archivos compartidos con el usuario -----> <idFolder> = <sharedwith_username> (por ej la carpeta que contiene todos los archivos compartidos con pepe: sharedwith_pepe)
+Si es la carpeta papelera con archivos borrados que se pueden recuperar -----> <idFolder> = <trash_username> (por ej : trash_pepe)
+Si es la carpeta con archivos recuperados -----> <idFolder> = <recovered_username> (por ej : recovered_pepe)
+Si es una carpeta cualquiera ----->  <idDocument> = <username propietario + timestamp>
+
+<json>:
+- name
+- idParent (idFolder de la carpeta padre que lo contiene)
+- children (lista con <type, id, name> type puede ser file o folder) 
+
+
+
+3)"File": <idFile><json>
+<idFile> = <username + timestamp> (username del propietario)
 
 <json>:
 - name
 - deleted (boolean que indique borrado lógico)
 - lastModified
 - lastUser
-- label (lista de etiquetas)
+- labels (lista con <description>)
 - owner
-- users (lista de userName con los que se compartió la carpeta)
-- parents
-- children
+- users (lista con <username> con los que se compartió la carpeta)
+- idFolder (idFolder de la carpeta padre que lo contiene)
 - extension
-- path
-
-
-Si el documento es una carpeta, no va a tener extension ni path
-Si el documento es un archivo, no va a tener children
+- versions (lista con <version, data>)
