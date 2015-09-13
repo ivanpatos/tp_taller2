@@ -1,22 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowActionBar">false</item>
-    </style>
-    
-    <style name="AppTheme.ButtonConfirmation" >
-        <item name="android:background">#FAFAFA</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textSize">17dp</item>
+    <style name="AppTheme"  parent="@style/Theme.AppCompat.Light">
+        <item name="android:actionBarStyle" tools:ignore="NewApi">@style/MyActionBar</item>
+        <item name="actionBarStyle">@style/MyActionBar</item>
     </style>
 
-    <style name="AppTheme.ButtonConfirmation.Landscape" parent="AppTheme.ButtonConfirmation" >
-        <item name="android:textSize">12dp</item>
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background" tools:ignore="NewApi">@color/lightBlue</item>
+        <item name="background">@color/lightBlue</item>
     </style>
-
 
 </resources>
 

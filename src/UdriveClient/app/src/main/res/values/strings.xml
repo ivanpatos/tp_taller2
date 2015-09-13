@@ -6,16 +6,23 @@
     <string name="action_settings">Settings</string>
 
     <!-- Strings Main Activity -->
-    <string name="title_activity_main">Bienvenido!</string>
-    <string name="register_activity_main">Registrarse</string>
-    <string name="has_account_activity_main">Ya tenes una cuenta?</string>
-    <string name="login_activity_main">Inicia Sesion</string>
+    <string name="main.title">Bienvenido!</string>
+    <string name="main.register">Registrarse</string>
+    <string name="main.hasAccount">Ya tenes una cuenta?</string>
+    <string name="main.login">Inicia Sesion</string>
 
     <!-- Strings Register Activity -->
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="register.actionBar.title">Registro</string>
+    <string name="register.hint.username">Usuario</string>
+    <string name="register.hint.name">Nombre</string>
+    <string name="register.hint.email">Email</string>
+    <string name="register.hint.password">Password</string>
+    <string name="register.button">Registrarse</string>
 
     <!-- Strings Login Activity -->
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Login</string>
+
+
 
 
 </resources>

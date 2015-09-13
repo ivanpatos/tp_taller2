@@ -6,8 +6,70 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.fiuba.taller2.UdriveClient.RegisterActivity">
 
-    <TextView android:text="@string/title_activity_register" android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/titleRegisterActivity" />
+        android:id="@+id/editTextUsername"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:inputType="text"
+        android:autoText="false"
+        android:hint="@string/register.hint.username"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextName"
+        android:inputType="text"
+        android:autoText="false"
+        android:hint="@string/register.hint.name"
+        android:layout_below="@+id/editTextUsername"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editTextUsername"
+        android:layout_alignEnd="@+id/editTextUsername" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextEmail"
+        android:inputType="text"
+        android:autoText="false"
+        android:hint="@string/register.hint.email"
+        android:layout_below="@+id/editTextName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editTextName"
+        android:layout_alignEnd="@+id/editTextName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextPassword"
+        android:inputType="text"
+        android:autoText="false"
+        android:hint="@string/register.hint.password"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editTextEmail"
+        android:layout_alignEnd="@+id/editTextEmail" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register.button"
+        android:id="@+id/buttonRegister"
+        android:onClick="onClickRegisterButton"
+        android:layout_below="@+id/editTextPassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editTextPassword"
+        android:layout_alignEnd="@+id/editTextPassword"
+        android:background="@color/lightBlue"
+    />
 </RelativeLayout>

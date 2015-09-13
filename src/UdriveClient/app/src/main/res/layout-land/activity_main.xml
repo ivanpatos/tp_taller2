@@ -22,22 +22,23 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register_activity_main"
+        android:text="@string/main.register"
         android:id="@+id/buttonRegister"
         android:background="#FFFFFF"
         android:onClick="onClickRegisterButton"
-        style="@style/AppTheme.ButtonConfirmation.Landscape"
         android:layout_marginTop="27dp"
         android:layout_below="@+id/imageView"
         android:layout_alignLeft="@+id/imageView"
         android:layout_alignStart="@+id/imageView"
         android:layout_alignRight="@+id/imageView"
-        android:layout_alignEnd="@+id/imageView" />
+        android:layout_alignEnd="@+id/imageView"
+        android:textSize="12dp"
+    />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/has_account_activity_main"
+        android:text="@string/main.hasAccount"
         android:id="@+id/textView"
         android:paddingLeft="20dp"
         android:textColor="#000000"
@@ -51,7 +52,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_activity_main"
+        android:text="@string/main.login"
         android:id="@+id/textView2"
         android:paddingRight="20dp"
         android:onClick="onClickLoginButton"

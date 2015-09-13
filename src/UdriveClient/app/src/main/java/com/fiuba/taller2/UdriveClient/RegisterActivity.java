@@ -1,9 +1,12 @@
 package com.fiuba.taller2.UdriveClient;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -33,5 +36,11 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickRegisterButton(View view){
+        Button button = (Button) findViewById(R.id.buttonRegister);
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 }
