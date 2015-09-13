@@ -1,13 +1,18 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar"></style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowActionBar">false</item>
     </style>
+    
     <style name="AppTheme.ButtonConfirmation" >
         <item name="android:background">#FAFAFA</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">17dp</item>
     </style>
+
     <style name="AppTheme.ButtonConfirmation.Landscape" parent="AppTheme.ButtonConfirmation" >
         <item name="android:textSize">12dp</item>
     </style>
