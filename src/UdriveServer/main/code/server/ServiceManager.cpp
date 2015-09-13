@@ -73,7 +73,7 @@ std::string ServiceManager::logout(const std::string& username, const std::strin
 std::string ServiceManager::createUser(const std::string& data){
 
 	std::string response = "";
-	Json::Value jsonData(Json::objectValue);
+	Json::Value jsonData;
 	Json::Reader reader;
 	reader.parse(data, jsonData);
 
@@ -115,6 +115,56 @@ std::string ServiceManager::getUser(const std::string& username, const std::stri
 			}
 			else
 				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_USERNAME);
+		}
+		else
+			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+		delete user;
+	}
+	else
+		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+
+	return response;
+}
+
+std::string ServiceManager::getAllUsers(const std::string& username, const std::string& token){
+
+	std::string response = "";
+	User *user = DataManager::Instance().getUser(username);
+	if (user){
+		if (this->authenticateRequest(*user, token)){
+
+			Json::Value jsonUserList;
+			std::vector<User*> userList = DataManager::Instance().getAllUsers();
+			for(std::vector<User*>::iterator it = userList.begin(); it != userList.end(); ++it) {
+				Json::Value userProfileJson = (*it)->getJsonProfile();
+				jsonUserList.append(userProfileJson);
+				delete *it;
+			}
+
+			response = HttpResponse::GetHttpOkResponse(jsonUserList);
+		}
+		else
+			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+		delete user;
+	}
+	else
+		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+
+	return response;
+}
+
+std::string ServiceManager::updateUser(const std::string& username, const std::string& token, const std::string& data){
+
+	std::string response = "";
+	User *user = DataManager::Instance().getUser(username);
+	if (user){
+		if (this->authenticateRequest(*user, token)){
+			user->updateProfile(data);
+			if (DataManager::Instance().saveUser(*user))
+				response = HttpResponse::GetHttpOkResponse(user->getJsonProfile());
+			else
+				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+
 		}
 		else
 			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);

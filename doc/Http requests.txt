@@ -70,7 +70,7 @@ errorCode: codigo de error
 5 - ERROR_PASSWORD_MISSING
 6 - ERROR_SAVING_DATA
 -------------------------------------------------------------------------------------------------------------------------------
-Update user
+Update user (###### LISTO ######)
 
 - request: 
 
@@ -78,17 +78,19 @@ url: /user
 method: PUT
 query string: -
 header: username, token
-json: name, mail, profilePicture, lastLocation
+json: name, mail, profilePicture, lastLocation, password
 
 - respuesta: 
 
 si salio ok, json con:
 result : OK
-data: username, name, mail, profilePicture, lastLocation, token
+data: username, name, mail, profilePicture, lastLocation
 
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
 -------------------------------------------------------------------------------------------------------------------------------
 Get user (###### LISTO ######)
 
@@ -112,7 +114,7 @@ errorCode: codigo de error
 1 - ERROR_AUTHENTICATION
 2 - ERROR_INVALID_USERNAME
 -------------------------------------------------------------------------------------------------------------------------------
-Get all users
+Get all users (###### LISTO ######)
 
 - request: 
 
@@ -131,6 +133,7 @@ data: lista con (username, name, mail, profilePicture, lastLocation)
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
 -------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------
@@ -148,13 +151,13 @@ url: /folder
 method: POST
 query string: -
 header: username, token
-json: name, label (lista)
+json: name, idParent
 
 - respuesta: 
 
 si salio ok, json con:
 result : OK
-data: idFolder, name, lastModified, lastUser, label (lista), owner, users (lista username)
+data: idFolder, name, children (lista con <type, id, name> type puede ser file o folder)
 
 si salio mal:
 result : ERROR
@@ -174,27 +177,7 @@ json: -
 
 si salio ok, json con:
 result : OK
-data: idFolder, name, lastModified, lastUser, label (lista), owner, users (lista con username), children (lista con [type (folder/file), id (idFolder/idFile), name])
-
-si salio mal:
-result : ERROR
-errorCode: codigo de error
--------------------------------------------------------------------------------------------------------------------------------
-Get Folders (query de varias carpetas)
-
-- request: 
-
-url: /folder
-method: GET 
-query string: name, label (lista), owner
-header: username, token
-json: -
-
-- respuesta: 
-
-si salio ok, json con:
-result : OK
-data: lista con (idFolder, name, lastModified, lastUser, label (lista), owner, users (lista con username), children (lista con [type (folder/file), id (idFolder/idFile), name]))
+data: idFolder, name, children (lista con <type, id, name> type puede ser file o folder)
 
 si salio mal:
 result : ERROR
@@ -208,13 +191,13 @@ url: /folder
 method: PUT
 query string: idFolder
 header: username, token
-json: name, label (lista), users (lista username), deleted
+json: name, users (lista username)
 
 - respuesta: 
 
 si salio ok, json con:
 result : OK
-data: idFolder, name, lastModified, lastUser, label (lista), owner, users (lista username)
+data: idFolder, name, children (lista con <type, id, name> type puede ser file o folder)
 
 si salio mal:
 result : ERROR
@@ -255,13 +238,13 @@ url: /file
 method: POST
 query string: -
 header: username, token
-json: name, extension, label (lista), data
+json: name, extension, label (lista), data, idFolder
 
 - respuesta: 
 
 si salio ok, json con:
 result : OK
-data: idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username)
+data: name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
 
 si salio mal:
 result : ERROR
@@ -275,13 +258,13 @@ url: /file
 method: GET 
 query string: idFile
 header: username, token
-json: -
+json: version (numero de version)
 
 - respuesta: 
 
 si salio ok, json con:
 result : OK
-data: idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username)
+data: name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
 
 si salio mal:
 result : ERROR
@@ -293,7 +276,7 @@ Get Files (query de varios archivos, metadatos)
 
 url: /file
 method: GET 
-query string: name, extension, label (lista), owner
+query string: name, extension, label (lista), owner, deleted
 header: username, token
 json: -
 
@@ -301,7 +284,7 @@ json: -
 
 si salio ok, json con:
 result : OK
-data: lista con (idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username))
+data: lista con (name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version))
 
 si salio mal:
 result : ERROR
@@ -335,13 +318,13 @@ url: /file
 method: PUT
 query string: idFile
 header: username, token
-json: name, extension, label (lista), users (lista username), deleted
+json: name, extension, label (lista), users (lista username), deleted, version
 
 - respuesta: 
 
 si salio ok, json con:
 result : OK
-data: idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username)
+data: name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
 
 si salio mal:
 result : ERROR
@@ -361,7 +344,7 @@ json: data
 
 si salio ok, json con:
 result : OK
-data: idFile, name, extension, lastModified, lastUser, label (lista), owner, users (lista username)
+data: name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
 
 si salio mal:
 result : ERROR
