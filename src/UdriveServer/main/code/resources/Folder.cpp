@@ -66,6 +66,7 @@ Json::Value Folder::getJson() const{
 				jsonFile["type"] = "file";
 				jsonFile["id"] = (*it)->getId();
 				jsonFile["name"] = (*it)->getName();
+				jsonFile["extension"] = (*it)->getExtension();
 				jsonChildren.append(jsonFile);
 			}
 		}
@@ -110,9 +111,9 @@ bool Folder::hasFolder(const std::string& folderName) const{
 	return false;
 }
 
-bool Folder::hasFile(const std::string& fileName) const{
+bool Folder::hasFile(const std::string& fileName, const std::string& fileExtension) const{
 	for(std::vector<File*>::const_iterator it = this->fileChildren.begin(); it != this->fileChildren.end(); ++it){
-		if((*it)->getName() == fileName)
+		if((*it)->getName() == fileName && (*it)->getExtension() == fileExtension)
 			return true;
 	}
 	return false;

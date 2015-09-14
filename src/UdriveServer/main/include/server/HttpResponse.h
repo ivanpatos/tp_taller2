@@ -19,7 +19,8 @@ public:
 		ERROR_INVALID_PASSWORD,
 		ERROR_INVALID_FOLDER_PARENT,
 		ERROR_FOLDER_NAME_EXISTS,
-		ERROR_INVALID_FOLDER
+		ERROR_INVALID_FOLDER,
+		ERROR_FILE_EXISTS
 	};
 
 	static std::string GetHttpOkResponse(const Json::Value& data);

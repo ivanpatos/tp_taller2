@@ -181,7 +181,7 @@ json: -
 
 si salio ok, json con:
 result : OK
-data: id, name, children (lista con <type, id, name> type puede ser file o folder)
+data: id, name, children (lista de <type, id, name> para folders con type=folder, en caso de que sea archivo <type, id, name, extension> con type=file)
 
 si salio mal:
 result : ERROR
@@ -236,7 +236,7 @@ errorCode: codigo de error
 -------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------- FILE ---------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------
-Create File (seria el upload)
+Create File (seria el upload) (###### LISTO ######)
 
 - request: 
 
@@ -244,7 +244,7 @@ url: /file
 method: POST
 query string: -
 header: username, token
-json: name, extension, label (lista), data, idFolder
+json: name, extension, labels (lista de <description>), data, idFolder
 
 - respuesta: 
 
@@ -255,6 +255,10 @@ data: id, name, deleted, lastModified, lastUser, labels (lista), owner, users (l
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
+8 - ERROR_INVALID_FOLDER_PARENT
+11 - ERROR_FILE_EXISTS
 -------------------------------------------------------------------------------------------------------------------------------
 Get File (logico, obtengo solo los metadatos)
 
@@ -282,7 +286,7 @@ Get Files (query de varios archivos, metadatos)
 
 url: /file
 method: GET 
-query string: name, extension, label (lista), owner, deleted
+query string: name, extension, labels (lista), owner, deleted
 header: username, token
 json: -
 
@@ -302,7 +306,7 @@ Get File (fisico, o sea download)
 
 url: /file
 method: GET 
-query string: idFile
+query string: idFile, version
 header: username, token
 json: -
 
@@ -324,7 +328,7 @@ url: /file
 method: PUT
 query string: idFile
 header: username, token
-json: name, extension, label (lista), users (lista username), deleted, version
+json: name, extension, labels (lista), users (lista username), deleted, version
 
 - respuesta: 
 

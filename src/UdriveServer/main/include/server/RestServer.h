@@ -27,6 +27,8 @@ private:
 	void createFolderRequest(mg_connection *connection);
 	void getFolderRequest(mg_connection *connection);
 
+	void createFileRequest(mg_connection *connection);
+
 public:
 	RestServer();
 	~RestServer();

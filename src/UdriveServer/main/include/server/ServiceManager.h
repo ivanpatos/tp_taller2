@@ -25,6 +25,8 @@ public:
 
 	std::string createFolder(const std::string& username, const std::string& token, const std::string& data);
 	std::string getFolder(const std::string& username, const std::string& token, const std::string& queryIdFolder);
+
+	std::string createFile(const std::string& username, const std::string& token, const std::string& data);
 };
 
 #endif

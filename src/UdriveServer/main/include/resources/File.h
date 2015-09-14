@@ -28,8 +28,9 @@ public:
 
 	std::string getId() const;
 	std::string getName() const;
+	std::string getExtension() const;
+	Json::Value getJson() const;
 	std::string getJsonString() const;
-
 };
 
 

@@ -27,7 +27,7 @@ public:
 	void addFolderChildren(Folder *folder);
 	void addFileChildren(File *file);
 	bool hasFolder(const std::string& folderName) const;
-	bool hasFile(const std::string& fileName) const;
+	bool hasFile(const std::string& fileName, const std::string& fileExtension) const;
 
 };
 

@@ -51,6 +51,10 @@ void RestServer::handleConnection(mg_connection *connection){
 		else if (method == "GET" && connection->query_string)
 				this->getFolderRequest(connection);
 	}
+	else if (uri == "/file"){
+		if (method == "POST")
+				this->createFileRequest(connection);
+	}
 	else if (uri == "/login" && method == "POST")
 			this->loginRequest(connection);
 	else if (uri == "/logout" && method == "POST")
@@ -141,5 +145,13 @@ void RestServer::getFolderRequest(mg_connection *connection){
 	std::string queryIdFolder = queryString.substr(queryString.find(query)+query.length());
 
 	std::string response = this->serviceManager->getFolder(username, token, queryIdFolder);
+	mg_printf_data(connection, response.c_str());
+}
+
+void RestServer::createFileRequest(mg_connection *connection){
+	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
+	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
+	std::string data = this->getDataFromHttpRequest(connection);
+	std::string response = this->serviceManager->createFile(username, token, data);
 	mg_printf_data(connection, response.c_str());
 }

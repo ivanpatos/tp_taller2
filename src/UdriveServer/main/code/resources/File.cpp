@@ -66,7 +66,11 @@ std::string File::getName() const{
 	return this->name;
 }
 
-std::string File::getJsonString() const{
+std::string File::getExtension() const{
+	return this->extension;
+}
+
+Json::Value File::getJson() const{
 
 	Json::Value json;
 	json["id"] = this->id;
@@ -105,7 +109,11 @@ std::string File::getJsonString() const{
 	}
 	else
 		json["users"] = "";
+	return json;
+}
 
+std::string File::getJsonString() const{
+	Json::Value json = this->getJson();
 	Json::StreamWriterBuilder builder;
 	builder.settings_["indentation"] = "\t";
 	return Json::writeString(builder,json);
