@@ -143,7 +143,7 @@ errorCode: codigo de error
 -------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------- FOLDER -------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------
-Create Folder
+Create Folder (###### LISTO ######)
 
 - request: 
 
@@ -157,13 +157,17 @@ json: name, idParent
 
 si salio ok, json con:
 result : OK
-data: idFolder, name, children (lista con <type, id, name> type puede ser file o folder)
+data: id, name, children (lista con <type, id, name> type puede ser file o folder)
 
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
+8 - ERROR_INVALID_FOLDER_PARENT
+9 - ERROR_FOLDER_NAME_EXISTS
 -------------------------------------------------------------------------------------------------------------------------------
-Get Folder
+Get Folder (###### LISTO ######)
 
 - request: 
 
@@ -177,11 +181,13 @@ json: -
 
 si salio ok, json con:
 result : OK
-data: idFolder, name, children (lista con <type, id, name> type puede ser file o folder)
+data: id, name, children (lista con <type, id, name> type puede ser file o folder)
 
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+10 - ERROR_INVALID_FOLDER
 -------------------------------------------------------------------------------------------------------------------------------
 Update Folder
 
@@ -197,7 +203,7 @@ json: name, users (lista username)
 
 si salio ok, json con:
 result : OK
-data: idFolder, name, children (lista con <type, id, name> type puede ser file o folder)
+data: id, name, children (lista con <type, id, name> type puede ser file o folder)
 
 si salio mal:
 result : ERROR
@@ -244,7 +250,7 @@ json: name, extension, label (lista), data, idFolder
 
 si salio ok, json con:
 result : OK
-data: name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
+data: id, name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
 
 si salio mal:
 result : ERROR
@@ -264,7 +270,7 @@ json: version (numero de version)
 
 si salio ok, json con:
 result : OK
-data: name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
+data: id, name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
 
 si salio mal:
 result : ERROR
@@ -284,7 +290,7 @@ json: -
 
 si salio ok, json con:
 result : OK
-data: lista con (name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version))
+data: lista con (id, name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version))
 
 si salio mal:
 result : ERROR
@@ -324,7 +330,7 @@ json: name, extension, label (lista), users (lista username), deleted, version
 
 si salio ok, json con:
 result : OK
-data: name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
+data: id, name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
 
 si salio mal:
 result : ERROR
@@ -344,7 +350,7 @@ json: data
 
 si salio ok, json con:
 result : OK
-data: name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
+data: id, name, deleted, lastModified, lastUser, labels (lista), owner, users (lista), extension, version (numero de version)
 
 si salio mal:
 result : ERROR

@@ -10,6 +10,7 @@ class ServiceManager{
 private:
 	bool authenticateRequest(const User& user, const std::string& token);
 	void generateToken(User *user);
+	bool initUserFolders(const User& user);
 
 public:
 	ServiceManager();
@@ -21,6 +22,9 @@ public:
 	std::string getUser(const std::string& username, const std::string& token, const std::string& queryUsername);
 	std::string getAllUsers(const std::string& username, const std::string& token);
 	std::string updateUser(const std::string& username, const std::string& token, const std::string& data);
+
+	std::string createFolder(const std::string& username, const std::string& token, const std::string& data);
+	std::string getFolder(const std::string& username, const std::string& token, const std::string& queryIdFolder);
 };
 
 #endif

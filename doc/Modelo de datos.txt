@@ -23,7 +23,6 @@ Si es una carpeta cualquiera ----->  <idDocument> = <username propietario + time
 
 <json>:
 - name
-- idParent (idFolder de la carpeta padre que lo contiene)
 - children (lista con <type, id, name> type puede ser file o folder) 
 
 
@@ -39,6 +38,9 @@ Si es una carpeta cualquiera ----->  <idDocument> = <username propietario + time
 - labels (lista con <description>)
 - owner
 - users (lista con <username> con los que se compartió la carpeta)
-- idFolder (idFolder de la carpeta padre que lo contiene)
 - extension
 - versions (lista con <version, data>)
+
+4)"Data": <idVersion><data>
+<idVersion> = <idFile_version>
+<data> = string con la data

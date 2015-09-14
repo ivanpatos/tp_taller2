@@ -24,6 +24,8 @@ private:
 	void getAllUsersRequest(mg_connection *connection);
 	void updateUserRequest(mg_connection *connection);
 
+	void createFolderRequest(mg_connection *connection);
+	void getFolderRequest(mg_connection *connection);
 
 public:
 	RestServer();

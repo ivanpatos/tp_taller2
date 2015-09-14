@@ -45,6 +45,12 @@ void RestServer::handleConnection(mg_connection *connection){
 		else if (method == "PUT")
 			this->updateUserRequest(connection);
 	}
+	else if (uri == "/folder"){
+		if (method == "POST")
+				this->createFolderRequest(connection);
+		else if (method == "GET" && connection->query_string)
+				this->getFolderRequest(connection);
+	}
 	else if (uri == "/login" && method == "POST")
 			this->loginRequest(connection);
 	else if (uri == "/logout" && method == "POST")
@@ -85,7 +91,6 @@ void RestServer::logoutRequest(mg_connection *connection){
 }
 
 void RestServer::createUserRequest(mg_connection *connection){
-
 	std::string data = this->getDataFromHttpRequest(connection);
 	std::string response = this->serviceManager->createUser(data);
 	mg_printf_data(connection, response.c_str());
@@ -105,7 +110,6 @@ void RestServer::getUserRequest(mg_connection *connection){
 }
 
 void RestServer::getAllUsersRequest(mg_connection *connection){
-
 	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
 	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
 	std::string response = this->serviceManager->getAllUsers(username, token);
@@ -113,10 +117,29 @@ void RestServer::getAllUsersRequest(mg_connection *connection){
 }
 
 void RestServer::updateUserRequest(mg_connection *connection){
-
 	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
 	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
 	std::string data = this->getDataFromHttpRequest(connection);
 	std::string response = this->serviceManager->updateUser(username, token, data);
+	mg_printf_data(connection, response.c_str());
+}
+
+void RestServer::createFolderRequest(mg_connection *connection){
+	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
+	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
+	std::string data = this->getDataFromHttpRequest(connection);
+	std::string response = this->serviceManager->createFolder(username, token, data);
+	mg_printf_data(connection, response.c_str());
+}
+
+void RestServer::getFolderRequest(mg_connection *connection){
+	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
+	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
+
+	std::string query("idFolder=");
+	std::string queryString(connection->query_string);
+	std::string queryIdFolder = queryString.substr(queryString.find(query)+query.length());
+
+	std::string response = this->serviceManager->getFolder(username, token, queryIdFolder);
 	mg_printf_data(connection, response.c_str());
 }

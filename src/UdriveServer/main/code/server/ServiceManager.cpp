@@ -28,6 +28,39 @@ void ServiceManager::generateToken(User *user){
 	user->setToken(token);
 }
 
+bool ServiceManager::initUserFolders(const User& user){
+
+	std::string username = user.getUsername();
+	Json::Value json;
+
+	json["id"] = username;
+	json["name"] = "root";
+	Folder *rootFolder = new Folder(json);
+	if (!DataManager::Instance().saveFolder(*rootFolder))
+		return false;
+
+	json["id"] = "sharedwith_" + username;
+	json["name"] = "sharedwith";
+	Folder *sharedWithFolder = new Folder(json);
+	if (!DataManager::Instance().saveFolder(*sharedWithFolder))
+		return false;
+
+	json["id"] = "trash_" + username;
+	json["name"] = "trash";
+	Folder *trashFolder = new Folder(json);
+	if (!DataManager::Instance().saveFolder(*trashFolder))
+		return false;
+
+
+	json["id"] = "recovered_" + username;
+	json["name"] = "recovered";
+	Folder *recoveredFolder = new Folder(json);
+	if (!DataManager::Instance().saveFolder(*recoveredFolder))
+		return false;
+
+	return true;
+}
+
 std::string ServiceManager::login(const std::string& username, const std::string& password){
 	std::string response = "";
 	User *user = DataManager::Instance().getUser(username);
@@ -92,7 +125,7 @@ std::string ServiceManager::createUser(const std::string& data){
 			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_PASSWORD_MISSING);
 		else{
 			this->generateToken(&user);
-			if (DataManager::Instance().saveUser(user))
+			if (DataManager::Instance().saveUser(user) && this->initUserFolders(user))
 				response = HttpResponse::GetHttpOkResponse(user.getJsonProfile());
 			else
 				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
@@ -165,6 +198,67 @@ std::string ServiceManager::updateUser(const std::string& username, const std::s
 			else
 				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
 
+		}
+		else
+			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+		delete user;
+	}
+	else
+		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+
+	return response;
+}
+
+std::string ServiceManager::createFolder(const std::string& username, const std::string& token, const std::string& data){
+
+	std::string response = "";
+		User *user = DataManager::Instance().getUser(username);
+		if (user){
+			if (this->authenticateRequest(*user, token)){
+				Json::Value jsonData;
+				Json::Reader reader;
+				reader.parse(data, jsonData);
+				Folder *folderParent = DataManager::Instance().getFolder(jsonData.get("idParent", "").asCString());
+				if (folderParent == NULL)
+					response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_FOLDER_PARENT);
+				else{
+					if (folderParent->hasFolder(jsonData.get("name", "").asCString()))
+						response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_FOLDER_NAME_EXISTS);
+					else{
+						jsonData["id"] = user->getUsername() + Time::getCurrentTime();
+						Folder *folder = new Folder(jsonData);
+						folderParent->addFolderChildren(folder);
+						if (DataManager::Instance().saveFolder(*folder) && DataManager::Instance().saveFolder(*folderParent))
+							response = HttpResponse::GetHttpOkResponse(folder->getJson());
+						else
+							response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+						delete folderParent;
+					}
+				}
+			}
+			else
+				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+			delete user;
+		}
+		else
+			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
+
+		return response;
+}
+
+std::string ServiceManager::getFolder(const std::string& username, const std::string& token, const std::string& queryIdFolder){
+	std::string response = "";
+	User *user = DataManager::Instance().getUser(username);
+	if (user){
+		if (this->authenticateRequest(*user, token)){
+			Folder *queryFolder = DataManager::Instance().getFolder(queryIdFolder);
+			if (queryFolder){
+				Json::Value folderJson = queryFolder->getJson();
+				delete queryFolder;
+				response = HttpResponse::GetHttpOkResponse(folderJson);
+			}
+			else
+				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_FOLDER);
 		}
 		else
 			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_AUTHENTICATION);
