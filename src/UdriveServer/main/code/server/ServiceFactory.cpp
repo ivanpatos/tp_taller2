@@ -7,6 +7,7 @@
 #include "../../include/server/Services/CreateFolderService.h"
 #include "../../include/server/Services/GetFolderService.h"
 #include "../../include/server/Services/CreateFileService.h"
+#include "../../include/server/Services/NonExistentService.h"
 
 
 ServiceFactory::ServiceFactory(Database &userDB, Database &folderDB, Database &fileDB, Database &dataDB) :
@@ -33,6 +34,5 @@ Service* ServiceFactory::createService(const std::string& resource, const std::s
 		return new GetFolderService(this->userDB, this->folderDB, this->fileDB);
 	if (resource == "file" && method == "POST")
 		return new CreateFileService(this->userDB, this->folderDB, this->fileDB, this->dataDB);
-
-	return NULL;
+	return new NonExistentService();
 }
