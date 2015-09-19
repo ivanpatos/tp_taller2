@@ -4,12 +4,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.fiuba.taller2.UdriveClient.RegisterActivity">
+    tools:context="com.fiuba.taller2.UdriveClient.activity.RegisterActivity">
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextUsername"
+        android:id="@+id/registerTextUsername"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -22,41 +22,41 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextName"
+        android:id="@+id/registerTextName"
         android:inputType="text"
         android:autoText="false"
         android:hint="@string/register.hint.name"
-        android:layout_below="@+id/editTextUsername"
+        android:layout_below="@+id/registerTextUsername"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editTextUsername"
-        android:layout_alignEnd="@+id/editTextUsername" />
+        android:layout_alignRight="@+id/registerTextUsername"
+        android:layout_alignEnd="@+id/registerTextUsername" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextEmail"
-        android:inputType="text"
+        android:id="@+id/registerTextEmail"
+        android:inputType="textEmailAddress"
         android:autoText="false"
         android:hint="@string/register.hint.email"
-        android:layout_below="@+id/editTextName"
+        android:layout_below="@+id/registerTextName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editTextName"
-        android:layout_alignEnd="@+id/editTextName" />
+        android:layout_alignRight="@+id/registerTextName"
+        android:layout_alignEnd="@+id/registerTextName" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextPassword"
-        android:inputType="text"
+        android:id="@+id/registerTextPassword"
+        android:inputType="textPassword"
         android:autoText="false"
         android:hint="@string/register.hint.password"
-        android:layout_below="@+id/editTextEmail"
+        android:layout_below="@+id/registerTextEmail"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editTextEmail"
-        android:layout_alignEnd="@+id/editTextEmail" />
+        android:layout_alignRight="@+id/registerTextEmail"
+        android:layout_alignEnd="@+id/registerTextEmail" />
 
 
     <Button
@@ -65,11 +65,11 @@
         android:text="@string/register.button"
         android:id="@+id/buttonRegister"
         android:onClick="onClickRegisterButton"
-        android:layout_below="@+id/editTextPassword"
+        android:layout_below="@+id/registerTextPassword"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editTextPassword"
-        android:layout_alignEnd="@+id/editTextPassword"
+        android:layout_alignRight="@+id/registerTextPassword"
+        android:layout_alignEnd="@+id/registerTextPassword"
         android:background="@color/lightBlue"
     />
 </RelativeLayout>

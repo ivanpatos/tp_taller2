@@ -17,10 +17,20 @@
     <string name="register.hint.name">Nombre</string>
     <string name="register.hint.email">Email</string>
     <string name="register.hint.password">Password</string>
+    <string name="register.error.username">Ingrese un nombre de usuario por favor</string>
+    <string name="register.error.name">Ingrese un nombre por favor</string>
+    <string name="register.error.email">Ingrese un email valido</string>
+    <string name="register.error.password">Ingrese un password con mas de 6 letras</string>
     <string name="register.button">Registrarse</string>
+    <string name="register.waiting">Procesando los datos. Espere un momento por favor.</string>
+    <string name="register.success">El registro ha sido exitoso (mentira, todavia no registramos nada en el servidor)</string>
+
 
     <!-- Strings Login Activity -->
     <string name="title_activity_login">Login</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 
