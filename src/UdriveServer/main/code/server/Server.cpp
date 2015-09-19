@@ -59,7 +59,7 @@ void Server::handleRequest(mg_connection *connection){
 	mg_printf_data(connection, response.c_str());
 }
 
-std::string Server::getValueFromRequestHeader(mg_connection *connection, std::string name){
+std::string Server::getValueFromRequestHeader(mg_connection *connection, const std::string& name){
 	const char* header = mg_get_header(connection, name.c_str());
 	if (header){
 		std::string value(header);

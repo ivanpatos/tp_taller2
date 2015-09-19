@@ -89,6 +89,6 @@ void User::generateToken(){
 	this->token = stringStream.str();
 }
 
-bool User::authenticateToken(const std::string& token){
+bool User::authenticateToken(const std::string& token) const{
 	return (this->token.compare(token) == 0);
 }

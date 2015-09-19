@@ -20,7 +20,7 @@ public:
 	std::string getValue(const std::string& key) const;
 	bool saveValue(const std::string& key, const std::string& value);
 	void deleteRecord(const std::string& key);
-	std::vector<std::string> getAllValues();
+	std::vector<std::string> getAllValues() const;
 
 };
 

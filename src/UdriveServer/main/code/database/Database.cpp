@@ -27,7 +27,7 @@ void Database::deleteRecord(const std::string& key){
 	this->database->Delete(rocksdb::WriteOptions(), key);
 }
 
-std::vector<std::string> Database::getAllValues(){
+std::vector<std::string> Database::getAllValues() const{
 	std::vector<std::string> vector;
 	rocksdb::Iterator* iterator = this->database->NewIterator(rocksdb::ReadOptions());
 	for (iterator->SeekToFirst(); iterator->Valid(); iterator->Next())
