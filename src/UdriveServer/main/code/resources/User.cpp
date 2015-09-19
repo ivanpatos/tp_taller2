@@ -1,14 +1,7 @@
+#include <tr1/functional>
 #include "../../include/resources/User.h"
+#include "../../include/utilities/Time.h"
 
-User::User(const std::string& username, const std::string& name, const std::string& mail, const std::string& profilePicture, const std::string& password){
-	this->username = username;
-	this->name = name;
-	this->mail = mail;
-	this->profilePicture = profilePicture;
-	this->lastLocation = "";
-	this->password = password;
-	this->token = "";
-}
 
 User::User(const Json::Value& json){
 	this->username = json.get("username", "").asCString();
@@ -86,4 +79,16 @@ void User::updateProfile(const std::string& jsonString){
 	this->profilePicture = json.get("profilePicture", "").asCString();
 	this->lastLocation = json.get("lastLocation", "").asCString();
 	this->password = json.get("password", "").asCString();
+}
+
+void User::generateToken(){
+	std::string tokenSource = this->getUsername() + this->getPassword() + Time::getCurrentTime();
+	std::tr1::hash<std::string> hasher;
+	std::stringstream stringStream;
+	stringStream << hasher(tokenSource);
+	this->token = stringStream.str();
+}
+
+bool User::authenticateToken(const std::string& token){
+	return (this->token.compare(token) == 0);
 }

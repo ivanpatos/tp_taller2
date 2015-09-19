@@ -17,7 +17,6 @@ private:
 	std::string token;
 
 public:
-	User(const std::string& username, const std::string& name, const std::string& mail, const std::string& profilePicture, const std::string& password);
 	User(const Json::Value& json);
 	User(const std::string& jsonString);
 	~User();
@@ -30,6 +29,8 @@ public:
 	Json::Value getJsonProfile() const;					// devuelve json sin password y token
 	Json::Value getJsonProfileWithToken() const;		// devuelve json sin password
 	void updateProfile(const std::string& jsonString);	// actualiza profile a partir de json string
+	void generateToken();
+	bool authenticateToken(const std::string& token);
 };
 
 

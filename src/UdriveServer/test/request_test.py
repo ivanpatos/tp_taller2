@@ -8,8 +8,8 @@ class TestRequests(unittest.TestCase):
 
 	#login fallido
 	def test_login(self):
-		headersLogin = {'username': 'juan123', 'password': 'passjuan'}
-		r = requests.post('http://localhost:8080/login', headers=headersLogin)
+		jsonLogin = {'username': 'juan123', 'password': 'passjuan'}
+		r = requests.post('http://localhost:8080/login', json=jsonLogin)
 		jsonResponse = r.json()
 		self.assertEqual("ERROR", jsonResponse["result"])
 		self.assertEqual(2, jsonResponse["errorCode"])
@@ -22,8 +22,8 @@ class TestRequests(unittest.TestCase):
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("juanperez", jsonResponse["data"]["username"])
 		
-		headersLogin = {'username': 'juanperez', 'password': 'juanperez'}
-		r = requests.post('http://localhost:8080/login', headers=headersLogin)
+		jsonLogin = {'username': 'juanperez', 'password': 'juanperez'}
+		r = requests.post('http://localhost:8080/login', json=jsonLogin)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("juanperez", jsonResponse["data"]["username"])
@@ -35,8 +35,8 @@ class TestRequests(unittest.TestCase):
 
 	#get user
 	def test_get_user(self):
-		headersLogin = {'username': 'juanperez', 'password': 'juanperez'}
-		r = requests.post('http://localhost:8080/login', headers=headersLogin)
+		jsonLogin = {'username': 'juanperez', 'password': 'juanperez'}
+		r = requests.post('http://localhost:8080/login', json=jsonLogin)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("juanperez", jsonResponse["data"]["username"])
@@ -49,8 +49,8 @@ class TestRequests(unittest.TestCase):
 
 	#update user
 	def test_update_user(self):
-		headersLogin={'username': 'juanperez', 'password': 'juanperez'}
-		r = requests.post('http://localhost:8080/login', headers=headersLogin)
+		jsonLogin={'username': 'juanperez', 'password': 'juanperez'}
+		r = requests.post('http://localhost:8080/login', json=jsonLogin)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("juanperez", jsonResponse["data"]["username"])
@@ -70,8 +70,8 @@ class TestRequests(unittest.TestCase):
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("laura123", jsonResponse["data"]["username"])
 
-		headersLogin = {'username': 'juanperez', 'password': 'juanperez'}
-		r = requests.post('http://localhost:8080/login', headers=headersLogin)
+		jsonLogin = {'username': 'juanperez', 'password': 'juanperez'}
+		r = requests.post('http://localhost:8080/login', json=jsonLogin)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("juanperez", jsonResponse["data"]["username"])

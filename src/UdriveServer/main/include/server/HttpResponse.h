@@ -20,7 +20,8 @@ public:
 		ERROR_INVALID_FOLDER_PARENT,
 		ERROR_FOLDER_NAME_EXISTS,
 		ERROR_INVALID_FOLDER,
-		ERROR_FILE_EXISTS
+		ERROR_FILE_EXISTS,
+		ERROR_INVALID_REQUEST
 	};
 
 	static std::string GetHttpOkResponse(const Json::Value& data);

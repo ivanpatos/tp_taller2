@@ -3,31 +3,22 @@
 
 #include <string>
 #include "../../others/mongoose.h"
-#include "ServiceManager.h"
+#include "ServiceFactory.h"
 
 
 class RestServer{
 
 private:
 	mg_server *server;
-	ServiceManager *serviceManager;
+	ServiceFactory serviceFactory;
 
 	static int handleEvent(mg_connection *connection, mg_event event);
 	void handleConnection(mg_connection *connection);
+
 	std::string getValueFromHttpRequestHeader(mg_connection *connection, std::string name);
 	std::string getDataFromHttpRequest(mg_connection *connection);
+	std::string getQueryStringFromHttpRequest(mg_connection *connection);
 
-	void loginRequest(mg_connection *connection);
-	void logoutRequest(mg_connection *connection);
-	void createUserRequest(mg_connection *connection);
-	void getUserRequest(mg_connection *connection);
-	void getAllUsersRequest(mg_connection *connection);
-	void updateUserRequest(mg_connection *connection);
-
-	void createFolderRequest(mg_connection *connection);
-	void getFolderRequest(mg_connection *connection);
-
-	void createFileRequest(mg_connection *connection);
 
 public:
 	RestServer();

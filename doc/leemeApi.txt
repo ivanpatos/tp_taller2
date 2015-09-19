@@ -1,1 +1,0 @@
-Para ver la api mas linda, entren a http://editor.swagger.io e importenla.
