@@ -1,36 +1,36 @@
-#include "../../include/server/RestServer.h"
+#include "../../include/server/Server.h"
 #include "../../include/server/HttpResponse.h"
 
-#include <iostream>
-RestServer::RestServer(){
-	this->server = mg_create_server(this, RestServer::handleEvent);
+
+Server::Server(){
+	this->server = mg_create_server(this, Server::handleEvent);
 	mg_set_option(this->server, "listening_port", "8080");
 }
 
-RestServer::~RestServer(){
+Server::~Server(){
 	mg_destroy_server(&server);
 }
 
-void RestServer::start(){
+void Server::start(){
 	printf("Starting on port %s\n", mg_get_option(this->server, "listening_port"));
 	for (;;)
 		mg_poll_server(server, 1000);
 }
 
-int RestServer::handleEvent(mg_connection *connection, mg_event event){
-	RestServer *server = (RestServer*) connection->server_param;
+int Server::handleEvent(mg_connection *connection, mg_event event){
+	Server *server = (Server*) connection->server_param;
 	switch (event) {
 			case MG_AUTH:
 				return MG_TRUE;
 			case MG_REQUEST:
-				server->handleConnection(connection);
+				server->handleRequest(connection);
 				return MG_TRUE;
 			default:
 				return MG_FALSE;
 		}
 }
 
-void RestServer::handleConnection(mg_connection *connection){
+void Server::handleRequest(mg_connection *connection){
 
 	std::string response = "";
 
@@ -38,14 +38,14 @@ void RestServer::handleConnection(mg_connection *connection){
 	std::string resource = connection->uri;
 	resource = resource.substr(1);
 
-	std::string username = this->getValueFromHttpRequestHeader(connection, "username");
-	std::string token = this->getValueFromHttpRequestHeader(connection, "token");
+	std::string username = this->getValueFromRequestHeader(connection, "username");
+	std::string token = this->getValueFromRequestHeader(connection, "token");
 	std::string data = "";
 
 	if (method == "GET")
-		data = this->getQueryStringFromHttpRequest(connection);
+		data = this->getQueryStringFromRequest(connection);
 	else
-		data = this->getDataFromHttpRequest(connection);
+		data = this->getDataFromRequest(connection);
 
 	Service* service = this->serviceFactory.createService(resource, method);
 	if (service){
@@ -58,7 +58,7 @@ void RestServer::handleConnection(mg_connection *connection){
 	mg_printf_data(connection, response.c_str());
 }
 
-std::string RestServer::getValueFromHttpRequestHeader(mg_connection *connection, std::string name){
+std::string Server::getValueFromRequestHeader(mg_connection *connection, std::string name){
 	const char* header = mg_get_header(connection, name.c_str());
 	if (header){
 		std::string value(header);
@@ -68,7 +68,7 @@ std::string RestServer::getValueFromHttpRequestHeader(mg_connection *connection,
 		return "";
 }
 
-std::string RestServer::getDataFromHttpRequest(mg_connection *connection){
+std::string Server::getDataFromRequest(mg_connection *connection){
 	if (connection->content_len != 0){
 		std::string data(connection->content, connection->content_len);
 		return data;
@@ -77,7 +77,7 @@ std::string RestServer::getDataFromHttpRequest(mg_connection *connection){
 		return "";
 }
 
-std::string RestServer::getQueryStringFromHttpRequest(mg_connection *connection){
+std::string Server::getQueryStringFromRequest(mg_connection *connection){
 	return connection->query_string ? connection->query_string : "";
 }
 

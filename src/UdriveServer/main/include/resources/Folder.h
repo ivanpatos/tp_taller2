@@ -20,8 +20,6 @@ public:
 
 	std::string getId() const;
 	std::string getName() const;
-	std::vector<Folder*> getFolderChildren() const;
-	std::vector<File*> getFileChildren() const;
 	Json::Value getJson() const;
 	std::string getJsonString() const;
 	void addFolderChildren(Folder *folder);

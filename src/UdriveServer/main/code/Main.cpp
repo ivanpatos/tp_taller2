@@ -1,8 +1,8 @@
-#include "../include/server/RestServer.h"
+#include "../include/server/Server.h"
 
 int main() {
 
-	RestServer server;
+	Server server;
 	server.start();
 
 	return 0;

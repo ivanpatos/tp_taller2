@@ -47,10 +47,6 @@ std::string Folder::getName() const{
 	return this->name;
 }
 
-std::vector<Folder*> Folder::getFolderChildren() const{
-	return this->folderChildren;
-}
-
 Json::Value Folder::getJson() const{
 	Json::Value json;
 	json["id"] = this->id;
@@ -82,10 +78,6 @@ Json::Value Folder::getJson() const{
 		json["children"] = jsonChildren;
 	}
 	return json;
-}
-
-std::vector<File*> Folder::getFileChildren() const{
-	return this->fileChildren;
 }
 
 std::string Folder::getJsonString() const{

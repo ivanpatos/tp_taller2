@@ -12,7 +12,7 @@ PROJECT(TP_TALLER2)
 SET(CMAKE_CXX_FLAGS "-std=c++11")
 
 # Variable con los fuentes
-SET(SRC_FILES code/database/DataManager.cpp code/resources/File.cpp code/resources/Folder.cpp code/server/CreateFileService.cpp code/server/CreateFolderService.cpp code/server/CreateUserService.cpp code/server/GetFolderService.cpp code/server/GetUserService.cpp code/server/HttpResponse.cpp code/server/LoginService.cpp code/server/LogoutService.cpp code/server/ServiceFactory.cpp code/server/UpdateUserService.cpp others/jsoncpp.cpp code/Main.cpp others/mongoose.c code/server/RestServer.cpp code/utilities/Time.cpp code/resources/User.cpp code/resources/Version.cpp)
+SET(SRC_FILES code/database/DataManager.cpp code/resources/File.cpp code/resources/Folder.cpp code/server/CreateFileService.cpp code/server/CreateFolderService.cpp code/server/CreateUserService.cpp code/server/GetFolderService.cpp code/server/GetUserService.cpp code/server/HttpResponse.cpp code/server/LoginService.cpp code/server/LogoutService.cpp code/server/ServiceFactory.cpp code/server/UpdateUserService.cpp others/jsoncpp.cpp code/Main.cpp others/mongoose.c code/server/Server.cpp code/utilities/Time.cpp code/resources/User.cpp code/resources/Version.cpp)
 
 # Variable con las librerías
 SET(LINK_LIBRARIES rocksdb pthread z bz2 snappy)
