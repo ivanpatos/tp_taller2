@@ -1,5 +1,4 @@
 #include "../../include/resources/Folder.h"
-#include "../../include/database/DataManager.h"
 
 
 Folder::Folder(const Json::Value& json){
@@ -7,7 +6,7 @@ Folder::Folder(const Json::Value& json){
 	this->name = json.get("name", "").asCString();
 }
 
-Folder::Folder(const std::string& jsonString){
+Folder::Folder(const std::string& jsonString, Database &userDB, Database &folderDB, Database &fileDB){
 	Json::Value json;
 	Json::Reader reader;
 	reader.parse(jsonString, json);
@@ -20,14 +19,14 @@ Folder::Folder(const std::string& jsonString){
 		std::string type = (*it).get("type", "").asCString();
 		std::string id = (*it).get("id", "").asCString();
 		if (type == "folder"){
-			Folder *folder = DataManager::Instance().getFolder(id);
-			if (folder != NULL)
-				this->folderChildren.push_back(folder);
+			std::string folderChildJsonString = folderDB.getValue(id);
+			if (folderChildJsonString != "")
+				this->folderChildren.push_back(new Folder(folderChildJsonString, userDB, folderDB, fileDB));
 		}
 		else{
-			File *file = DataManager::Instance().getFile(id);
-			if (file != NULL)
-				this->fileChildren.push_back(file);
+			std::string fileChildJsonString = fileDB.getValue(id);
+			if (fileChildJsonString != "")
+				this->fileChildren.push_back(new File(fileChildJsonString, userDB));
 		}
 	}
 }

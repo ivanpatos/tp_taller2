@@ -2,7 +2,8 @@
 #include "../../include/server/HttpResponse.h"
 
 
-Server::Server(){
+Server::Server() : userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB"),
+	serviceFactory(userDB, folderDB, fileDB, dataDB){
 	this->server = mg_create_server(this, Server::handleEvent);
 	mg_set_option(this->server, "listening_port", "8080");
 }

@@ -3,25 +3,17 @@
 
 #include <string>
 #include "Service.h"
-#include "ServiceCreator.h"
+#include "../../database/Database.h"
 
 
 class CreateFileService : public Service{
+private:
+	Database &userDB, &folderDB, &fileDB, &dataDB;
+
 public:
-	CreateFileService();
+	CreateFileService(Database &userDB, Database &folderDB, Database &fileDB, Database &dataDB);
 	~CreateFileService();
 	std::string execute(const std::string& username, const std::string& token, const std::string& data) const;
-};
-
-
-class CreateFileServiceCreator : public ServiceCreator{
-public:
-	Service* create() const;
-	std::string getResource() const;
-	std::string getMethod() const;
-private:
-	static const std::string resource;
-	static const std::string method;
 };
 
 

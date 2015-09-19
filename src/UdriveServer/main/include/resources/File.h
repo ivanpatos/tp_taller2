@@ -3,8 +3,8 @@
 
 #include <string>
 #include "../../others/json/json.h"
+#include "../database/Database.h"
 #include "User.h"
-
 
 
 class File{
@@ -22,8 +22,8 @@ private:
 	int version;
 
 public:
-	File(const Json::Value& json);
-	File(const std::string& jsonString);
+	File(const Json::Value& json, Database &userDB);
+	File(const std::string& jsonString, Database &userDB);
 	~File();
 
 	std::string getId() const;

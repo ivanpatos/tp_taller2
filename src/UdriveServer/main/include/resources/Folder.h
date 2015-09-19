@@ -3,7 +3,9 @@
 
 #include <string>
 #include "../../others/json/json.h"
+#include "../database/Database.h"
 #include "File.h"
+
 
 class Folder{
 
@@ -15,7 +17,7 @@ private:
 
 public:
 	Folder(const Json::Value& json);
-	Folder(const std::string& jsonString);
+	Folder(const std::string& jsonString, Database &userDB, Database &folderDB, Database &fileDB);
 	~Folder();
 
 	std::string getId() const;

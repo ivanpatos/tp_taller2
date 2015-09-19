@@ -1,34 +1,38 @@
 #include "../../include/server/ServiceFactory.h"
-#include "../../include/server/LoginService.h"
-#include "../../include/server/LogoutService.h"
-#include "../../include/server/CreateUserService.h"
-#include "../../include/server/GetUserService.h"
-#include "../../include/server/UpdateUserService.h"
-#include "../../include/server/CreateFolderService.h"
-#include "../../include/server/GetFolderService.h"
-#include "../../include/server/CreateFileService.h"
+#include "../../include/server/Services/LoginService.h"
+#include "../../include/server/Services/LogoutService.h"
+#include "../../include/server/Services/CreateUserService.h"
+#include "../../include/server/Services/GetUserService.h"
+#include "../../include/server/Services/UpdateUserService.h"
+#include "../../include/server/Services/CreateFolderService.h"
+#include "../../include/server/Services/GetFolderService.h"
+#include "../../include/server/Services/CreateFileService.h"
 
 
-ServiceFactory::ServiceFactory(){
-	this->serviceCreatorVector.push_back(new LoginServiceCreator());
-	this->serviceCreatorVector.push_back(new LogoutServiceCreator());
-	this->serviceCreatorVector.push_back(new CreateUserServiceCreator());
-	this->serviceCreatorVector.push_back(new GetUserServiceCreator());
-	this->serviceCreatorVector.push_back(new UpdateUserServiceCreator());
-	this->serviceCreatorVector.push_back(new CreateFolderServiceCreator());
-	this->serviceCreatorVector.push_back(new GetFolderServiceCreator());
-	this->serviceCreatorVector.push_back(new CreateFileServiceCreator());
+ServiceFactory::ServiceFactory(Database &userDB, Database &folderDB, Database &fileDB, Database &dataDB) :
+	userDB(userDB), folderDB(folderDB), fileDB(fileDB), dataDB(dataDB){
 }
 
 ServiceFactory::~ServiceFactory(){
-	for(std::vector<ServiceCreator*>::const_iterator it = this->serviceCreatorVector.begin(); it != this->serviceCreatorVector.end(); ++it)
-		delete *it;
 }
 
 Service* ServiceFactory::createService(const std::string& resource, const std::string& method) const{
-	for(std::vector<ServiceCreator*>::const_iterator it = this->serviceCreatorVector.begin(); it != this->serviceCreatorVector.end(); ++it) {
-		if ((*it)->getResource() == resource && (*it)->getMethod() == method)
-			return (*it)->create();
-	}
+	if (resource == "login" && method == "POST")
+		return new LoginService(this->userDB);
+	if (resource == "logout" && method == "POST")
+		return new LogoutService(this->userDB);
+	if (resource == "user" && method == "POST")
+		return new CreateUserService(this->userDB, this->folderDB);
+	if (resource == "user" && method == "GET")
+		return new GetUserService(this->userDB);
+	if (resource == "user" && method == "PUT")
+		return new UpdateUserService(this->userDB);
+	if (resource == "folder" && method == "POST")
+		return new CreateFolderService(this->userDB, this->folderDB, this->fileDB);
+	if (resource == "folder" && method == "GET")
+		return new GetFolderService(this->userDB, this->folderDB, this->fileDB);
+	if (resource == "file" && method == "POST")
+		return new CreateFileService(this->userDB, this->folderDB, this->fileDB, this->dataDB);
+
 	return NULL;
 }

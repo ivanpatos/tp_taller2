@@ -2,20 +2,18 @@
 #define _SERVICE_FACTORY_H_
 
 #include <vector>
-#include "Service.h"
-#include "ServiceCreator.h"
+#include "Services/Service.h"
+#include "../database/Database.h"
 
 
 class ServiceFactory{
-
 private:
-	std::vector<ServiceCreator*> serviceCreatorVector;
+	Database &userDB, &folderDB, &fileDB, &dataDB;
 
 public:
-	ServiceFactory();
+	ServiceFactory(Database &userDB, Database &folderDB, Database &fileDB, Database &dataDB);
 	~ServiceFactory();
 	Service* createService(const std::string& resource, const std::string& method) const;
-
 };
 
 #endif

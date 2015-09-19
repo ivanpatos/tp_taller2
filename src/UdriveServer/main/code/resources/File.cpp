@@ -1,14 +1,12 @@
 #include "../../include/resources/File.h"
 #include "../../include/utilities/Time.h"
-#include "../../include/database/DataManager.h"
 
 
-#include <iostream>
-File::File(const Json::Value& json){
+File::File(const Json::Value& json, Database &userDB){
 
 	std::string username = json.get("username", "").asCString();
 	this->id = username + Time::getCurrentTime();
-	this->owner = DataManager::Instance().getUser(username);
+	this->owner = new User(userDB.getValue(username));
 	this->name = json.get("name", "").asCString();
 	this->deleted = false;
 	this->lastModified = "",
@@ -21,7 +19,7 @@ File::File(const Json::Value& json){
 	}
 }
 
-File::File(const std::string& jsonString){
+File::File(const std::string& jsonString, Database &userDB){
 
 	Json::Value json;
 	Json::Reader reader;
@@ -34,8 +32,8 @@ File::File(const std::string& jsonString){
 	this->extension = json.get("extension", "").asCString();
 	this->version = json.get("version", "").asInt();
 
-	this->owner = DataManager::Instance().getUser(json.get("owner", "").asCString());
-	this->lastUser = DataManager::Instance().getUser(json.get("lastUser", "").asCString());
+	this->owner= new User(userDB.getValue(json.get("owner", "").asCString()));
+	this->lastUser= new User(userDB.getValue(json.get("lastUser", "").asCString()));
 
 	Json::Value jsonLabels = json["labels"];
 	for(Json::ValueIterator it = jsonLabels.begin() ; it != jsonLabels.end() ; it++) {
@@ -45,7 +43,7 @@ File::File(const std::string& jsonString){
 
 	Json::Value jsonUsers = json["users"];
 	for(Json::ValueIterator it = jsonUsers.begin() ; it != jsonUsers.end() ; it++) {
-		User* user = DataManager::Instance().getUser((*it).get("username", "").asCString());
+		User* user = new User(userDB.getValue((*it).get("username", "").asCString()));
 		this->users.push_back(user);
 	}
 }
