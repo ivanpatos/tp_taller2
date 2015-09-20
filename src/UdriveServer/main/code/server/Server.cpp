@@ -49,14 +49,9 @@ void Server::handleRequest(mg_connection *connection){
 		data = this->getDataFromRequest(connection);
 
 	Service* service = this->serviceFactory.createService(resource, method);
-	if (service){
-		response = service->execute(username, token, data);
-		delete service;
-	}
-	else
-		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_REQUEST);
-
+	response = service->execute(username, token, data);
 	mg_printf_data(connection, response.c_str());
+	delete service;
 }
 
 std::string Server::getValueFromRequestHeader(mg_connection *connection, const std::string& name){
