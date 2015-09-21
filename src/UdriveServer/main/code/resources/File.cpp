@@ -66,6 +66,23 @@ std::string File::getExtension() const{
 	return this->extension;
 }
 
+int File::getVersion() const{
+	return this->version;
+}
+
+void File::increaseVersion(){
+	++this->version;
+}
+
+bool File::isSharedWith(const User& user) const{
+	if (this->owner->getUsername() == user.getUsername())
+		return true;
+	for(std::vector<User*>::const_iterator it = this->users.begin(); it != this->users.end(); ++it)
+		if ((*it)->getUsername() == user.getUsername())
+			return true;
+	return false;
+}
+
 Json::Value File::getJson() const{
 
 	Json::Value json;

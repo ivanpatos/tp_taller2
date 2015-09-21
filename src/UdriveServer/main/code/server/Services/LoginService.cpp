@@ -10,7 +10,7 @@ LoginService::LoginService(Database &userDB) : userDB(userDB){
 LoginService::~LoginService(){
 }
 
-std::string LoginService::execute(const std::string& username, const std::string& token, const std::string& data) const{
+std::string LoginService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 
 	std::string response = "";
 	Json::Value jsonData;

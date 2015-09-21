@@ -29,8 +29,12 @@ public:
 	std::string getId() const;
 	std::string getName() const;
 	std::string getExtension() const;
+	int getVersion() const;
+	void increaseVersion();
+	bool isSharedWith(const User& user) const;
 	Json::Value getJson() const;
 	std::string getJsonString() const;
+
 };
 
 

@@ -16,7 +16,7 @@ private:
 public:
 	CreateUserService(Database &userDB, Database &folderDB);
 	~CreateUserService();
-	std::string execute(const std::string& username, const std::string& token, const std::string& data) const;
+	std::string execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const;
 };
 
 

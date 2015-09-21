@@ -11,14 +11,14 @@ GetFolderService::GetFolderService(Database &userDB, Database &folderDB, Databas
 GetFolderService::~GetFolderService(){
 }
 
-std::string GetFolderService::execute(const std::string& username, const std::string& token, const std::string& data) const{
+std::string GetFolderService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::string response = "";
 	std::string userJsonString = this->userDB.getValue(username);
 	if (userJsonString != ""){
 		User user(userJsonString);
 		if (user.authenticateToken(token)){
-			std::string query("idFolder=");
-			std::string queryIdFolder = data.substr(data.find(query)+query.length());
+			std::string queryKey("idFolder=");
+			std::string queryIdFolder = query.substr(query.find(queryKey)+queryKey.length());
 			std::string folderQueryJsonString = this->folderDB.getValue(queryIdFolder);
 			if (folderQueryJsonString != ""){
 				Folder queryFolder(folderQueryJsonString, this->userDB, this->folderDB, this->fileDB);

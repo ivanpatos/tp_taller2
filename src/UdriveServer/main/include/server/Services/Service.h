@@ -6,7 +6,7 @@
 class Service{
 public:
 	virtual ~Service(){}
-	virtual std::string execute(const std::string& username, const std::string& token, const std::string& data) const = 0;
+	virtual std::string execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const = 0;
 };
 
 #endif

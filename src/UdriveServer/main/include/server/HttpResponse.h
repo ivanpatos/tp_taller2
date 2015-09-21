@@ -23,7 +23,8 @@ public:
 		ERROR_FILE_EXISTS,
 		ERROR_INVALID_REQUEST,
 		ERROR_INVALID_FILE,
-		ERROR_INVALID_FILE_VERSION
+		ERROR_INVALID_FILE_VERSION,
+		ERROR_FILE_NOT_SHARED_WITH
 	};
 
 	static std::string GetHttpOkResponse(const Json::Value& data);

@@ -44,7 +44,7 @@ bool CreateUserService::initUserFolders(const User& user) const{
 	return true;
 }
 
-std::string CreateUserService::execute(const std::string& username, const std::string& token, const std::string& data) const{
+std::string CreateUserService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::string response = "";
 	Json::Value jsonData;
 	Json::Reader reader;

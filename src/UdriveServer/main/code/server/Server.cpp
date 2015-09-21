@@ -33,23 +33,17 @@ int Server::handleEvent(mg_connection *connection, mg_event event){
 
 void Server::handleRequest(mg_connection *connection){
 
-	std::string response = "";
-
 	std::string method = connection->request_method;
 	std::string resource = connection->uri;
 	resource = resource.substr(1);
 
 	std::string username = this->getValueFromRequestHeader(connection, "username");
 	std::string token = this->getValueFromRequestHeader(connection, "token");
-	std::string data = "";
-
-	if (method == "GET")
-		data = this->getQueryStringFromRequest(connection);
-	else
-		data = this->getDataFromRequest(connection);
+	std::string data = this->getDataFromRequest(connection);
+	std::string query = this->getQueryStringFromRequest(connection);
 
 	Service* service = this->serviceFactory.createService(resource, method);
-	response = service->execute(username, token, data);
+	std::string response = service->execute(username, token, data, query);
 	mg_printf_data(connection, response.c_str());
 	delete service;
 }

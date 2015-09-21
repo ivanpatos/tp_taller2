@@ -352,7 +352,7 @@ si salio mal:
 result : ERROR
 errorCode: codigo de error
 -------------------------------------------------------------------------------------------------------------------------------
-Update File (fisico)
+Update File (fisico) (###### LISTO ######)
 
 - request: 
 
@@ -371,6 +371,10 @@ data: id, name, deleted, lastModified, lastUser, labels (lista), owner, users (l
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
+13 - ERROR_INVALID_FILE
+15 - ERROR_FILE_NOT_SHARED_WITH
 -------------------------------------------------------------------------------------------------------------------------------
 Delete File
 

@@ -10,15 +10,15 @@ GetUserService::GetUserService(Database &userDB) : userDB(userDB){
 GetUserService::~GetUserService(){
 }
 
-std::string GetUserService::execute(const std::string& username, const std::string& token, const std::string& data) const{
+std::string GetUserService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::string response = "";
 	std::string userJsonString = this->userDB.getValue(username);
 	if (userJsonString != ""){
 		User user(userJsonString);
 		if (user.authenticateToken(token)){
-			if (data != ""){
-				std::string query("username=");
-				std::string queryUsername = data.substr(data.find(query)+query.length());
+			if (query != ""){
+				std::string queryKey("username=");
+				std::string queryUsername = query.substr(query.find(queryKey)+queryKey.length());
 				std::string userQueryJsonString = this->userDB.getValue(queryUsername);
 				if (userQueryJsonString != ""){
 					User userQuery(userQueryJsonString);
