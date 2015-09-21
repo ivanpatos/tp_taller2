@@ -4,3 +4,8 @@
 /src/UdriveServer/main/cmake_install.cmake
 /src/UdriveServer/main/CMakeCache.txt
 /src/UdriveServer/main/Makefile
+src/UdriveServer/main/dataDB/
+src/UdriveServer/main/fileDB/
+src/UdriveServer/main/folderDB/
+src/UdriveServer/main/userDB/
+

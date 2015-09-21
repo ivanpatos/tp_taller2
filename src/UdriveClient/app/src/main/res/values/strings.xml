@@ -23,7 +23,9 @@
     <string name="register.error.password">Ingrese un password con mas de 6 letras</string>
     <string name="register.button">Registrarse</string>
     <string name="register.waiting">Procesando los datos. Espere un momento por favor.</string>
-    <string name="register.success">El registro ha sido exitoso (mentira, todavia no registramos nada en el servidor)</string>
+    <string name="register.success">El registro ha sido exitoso</string>
+    <string name="register.error">Ha ocurrido un error. Intente nuevamente.</string>
+    <string name="register.error.username.exists">El nombre de usuario ya existe.</string>
 
 
     <!-- Strings Login Activity -->

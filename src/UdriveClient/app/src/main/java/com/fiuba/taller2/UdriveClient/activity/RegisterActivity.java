@@ -2,7 +2,6 @@ package com.fiuba.taller2.UdriveClient.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,8 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (registerValidator.validate(registerDTO)) {
             Gson gson = new Gson();
             String json = gson.toJson(registerDTO);
-            Log.d("ACA", json);
-            registerAsyncTask.register(json);
+            registerAsyncTask.execute(json);
         }
     }
 

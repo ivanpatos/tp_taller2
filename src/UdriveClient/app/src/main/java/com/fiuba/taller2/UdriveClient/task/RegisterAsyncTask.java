@@ -11,16 +11,11 @@ import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 
-import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class RegisterAsyncTask extends AsyncTask<String, String, JSONArray> {
+public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     private Activity activity;
     private Context context;
@@ -31,61 +26,23 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONArray> {
         this.context = activity.getApplicationContext();
     }
 
-    public void register(String json) {
-        PropertyManager propertyManager = new PropertyManager(context);
-        String registerUrl = propertyManager.getProperty("url.register");
-        this.execute(registerUrl, json);
-    }
-
     @Override
-    protected JSONArray doInBackground(String... params) {
-        URL url;
-        HttpURLConnection urlConnection = null;
-        JSONArray response = new JSONArray();
-
-        try {
-            url = new URL(params[0]);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            int responseCode = urlConnection.getResponseCode();
-
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                String responseString = readStream(urlConnection.getInputStream());
-                response = new JSONArray(responseString);
-            } else {
-                response = new JSONArray("error");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (urlConnection != null)
-                urlConnection.disconnect();
+    protected JSONObject doInBackground(String... params) {
+        PropertyManager propertyManager = new PropertyManager(context);
+        String serverUrl = propertyManager.getProperty("url.server");
+        String userUrl = propertyManager.getProperty("url.user");
+        String urlString = serverUrl + userUrl;
+        JSONObject response = null;
+        try{
+            URL url = new URL(urlString);
+            String json = params[0];
+            RestConnection restConnection = new RestConnection();
+            response = restConnection.post(url, json);
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
         return response;
     }
-
-    private String readStream(InputStream in) {
-        BufferedReader reader = null;
-        StringBuffer response = new StringBuffer();
-        try {
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return response.toString();
-    }
-
 
     @Override
     protected void onPreExecute() {
@@ -96,15 +53,29 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONArray> {
     }
 
     @Override
-    protected void onPostExecute(JSONArray jsonArray) {
-        if(jsonArray.equals("error")){
-            Toast.makeText(context, "Ha ocurrido un error, intente luego", Toast.LENGTH_SHORT).show();
-        }
+    protected void onPostExecute(JSONObject jsonObject) {
         dialog.dismiss();
+        try {
+            String result = (String) jsonObject.get("result");
+            if (result.equals("ERROR")) {
 
-        Toast.makeText(context, context.getString(R.string.register_success) , Toast.LENGTH_SHORT).show();
+                Integer errorCode =  (Integer) jsonObject.get("errorCode");
+                switch (errorCode){
+                    case 3:
+                        Toast.makeText(context, context.getString(R.string.register_error_username_exists), Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(context, context.getString(R.string.register_error), Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(activity, HomeActivity.class);
         activity.startActivity(intent);
+        Toast.makeText(context, context.getString(R.string.register_success), Toast.LENGTH_SHORT).show();
     }
 }
 
