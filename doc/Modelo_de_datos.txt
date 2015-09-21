@@ -19,7 +19,7 @@ Si es la carpeta raíz del usuario -----> <idDocument> = <username propietario>
 Si es la carpeta con archivos compartidos con el usuario -----> <idFolder> = <sharedwith_username> (por ej la carpeta que contiene todos los archivos compartidos con pepe: sharedwith_pepe)
 Si es la carpeta papelera con archivos borrados que se pueden recuperar -----> <idFolder> = <trash_username> (por ej : trash_pepe)
 Si es la carpeta con archivos recuperados -----> <idFolder> = <recovered_username> (por ej : recovered_pepe)
-Si es una carpeta cualquiera ----->  <idDocument> = <username propietario + timestamp>
+Si es una carpeta cualquiera ----->  <idDocument> = <idFolderParent + name>
 
 <json>:
 - name
@@ -28,7 +28,7 @@ Si es una carpeta cualquiera ----->  <idDocument> = <username propietario + time
 
 
 3)"File": <idFile><json>
-<idFile> = <username + timestamp> (username del propietario)
+<idFile> = <idFolderParent + name.extension>
 
 <json>:
 - name

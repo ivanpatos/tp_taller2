@@ -2,7 +2,6 @@
 #include "../../../include/server/HttpResponse.h"
 #include "../../../include/resources/Folder.h"
 #include "../../../include/resources/User.h"
-#include "../../../include/utilities/Time.h"
 #include "../../../others/json/json.h"
 
 
@@ -30,7 +29,7 @@ std::string CreateFolderService::execute(const std::string& username, const std:
 				if (folderParent.hasFolder(jsonData.get("name", "").asCString()))
 					response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_FOLDER_NAME_EXISTS);
 				else{
-					jsonData["id"] = user.getUsername() + Time::getCurrentTime();
+					jsonData["id"] = folderParent.getId()+"/"+jsonData.get("name", "").asCString();
 					Folder *folder = new Folder(jsonData);
 					folderParent.addFolderChildren(folder);
 					if (this->folderDB.saveValue(folder->getId(), folder->getJsonString()) && this->folderDB.saveValue(folderParent.getId(), folderParent.getJsonString()))

@@ -3,7 +3,6 @@
 #include "../../../include/resources/Folder.h"
 #include "../../../include/resources/User.h"
 #include "../../../include/resources/Version.h"
-#include "../../../include/utilities/Time.h"
 #include "../../../others/json/json.h"
 
 
@@ -32,6 +31,7 @@ std::string CreateFileService::execute(const std::string& username, const std::s
 					response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_FILE_EXISTS);
 				else{
 					jsonData["username"] = user.getUsername();
+					jsonData["id"] = folder.getId()+"/"+jsonData.get("name", "").asCString()+"."+jsonData.get("extension", "").asCString();
 					File *file = new File(jsonData, this->userDB);
 					folder.addFileChildren(file);
 					std::string idVersion = file->getId() + "_1";

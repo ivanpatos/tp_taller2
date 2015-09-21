@@ -1,12 +1,10 @@
 #include "../../include/resources/File.h"
-#include "../../include/utilities/Time.h"
 
 
 File::File(const Json::Value& json, Database &userDB){
 
-	std::string username = json.get("username", "").asCString();
-	this->id = username + Time::getCurrentTime();
-	this->owner = new User(userDB.getValue(username));
+	this->id = json.get("id", "").asCString();
+	this->owner = new User(userDB.getValue(json.get("username", "").asCString()));
 	this->name = json.get("name", "").asCString();
 	this->deleted = false;
 	this->lastModified = "",
