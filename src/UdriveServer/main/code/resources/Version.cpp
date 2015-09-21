@@ -15,3 +15,10 @@ std::string Version::getData() const{
 std::string Version::getId() const{
 	return this->id;
 }
+
+Json::Value Version::getJson() const{
+	Json::Value json;
+	json["id"] = this->id;
+	json["data"] = this->data;
+	return json;
+}
