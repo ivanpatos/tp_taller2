@@ -15,7 +15,7 @@ SET(CMAKE_CXX_FLAGS "-std=c++11")
 SET(SRC_FILES code/database/Database.cpp 
 code/resources/File.cpp code/resources/Folder.cpp code/resources/User.cpp code/resources/Version.cpp
 code/server/HttpResponse.cpp code/server/Server.cpp code/server/ServiceFactory.cpp 
-code/server/Services/CreateFileService.cpp code/server/Services/CreateFolderService.cpp code/server/Services/CreateUserService.cpp code/server/Services/GetFolderService.cpp code/server/Services/GetUserService.cpp code/server/Services/LoginService.cpp code/server/Services/LogoutService.cpp code/server/Services/NonExistentService.cpp code/server/Services/UpdateUserService.cpp 
+code/server/Services/CreateFileService.cpp code/server/Services/CreateFolderService.cpp code/server/Services/CreateUserService.cpp code/server/Services/GetFileService.cpp code/server/Services/GetFolderService.cpp code/server/Services/GetUserService.cpp code/server/Services/LoginService.cpp code/server/Services/LogoutService.cpp code/server/Services/NonExistentService.cpp code/server/Services/UpdateUserService.cpp 
 others/jsoncpp.cpp code/Main.cpp others/mongoose.c code/utilities/Time.cpp)
 
 # Variable con las librerías
