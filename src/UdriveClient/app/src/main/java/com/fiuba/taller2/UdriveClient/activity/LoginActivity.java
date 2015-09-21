@@ -13,8 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
+import com.fiuba.taller2.UdriveClient.dto.LoginDTO;
 import com.fiuba.taller2.UdriveClient.dto.RegisterDTO;
+import com.fiuba.taller2.UdriveClient.task.LoginAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.RegisterAsyncTask;
+import com.fiuba.taller2.UdriveClient.validator.LoginValidator;
 import com.fiuba.taller2.UdriveClient.validator.RegisterValidator;
 import com.google.gson.Gson;
 
@@ -33,19 +36,13 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -54,6 +51,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClickLoginButton(View view) throws ExecutionException, InterruptedException {
-        Toast.makeText(this.getApplicationContext(), "Deberia loguear pero todavia no funciona", Toast.LENGTH_SHORT).show();
-    }
+        Button button = (Button) findViewById(R.id.buttonLogin);
+        LoginAsyncTask loginAsyncTask = new LoginAsyncTask(this);
+        String username = ((TextView) findViewById(R.id.loginTextUsername)).getText().toString();
+        String password = ((TextView) findViewById(R.id.loginTextPassword)).getText().toString();
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setUsername(username);
+        loginDTO.setPassword(password);
+        LoginValidator loginValidator = new LoginValidator(this.getBaseContext());
+        if (loginValidator.validate(loginDTO)) {
+            Gson gson = new Gson();
+            String json = gson.toJson(loginDTO);
+            loginAsyncTask.execute(json);
+        }    }
 }

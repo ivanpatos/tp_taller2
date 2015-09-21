@@ -17,14 +17,14 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
+public class LoginAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     private Activity activity;
     private Context context;
     private ProgressDialog dialog;
     private String errorMessage = "";
 
-    public RegisterAsyncTask(Activity activity) {
+    public LoginAsyncTask(Activity activity) {
         this.activity = activity;
         this.context = activity.getApplicationContext();
     }
@@ -33,8 +33,8 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
     protected JSONObject doInBackground(String... params) {
         PropertyManager propertyManager = new PropertyManager(context);
         String serverUrl = propertyManager.getProperty("url.server");
-        String userUrl = propertyManager.getProperty("url.user");
-        String urlString = serverUrl + userUrl;
+        String loginUrl = propertyManager.getProperty("url.login");
+        String urlString = serverUrl + loginUrl;
         JSONObject response = null;
         try{
             URL url = new URL(urlString);
@@ -54,7 +54,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
     @Override
     protected void onPreExecute() {
         dialog = new ProgressDialog(activity);
-        dialog.setMessage(context.getString(R.string.register_waiting));
+        dialog.setMessage(context.getString(R.string.login_waiting));
         dialog.setCancelable(false);
         dialog.show();
     }
@@ -72,11 +72,14 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
 
                 Integer errorCode =  (Integer) jsonObject.get("errorCode");
                 switch (errorCode){
-                    case 3:
-                        Toast.makeText(context, context.getString(R.string.register_error_username_exists)          , Toast.LENGTH_SHORT).show();
+                    case 2:
+                        Toast.makeText(context, context.getString(R.string.login_error_bad_credentials), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 7:
+                        Toast.makeText(context, context.getString(R.string.login_error_bad_credentials), Toast.LENGTH_SHORT).show();
                         break;
                     default:
-                        Toast.makeText(context, context.getString(R.string.register_error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getString(R.string.login_error), Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return;
@@ -86,7 +89,6 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
         }
         Intent intent = new Intent(activity, HomeActivity.class);
         activity.startActivity(intent);
-        Toast.makeText(context, context.getString(R.string.register_success), Toast.LENGTH_SHORT).show();
     }
 }
 
