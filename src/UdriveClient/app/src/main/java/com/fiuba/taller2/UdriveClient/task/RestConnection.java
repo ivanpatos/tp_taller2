@@ -1,5 +1,7 @@
 package com.fiuba.taller2.UdriveClient.task;
 
+import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -13,7 +15,7 @@ import java.net.URL;
 
 public class RestConnection {
 
-    JSONObject post(URL url, String json){
+    JSONObject post(URL url, String json) throws ConnectionException{
         HttpURLConnection conn = null;
         JSONObject response = new JSONObject();
         try {
@@ -30,8 +32,8 @@ public class RestConnection {
                 String responseString = readStream(conn.getInputStream());
                 response = new JSONObject(responseString);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            throw new ConnectionException(ex.getMessage());
         } finally {
             if (conn != null)
                 conn.disconnect();

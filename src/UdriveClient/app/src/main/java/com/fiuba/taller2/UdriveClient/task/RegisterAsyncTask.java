@@ -9,10 +9,12 @@ import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
+import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
@@ -20,6 +22,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
     private Activity activity;
     private Context context;
     private ProgressDialog dialog;
+    private String errorMessage = "";
 
     public RegisterAsyncTask(Activity activity) {
         this.activity = activity;
@@ -38,7 +41,11 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
             String json = params[0];
             RestConnection restConnection = new RestConnection();
             response = restConnection.post(url, json);
-        }catch (Exception ex){
+        }catch (ConnectionException ex){
+            ex.printStackTrace();
+            errorMessage = context.getString(R.string.connection_error);
+        } catch (MalformedURLException ex){
+            errorMessage = context.getString(R.string.malformed_url_error);
             ex.printStackTrace();
         }
         return response;
@@ -55,6 +62,10 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
         dialog.dismiss();
+        if(!errorMessage.isEmpty()){
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+            return;
+        }
         try {
             String result = (String) jsonObject.get("result");
             if (result.equals("ERROR")) {
