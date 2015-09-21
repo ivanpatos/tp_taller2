@@ -1,11 +1,14 @@
 package com.fiuba.taller2.UdriveClient.activity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.PasswordTransformationMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fiuba.taller2.UdriveClient.R;
@@ -22,6 +25,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        EditText password = (EditText) findViewById(R.id.registerTextPassword);
+        password.setTypeface(Typeface.DEFAULT);
+        password.setTransformationMethod(new PasswordTransformationMethod());
     }
 
     @Override
