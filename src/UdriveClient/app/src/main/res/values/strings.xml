@@ -12,7 +12,7 @@
     <string name="main.login">Inicia Sesion</string>
 
     <!-- Strings Register Activity -->
-    <string name="register.actionBar.title">Registro</string>
+    <string name="register.actionBar.title">REGISTRO</string>
     <string name="register.hint.username">Usuario</string>
     <string name="register.hint.name">Nombre</string>
     <string name="register.hint.email">Email</string>
@@ -29,12 +29,15 @@
 
 
     <!-- Strings Login Activity -->
-    <string name="title_activity_login">Login</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="login.actionBar.title">LOGIN</string>
+    <string name="login.hint.username">Usuario</string>
+    <string name="login.hint.password">Password</string>
+    <string name="login.button">Ingresar</string>
 
-    <string name="hello_world">Hello world!</string>
 
-
+    <!-- String Home Activity -->
+    <string name="home.actionBar.title">HOME</string>
+    <string name="home.hello">HOME</string>
 
 
 </resources>

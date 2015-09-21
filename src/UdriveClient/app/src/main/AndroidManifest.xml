@@ -24,11 +24,11 @@
         </activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/login.actionBar.title" >
         </activity>
         <activity
             android:name=".activity.HomeActivity"
-            android:label="@string/title_activity_home" >
+            android:label="@string/home.actionBar.title" >
         </activity>
     </application>
 
