@@ -17,6 +17,7 @@ public:
 
 	std::string getData() const;
 	std::string getId() const;
+	Json::Value getJson() const;
 };
 
 

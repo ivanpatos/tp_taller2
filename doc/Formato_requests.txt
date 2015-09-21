@@ -268,7 +268,7 @@ errorCode: codigo de error
 8 - ERROR_INVALID_FOLDER_PARENT
 11 - ERROR_FILE_EXISTS
 -------------------------------------------------------------------------------------------------------------------------------
-Get File (logico, obtengo solo los metadatos)
+Get File (logico, obtengo solo los metadatos) (###### LISTO ######)
 
 - request: 
 
@@ -276,7 +276,7 @@ url: /file
 method: GET 
 query string: idFile
 header: username, token
-json: version (numero de version)
+json: -
 
 - respuesta: 
 
@@ -287,6 +287,8 @@ data: id, name, deleted, lastModified, lastUser, labels (lista), owner, users (l
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+13 - ERROR_INVALID_FILE
 -------------------------------------------------------------------------------------------------------------------------------
 Get Files (query de varios archivos, metadatos)
 
@@ -308,13 +310,13 @@ si salio mal:
 result : ERROR
 errorCode: codigo de error
 -------------------------------------------------------------------------------------------------------------------------------
-Get File (fisico, o sea download)
+Get File (fisico, o sea download) (###### LISTO ######)
 
 - request: 
 
 url: /file
 method: GET 
-query string: idFile, version
+query string: idFile, version (por ejemplo: /file?idFile=idsarasa&version=2)
 header: username, token
 json: -
 
@@ -322,11 +324,13 @@ json: -
 
 si salio ok, json con:
 result : OK
-data: data
+data: id (id de la version o sea "idFile_version"), data
 
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+14 - ERROR_INVALID_FILE_VERSION
 -------------------------------------------------------------------------------------------------------------------------------
 Update File (logico, modifico solo los metadatos)
 
