@@ -29,9 +29,14 @@ public:
 	std::string getId() const;
 	std::string getName() const;
 	std::string getExtension() const;
+	bool getDeleted() const;
 	int getVersion() const;
+	User* getOwner() const;
+	std::vector<User*> getUsers() const;
 	void increaseVersion();
-	bool isSharedWith(const User& user) const;
+	bool hasPermission(const User& user) const;
+	void setDeleted(const bool& state);
+	void addUser(User *user);
 	Json::Value getJson() const;
 	std::string getJsonString() const;
 

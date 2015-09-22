@@ -32,7 +32,7 @@ std::string UpdateFileService::execute(const std::string& username, const std::s
 
 			if (fileJsonString != ""){
 				File file(fileJsonString, this->userDB);
-				if (file.isSharedWith(user)){
+				if (file.hasPermission(user)){
 					file.increaseVersion();
 
 					std::ostringstream ss;
@@ -47,7 +47,7 @@ std::string UpdateFileService::execute(const std::string& username, const std::s
 						response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
 				}
 				else
-					response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_FILE_NOT_SHARED_WITH);
+					response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_FILE_PERMISSION_DENIED);
 			}
 			else
 				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_FILE);

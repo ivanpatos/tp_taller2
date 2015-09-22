@@ -22,10 +22,12 @@ public:
 
 	std::string getId() const;
 	std::string getName() const;
+	std::vector<Folder*> getFolderChildren() const;
 	Json::Value getJson() const;
 	std::string getJsonString() const;
 	void addFolderChildren(Folder *folder);
 	void addFileChildren(File *file);
+	void removeFileChildren(File *file);
 	bool hasFolder(const std::string& folderName) const;
 	bool hasFile(const std::string& fileName, const std::string& fileExtension) const;
 

@@ -28,7 +28,7 @@ Si es una carpeta cualquiera ----->  <idDocument> = <idFolderParent + name>
 
 
 3)"File": <idFile><json>
-<idFile> = <idFolderParent + name.extension>
+<idFile> = <idFolderParent + name.extension + timestamp>
 
 <json>:
 - name

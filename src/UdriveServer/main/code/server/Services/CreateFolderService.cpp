@@ -2,6 +2,7 @@
 #include "../../../include/server/HttpResponse.h"
 #include "../../../include/resources/Folder.h"
 #include "../../../include/resources/User.h"
+#include "../../../include/utilities/Time.h"
 #include "../../../others/json/json.h"
 
 

@@ -9,6 +9,7 @@
 #include "../../include/server/Services/CreateFileService.h"
 #include "../../include/server/Services/GetFileService.h"
 #include "../../include/server/Services/UpdateFileService.h"
+#include "../../include/server/Services/DeleteFileService.h"
 #include "../../include/server/Services/NonExistentService.h"
 
 
@@ -40,5 +41,7 @@ Service* ServiceFactory::createService(const std::string& resource, const std::s
 			return new GetFileService(this->userDB, this->fileDB, this->dataDB);
 	if (resource == "file" && method == "PUT")
 			return new UpdateFileService(this->userDB, this->fileDB, this->dataDB);
+	if (resource == "file" && method == "DELETE")
+			return new DeleteFileService(this->userDB, this->folderDB, this->fileDB);
 	return new NonExistentService();
 }

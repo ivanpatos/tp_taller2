@@ -374,9 +374,9 @@ errorCode: codigo de error
 1 - ERROR_AUTHENTICATION
 6 - ERROR_SAVING_DATA
 13 - ERROR_INVALID_FILE
-15 - ERROR_FILE_NOT_SHARED_WITH
+15 - ERROR_FILE_PERMISSION_DENIED
 -------------------------------------------------------------------------------------------------------------------------------
-Delete File
+Delete File (###### LISTO ######)
 
 - request: 
 
@@ -390,10 +390,16 @@ json: -
 
 si salio ok, json con:
 result : OK
+data: "" (vacio, no se devuelve nada en el campo data)
 
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
+13 - ERROR_INVALID_FILE
+15 - ERROR_FILE_PERMISSION_DENIED
+16 - ERROR_FILE_ALREADY_DELETED
 -------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------

@@ -66,21 +66,41 @@ std::string File::getExtension() const{
 	return this->extension;
 }
 
+bool File::getDeleted() const{
+	return this->deleted;
+}
+
 int File::getVersion() const{
 	return this->version;
+}
+
+User * File::getOwner() const{
+	return this->owner;
+}
+
+std::vector<User*> File::getUsers() const{
+	return this->users;
 }
 
 void File::increaseVersion(){
 	++this->version;
 }
 
-bool File::isSharedWith(const User& user) const{
+bool File::hasPermission(const User& user) const{
 	if (this->owner->getUsername() == user.getUsername())
 		return true;
 	for(std::vector<User*>::const_iterator it = this->users.begin(); it != this->users.end(); ++it)
 		if ((*it)->getUsername() == user.getUsername())
 			return true;
 	return false;
+}
+
+void File::setDeleted(const bool& state){
+	this->deleted = state;
+}
+
+void File::addUser(User *user){
+	this->users.push_back(user);
 }
 
 Json::Value File::getJson() const{

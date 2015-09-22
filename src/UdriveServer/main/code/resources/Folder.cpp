@@ -46,6 +46,10 @@ std::string Folder::getName() const{
 	return this->name;
 }
 
+std::vector<Folder*> Folder::getFolderChildren() const{
+	return this->folderChildren;
+}
+
 Json::Value Folder::getJson() const{
 	Json::Value json;
 	json["id"] = this->id;
@@ -92,6 +96,17 @@ void Folder::addFolderChildren(Folder *folder){
 
 void Folder::addFileChildren(File *file){
 	this->fileChildren.push_back(file);
+}
+
+void Folder::removeFileChildren(File *file){
+	bool fin = false;
+	for(std::vector<File*>::iterator it = this->fileChildren.begin(); it != this->fileChildren.end() && !fin; ++it){
+		if((*it)->getId() == file->getId()){
+			delete *it;
+			it = this->fileChildren.erase(it);
+			fin = true;
+		}
+	}
 }
 
 bool Folder::hasFolder(const std::string& folderName) const{
