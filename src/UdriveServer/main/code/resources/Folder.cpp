@@ -50,6 +50,10 @@ std::vector<Folder*> Folder::getFolderChildren() const{
 	return this->folderChildren;
 }
 
+std::vector<File*> Folder::getFileChildren() const{
+	return this->fileChildren;
+}
+
 Json::Value Folder::getJson() const{
 	Json::Value json;
 	json["id"] = this->id;
