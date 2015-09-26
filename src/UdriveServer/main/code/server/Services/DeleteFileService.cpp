@@ -48,10 +48,19 @@ std::string DeleteFileService::execute(const std::string& username, const std::s
 					else{
 
 						//remuevo file de la carpeta padre que lo contiene
+						//veo primero si esta en la carpeta recovered, sino recorro el arbol del owner
 						User *owner = file->getOwner();
-						Folder *folderRootOwner = new Folder(this->folderDB.getValue(owner->getUsername()), this->userDB, this->folderDB, this->fileDB);
-						deleteFileFromOwner(folderRootOwner, file);
-						delete folderRootOwner;
+						Folder folderRecoveredOwner(this->folderDB.getValue("recovered_" + owner->getUsername()), this->userDB, this->folderDB, this->fileDB);
+						if (folderRecoveredOwner.hasFile(file->getName(), file->getExtension())){
+							folderRecoveredOwner.removeFileChildren(file);
+							if (!this->folderDB.saveValue(folderRecoveredOwner.getId(), folderRecoveredOwner.getJsonString()))
+								return response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+						}
+						else{
+							Folder *folderRootOwner = new Folder(this->folderDB.getValue(owner->getUsername()), this->userDB, this->folderDB, this->fileDB);
+							deleteFileFromOwner(folderRootOwner, file);
+							delete folderRootOwner;
+						}
 
 						//agrego file al trash del owner
 						Folder folderTrashOwner(this->folderDB.getValue("trash_" + owner->getUsername()), this->userDB, this->folderDB, this->fileDB);
@@ -64,10 +73,18 @@ std::string DeleteFileService::execute(const std::string& username, const std::s
 
 							//remuevo file de la carpeta sharedwith del usuario compartido
 							Folder folderSharedWith(this->folderDB.getValue("sharedwith_" + (*it)->getUsername()), this->userDB, this->folderDB, this->fileDB);
-							folderSharedWith.removeFileChildren(file);
-							if (!this->folderDB.saveValue(folderSharedWith.getId(), folderSharedWith.getJsonString()))
-								return response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
-
+							if (folderSharedWith.hasFile(file->getName(), file->getExtension())){
+								folderSharedWith.removeFileChildren(file);
+								if (!this->folderDB.saveValue(folderSharedWith.getId(), folderSharedWith.getJsonString()))
+									return response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+							}
+							//si no esta en la carpeta sharedwith entonces el archivo a borrar esta en la carpeta recovered
+							else{
+								Folder folderRecovered(this->folderDB.getValue("recovered_" + (*it)->getUsername()), this->userDB, this->folderDB, this->fileDB);
+								folderRecovered.removeFileChildren(file);
+								if (!this->folderDB.saveValue(folderRecovered.getId(), folderRecovered.getJsonString()))
+									return response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+							}
 
 							//agrego file al trash del usuario compartido
 							Folder folderTrash(this->folderDB.getValue("trash_" + (*it)->getUsername()), this->userDB, this->folderDB, this->fileDB);

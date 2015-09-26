@@ -37,7 +37,7 @@ bool CreateUserService::initUserFolders(const User& user) const{
 	json["id"] = "recovered_" + username;
 	json["name"] = "recovered";
 	Folder recoveredFolder(json);
-	if (!this->folderDB.saveValue(recoveredFolder.getId(), trashFolder.getJsonString()))
+	if (!this->folderDB.saveValue(recoveredFolder.getId(), recoveredFolder.getJsonString()))
 			return false;
 
 

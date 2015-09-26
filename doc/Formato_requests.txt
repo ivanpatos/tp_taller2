@@ -343,7 +343,7 @@ url: /file
 method: PUT
 query string: idFile
 header: username, token
-json: name, extension, labels (lista), users (lista username), deleted, version
+json: name, extension, labels (lista), users (lista username), deleted
 
 - respuesta: 
 

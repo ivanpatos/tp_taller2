@@ -33,10 +33,15 @@ public:
 	int getVersion() const;
 	User* getOwner() const;
 	std::vector<User*> getUsers() const;
+	bool isOwner(const User& user) const;
 	void increaseVersion();
 	bool hasPermission(const User& user) const;
 	void setDeleted(const bool& state);
+	void setName(const std::string& name);
+	void setExtension(const std::string& extension);
+	void setLabels(const std::vector<std::string> &labels);
 	void addUser(User *user);
+	void removeUser(const User& user);
 	Json::Value getJson() const;
 	std::string getJsonString() const;
 

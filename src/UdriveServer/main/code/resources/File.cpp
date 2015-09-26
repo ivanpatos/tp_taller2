@@ -82,6 +82,12 @@ std::vector<User*> File::getUsers() const{
 	return this->users;
 }
 
+bool File::isOwner(const User& user) const{
+	if (this->owner->getUsername() == user.getUsername())
+			return true;
+	return false;
+}
+
 void File::increaseVersion(){
 	++this->version;
 }
@@ -99,8 +105,31 @@ void File::setDeleted(const bool& state){
 	this->deleted = state;
 }
 
+void File::setName(const std::string& name){
+	this->name = name;
+}
+
+void File::setExtension(const std::string& extension){
+	this->extension = extension;
+}
+
+void File::setLabels(const std::vector<std::string> &labels){
+	this->labels = labels;
+}
+
 void File::addUser(User *user){
 	this->users.push_back(user);
+}
+
+void File::removeUser(const User& user){
+	bool fin = false;
+	for(std::vector<User*>::iterator it = this->users.begin(); it != this->users.end() && !fin; ++it){
+		if((*it)->getUsername() == user.getUsername()){
+			delete *it;
+			it = this->users.erase(it);
+			fin = true;
+		}
+	}
 }
 
 Json::Value File::getJson() const{
