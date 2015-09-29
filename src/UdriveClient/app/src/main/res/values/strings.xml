@@ -45,6 +45,8 @@
     <!-- String Home Activity -->
     <string name="home.actionBar.title">HOME</string>
     <string name="home.hello">HOME</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="hello_world">Hello world!</string>
 
 
 </resources>

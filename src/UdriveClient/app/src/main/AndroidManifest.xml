@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fiuba.taller2.UdriveClient" >
+    package="com.fiuba.taller2.UdriveClient">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppThemeNoActionBar" >
+            android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,16 +21,13 @@
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:label="@string/register.actionBar.title" >
-        </activity>
+            android:label="@string/register.actionBar.title"></activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/login.actionBar.title" >
-        </activity>
+            android:label="@string/login.actionBar.title"></activity>
         <activity
             android:name=".activity.HomeActivity"
-            android:label="@string/home.actionBar.title" >
-        </activity>
+            android:label="@string/home.actionBar.title"></activity>
     </application>
 
 </manifest>
