@@ -335,7 +335,7 @@ errorCode: codigo de error
 1 - ERROR_AUTHENTICATION
 14 - ERROR_INVALID_FILE_VERSION
 -------------------------------------------------------------------------------------------------------------------------------
-Update File (logico, modifico solo los metadatos)
+Update File (logico, modifico solo los metadatos) (###### LISTO ######)
 
 - request: 
 
@@ -354,6 +354,10 @@ data: id, name, deleted, lastModified, lastUser, labels (lista), owner, users (l
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
+13 - ERROR_INVALID_FILE
+15 - ERROR_FILE_PERMISSION_DENIED
 -------------------------------------------------------------------------------------------------------------------------------
 Update File (fisico) (###### LISTO ######)
 
