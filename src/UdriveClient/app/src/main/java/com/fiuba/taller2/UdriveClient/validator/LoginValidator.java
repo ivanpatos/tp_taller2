@@ -4,11 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
-import com.fiuba.taller2.UdriveClient.dto.LoginDTO;
-import com.fiuba.taller2.UdriveClient.dto.RegisterDTO;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.fiuba.taller2.UdriveClient.dto.LoginRequestDTO;
 
 /**
  * Created by jscialabba on 19/09/15.
@@ -20,12 +16,12 @@ public class LoginValidator {
         this.context = context;
     }
 
-    public boolean validate(LoginDTO loginDTO) {
-        if (!isValidText(loginDTO.getUsername())) {
+    public boolean validate(LoginRequestDTO loginRequestDTO) {
+        if (!isValidText(loginRequestDTO.getUsername())) {
             Toast.makeText(context, context.getString(R.string.login_error_username) , Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(!isValidPassword(loginDTO.getPassword())){
+        if(!isValidPassword(loginRequestDTO.getPassword())){
             Toast.makeText(context, context.getString(R.string.login_error_password), Toast.LENGTH_SHORT).show();
             return false;
         }

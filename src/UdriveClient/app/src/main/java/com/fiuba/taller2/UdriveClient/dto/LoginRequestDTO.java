@@ -1,10 +1,8 @@
 package com.fiuba.taller2.UdriveClient.dto;
 
 
-public class RegisterDTO {
+public class LoginRequestDTO {
     String username;
-    String name;
-    String mail;
     String password;
 
     public String getUsername() {
@@ -13,22 +11,6 @@ public class RegisterDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public String getPassword() {

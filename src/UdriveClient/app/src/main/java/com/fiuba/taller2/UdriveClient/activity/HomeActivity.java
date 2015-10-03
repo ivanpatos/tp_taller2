@@ -1,8 +1,11 @@
 package com.fiuba.taller2.UdriveClient.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +35,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initViewList(){
+       /* SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String username = sharedPreferences.getString("username", "null");
+        String token = sharedPreferences.getString("token", "null");
+        Log.d("Username", username);
+        Log.d("Token", token);
+*/
         Bundle extras = getIntent().getExtras();
         DocumentDTO documentDTO = null;
         documents = getDocuments();

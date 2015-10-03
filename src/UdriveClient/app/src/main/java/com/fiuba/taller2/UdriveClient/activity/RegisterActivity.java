@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.fiuba.taller2.UdriveClient.R;
-import com.fiuba.taller2.UdriveClient.dto.RegisterDTO;
+import com.fiuba.taller2.UdriveClient.dto.RegisterRequestDTO;
 import com.fiuba.taller2.UdriveClient.task.RegisterAsyncTask;
 import com.fiuba.taller2.UdriveClient.validator.RegisterValidator;
 import com.google.gson.Gson;
@@ -52,15 +52,15 @@ public class RegisterActivity extends AppCompatActivity {
         String name = ((TextView) findViewById(R.id.registerTextName)).getText().toString();
         String mail = ((TextView) findViewById(R.id.registerTextEmail)).getText().toString();
         String password = ((TextView) findViewById(R.id.registerTextPassword)).getText().toString();
-        RegisterDTO registerDTO = new RegisterDTO();
-        registerDTO.setName(name);
-        registerDTO.setUsername(username);
-        registerDTO.setMail(mail);
-        registerDTO.setPassword(password);
+        RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
+        registerRequestDTO.setName(name);
+        registerRequestDTO.setUsername(username);
+        registerRequestDTO.setMail(mail);
+        registerRequestDTO.setPassword(password);
         RegisterValidator registerValidator = new RegisterValidator(this.getBaseContext());
-        if (registerValidator.validate(registerDTO)) {
+        if (registerValidator.validate(registerRequestDTO)) {
             Gson gson = new Gson();
-            String json = gson.toJson(registerDTO);
+            String json = gson.toJson(registerRequestDTO);
             registerAsyncTask.execute(json);
         }
     }
