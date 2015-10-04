@@ -61,7 +61,7 @@ std::string CreateUserService::execute(const std::string& username, const std::s
 		else{
 			user.generateToken();
 			if (this->userDB.saveValue(user.getUsername(), user.getJsonString()) && this->initUserFolders(user))
-				response = HttpResponse::GetHttpOkResponse(user.getJsonProfile());
+				response = HttpResponse::GetHttpOkResponse(user.getJsonProfileWithToken());
 			else
 				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
 		}
