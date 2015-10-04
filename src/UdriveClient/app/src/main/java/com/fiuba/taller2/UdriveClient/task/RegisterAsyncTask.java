@@ -2,16 +2,15 @@ package com.fiuba.taller2.UdriveClient.task;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
+import com.fiuba.taller2.UdriveClient.dto.ConnectionDTO;
 import com.fiuba.taller2.UdriveClient.dto.UserDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
@@ -26,33 +25,37 @@ import java.net.URL;
 public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     private Activity activity;
-    private Context context;
     private ProgressDialog dialog;
     private String errorMessage = "";
 
     public RegisterAsyncTask(Activity activity) {
         this.activity = activity;
-        this.context = activity.getApplicationContext();
     }
 
     @Override
     protected JSONObject doInBackground(String... params) {
-        PropertyManager propertyManager = new PropertyManager(context);
+        PropertyManager propertyManager = new PropertyManager(activity);
         String serverUrl = propertyManager.getProperty("url.server");
         String userUrl = propertyManager.getProperty("url.user");
-        String urlString = serverUrl + userUrl;
         JSONObject response = null;
+        ConnectionDTO connectionDTO = new ConnectionDTO();
         try{
-            URL url = new URL(urlString);
+            URL url = new URL(serverUrl + userUrl);
             String json = params[0];
+            connectionDTO.setUrl(url);
+            connectionDTO.setJson(json);
+            connectionDTO.setRequestMethod("POST");
+            connectionDTO.addAttributeHeader("Content-Type","application/json; charset=UTF-8");
             RestConnection restConnection = new RestConnection();
-            response = restConnection.post(url, json);
-        }catch (ConnectionException ex){
+            response = restConnection.execute(connectionDTO);
+        }
+        catch (MalformedURLException ex){
             ex.printStackTrace();
-            errorMessage = context.getString(R.string.connection_error);
-        } catch (MalformedURLException ex){
-            errorMessage = context.getString(R.string.malformed_url_error);
+            errorMessage = activity.getString(R.string.malformed_url_error);
+        }
+        catch (ConnectionException ex){
             ex.printStackTrace();
+            errorMessage = activity.getString(R.string.connection_error);
         }
         return response;
     }
@@ -60,17 +63,16 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
     @Override
     protected void onPreExecute() {
         dialog = new ProgressDialog(activity);
-        dialog.setMessage(context.getString(R.string.register_waiting));
+        dialog.setMessage(activity.getString(R.string.register_waiting));
         dialog.setCancelable(false);
         dialog.show();
     }
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
-        Log.d("jsonobj",jsonObject.toString());
         dialog.dismiss();
         if(!errorMessage.isEmpty()){
-            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             return;
         }
         try {
@@ -80,10 +82,10 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
                 Integer errorCode =  (Integer) jsonObject.get("errorCode");
                 switch (errorCode){
                     case 3:
-                        Toast.makeText(context, context.getString(R.string.register_error_username_exists)          , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.register_error_username_exists), Toast.LENGTH_SHORT).show();
                         break;
                     default:
-                        Toast.makeText(context, context.getString(R.string.register_error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getString(R.string.register_error), Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return;
@@ -94,7 +96,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
       try {
             Gson gson = new Gson();
             UserDTO userDTO = gson.fromJson(jsonObject.get("data").toString(), UserDTO.class);
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("name", userDTO.getName());
             editor.putString("username", userDTO.getUsername());
@@ -107,7 +109,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         Intent intent = new Intent(activity, HomeActivity.class);
         activity.startActivity(intent);
-        Toast.makeText(context, context.getString(R.string.register_success), Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, activity.getString(R.string.register_success), Toast.LENGTH_SHORT).show();
     }
 }
 

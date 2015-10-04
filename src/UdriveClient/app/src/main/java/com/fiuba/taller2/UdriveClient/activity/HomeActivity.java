@@ -35,45 +35,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initViewList(){
-       /* SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String username = sharedPreferences.getString("username", "null");
-        String token = sharedPreferences.getString("token", "null");
-        Log.d("Username", username);
-        Log.d("Token", token);
-*/
-        Bundle extras = getIntent().getExtras();
-        DocumentDTO documentDTO = null;
-        documents = getDocuments();
-        if (extras != null) {
-            documentDTO = (DocumentDTO) extras.get("document");
-        } else {
-
-            documentDTO = documents.get("F0");
-        }
-        setTitle(documentDTO.getName());
-
-        final ArrayList<DocumentChildDTO> documentChildDTOs = documentDTO.getChildren();
-
-        final DocumentAdapter adapter = new DocumentAdapter(this,
-                R.layout.listview_item_document, documentChildDTOs);
-
-        ListView documentList = (ListView) findViewById(R.id.documentList);
-
-        documentList.setAdapter(adapter);
-        documentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                DocumentChildDTO documentChildSelected = documentChildDTOs.get(position);
-                if(documentChildSelected.getType().equals("folder")){
-                    DocumentDTO currentDocument = documents.get(documentChildSelected.getId());
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    intent.putExtra("document", currentDocument);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }else{
-                    Toast.makeText(getApplicationContext(), "Abro el archivo", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+     /*   GetFolderAsyncTask folderAsyncTask = new GetFolderAsyncTask(this);
+        folderAsyncTask.execute();*/
     }
 
     @Override

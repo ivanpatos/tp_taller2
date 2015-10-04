@@ -59,5 +59,6 @@ public class LoginActivity extends AppCompatActivity {
             Gson gson = new Gson();
             String json = gson.toJson(loginRequestDTO);
             loginAsyncTask.execute(json);
-        }    }
+        }
+    }
 }
