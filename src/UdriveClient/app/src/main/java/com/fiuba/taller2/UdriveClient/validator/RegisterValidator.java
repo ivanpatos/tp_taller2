@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
-import com.fiuba.taller2.UdriveClient.dto.RegisterDTO;
+import com.fiuba.taller2.UdriveClient.dto.RegisterRequestDTO;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,20 +19,20 @@ public class RegisterValidator {
         this.context = context;
     }
 
-    public boolean validate(RegisterDTO registerDTO) {
-        if (!isValidText(registerDTO.getUsername())) {
+    public boolean validate(RegisterRequestDTO registerRequestDTO) {
+        if (!isValidText(registerRequestDTO.getUsername())) {
             Toast.makeText(context,  context.getString(R.string.register_error_username) , Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (!isValidText(registerDTO.getName())) {
+        if (!isValidText(registerRequestDTO.getName())) {
             Toast.makeText(context, context.getString(R.string.register_error_name) , Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(!isValidEmail(registerDTO.getMail())){
+        if(!isValidEmail(registerRequestDTO.getMail())){
             Toast.makeText(context,  context.getString(R.string.register_error_email), Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(!isValidPassword(registerDTO.getPassword())){
+        if(!isValidPassword(registerRequestDTO.getPassword())){
             Toast.makeText(context,  context.getString(R.string.register_error_password), Toast.LENGTH_SHORT).show();
             return false;
         }

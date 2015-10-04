@@ -4,14 +4,20 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
+import com.fiuba.taller2.UdriveClient.dto.UserDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
@@ -85,6 +91,20 @@ public class LoginAsyncTask extends AsyncTask<String, String, JSONObject> {
                 return;
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Gson gson = new Gson();
+            UserDTO userDTO = gson.fromJson(jsonObject.get("data").toString(), UserDTO.class);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("name", userDTO.getName());
+            editor.putString("username", userDTO.getUsername());
+            editor.putString("mail", userDTO.getMail());
+            editor.putString("token", userDTO.getToken());
+            editor.apply();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         Intent intent = new Intent(activity, HomeActivity.class);
