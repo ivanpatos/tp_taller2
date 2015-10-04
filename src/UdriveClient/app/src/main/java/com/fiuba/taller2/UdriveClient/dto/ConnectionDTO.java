@@ -14,6 +14,7 @@ public class ConnectionDTO {
     Map<String, String> attributesHeader;
 
     public ConnectionDTO() {
+        json = "";
         attributesHeader = new HashMap<>();
     }
 

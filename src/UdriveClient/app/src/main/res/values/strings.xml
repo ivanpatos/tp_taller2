@@ -4,7 +4,7 @@
     <!-- Strings General -->
     <string name="fiuba_udropbox">Fiuba UDropbox!</string>
     <string name="action_settings">Settings</string>
-    <string name="connection.error">Error en la conexion con el servidor</string>
+    <string name="connection.error">Error en la conexion. Intente luego.</string>
     <string name="malformed.url.error">Error en la url del servidor</string>
 
     <!-- Strings Main Activity -->

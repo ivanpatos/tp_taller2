@@ -1,5 +1,7 @@
 package com.fiuba.taller2.UdriveClient.task;
 
+import android.util.Log;
+
 import com.fiuba.taller2.UdriveClient.dto.ConnectionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 
@@ -26,16 +28,21 @@ public class RestConnection {
         JSONObject response = new JSONObject();
         try {
             conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
-            conn.setUseCaches(false);
             conn.setRequestMethod(requestMethod);
+            Log.d("request method", requestMethod);
             for (Map.Entry<String, String> attribute : attributesHeader.entrySet())
             {
+                Log.d(attribute.getKey(), attribute.getValue());
                 conn.setRequestProperty(attribute.getKey(), attribute.getValue());
             }
-            OutputStream os = conn.getOutputStream();
-            os.write(json.getBytes("UTF-8"));
-            os.close();
+            if(!json.isEmpty()){
+                conn.setDoOutput(true);
+                conn.setUseCaches(false);
+                OutputStream os = conn.getOutputStream();
+                os.write(json.getBytes("UTF-8"));
+                os.close();
+            }
+
             int responseCode = conn.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String responseString = readStream(conn.getInputStream());

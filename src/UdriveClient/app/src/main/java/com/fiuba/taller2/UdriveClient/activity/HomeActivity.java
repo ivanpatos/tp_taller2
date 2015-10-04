@@ -1,22 +1,16 @@
 package com.fiuba.taller2.UdriveClient.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.dto.DocumentChildDTO;
-import com.fiuba.taller2.UdriveClient.dto.DocumentDTO;
-import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
+import com.fiuba.taller2.UdriveClient.dto.FolderDTO;
+import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +18,7 @@ import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Map<String, DocumentDTO> documents;
+    private Map<String, FolderDTO> documents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +28,17 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void initViewList(){
-     /*   GetFolderAsyncTask folderAsyncTask = new GetFolderAsyncTask(this);
-        folderAsyncTask.execute();*/
+    private void initViewList() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Bundle extras = getIntent().getExtras();
+        String idFolder = "";
+        if (extras != null) {
+            idFolder = (String) extras.get("idFolder");
+        } else {
+            idFolder = sharedPreferences.getString("username", "");
+        }
+        GetFolderAsyncTask folderAsyncTask = new GetFolderAsyncTask(this);
+        folderAsyncTask.execute(idFolder);
     }
 
     @Override
@@ -60,26 +62,26 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private Map<String, DocumentDTO> getDocuments() {
+    private Map<String, FolderDTO> getDocuments() {
         documents = new HashMap<>();
 
-        DocumentDTO rootFolderDTO = new DocumentDTO();
+        FolderDTO rootFolderDTO = new FolderDTO();
         rootFolderDTO.setId("F0");
         rootFolderDTO.setName("Principal");
 
-        DocumentDTO firstFileDTO = new DocumentDTO();
+        FolderDTO firstFileDTO = new FolderDTO();
         firstFileDTO.setId("File1");
         firstFileDTO.setName("File 1");
 
-        DocumentDTO firstFolderDTO = new DocumentDTO();
+        FolderDTO firstFolderDTO = new FolderDTO();
         firstFolderDTO.setId("Folder1");
         firstFolderDTO.setName("Folder 1");
 
-        DocumentDTO secondFileDTO = new DocumentDTO();
+        FolderDTO secondFileDTO = new FolderDTO();
         secondFileDTO.setId("File2");
         secondFileDTO.setName("File 2");
 
-        DocumentDTO thirdFileDTO = new DocumentDTO();
+        FolderDTO thirdFileDTO = new FolderDTO();
         thirdFileDTO.setId("File3");
         thirdFileDTO.setName("File 3");
 
