@@ -60,7 +60,7 @@ Json::Value Folder::getJson() const{
 	json["name"] = this->name;
 
 	if (this->fileChildren.size() < 1 && this->folderChildren.size() < 1)
-		json["children"] = "";
+		json["children"] = Json::Value(Json::arrayValue);
 	else{
 		Json::Value jsonChildren;
 		if (this->fileChildren.size() > 0){
