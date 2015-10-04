@@ -62,7 +62,7 @@ url: /user
 method: POST
 query string: -
 header: -
-json: username, name, mail, profilePicture, password
+json: username, name, mail, profilePicture, password, token
 
 - respuesta: 
 
