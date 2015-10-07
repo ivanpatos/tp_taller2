@@ -5,9 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,6 +13,7 @@ import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
+import com.fiuba.taller2.UdriveClient.activity.MainActivity;
 import com.fiuba.taller2.UdriveClient.dto.ConnectionDTO;
 import com.fiuba.taller2.UdriveClient.dto.DocumentChildDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderDTO;
@@ -30,13 +29,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
+public class LogoutAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     private Activity activity;
     private ProgressDialog dialog;
     private String errorMessage = "";
 
-    public GetFolderAsyncTask(Activity activity) {
+    public LogoutAsyncTask(Activity activity) {
         this.activity = activity;
     }
 
@@ -44,18 +43,16 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
     protected JSONObject doInBackground(String... params) {
         PropertyManager propertyManager = new PropertyManager(activity);
         String serverUrl = propertyManager.getProperty("url.server");
-        String folderUrl = propertyManager.getProperty("url.folder");
-        String folderUrlQueryString = propertyManager.getProperty("url.folder.query.string.key");
-        String idFolder = params[0];
+        String folderUrl = propertyManager.getProperty("url.logout");
         JSONObject response = null;
         ConnectionDTO connectionDTO = new ConnectionDTO();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         String username = sharedPreferences.getString("username", "null");
         String token = sharedPreferences.getString("token", "null");
         try {
-            URL url = new URL(serverUrl + folderUrl + folderUrlQueryString + idFolder);
+            URL url = new URL(serverUrl + folderUrl);
             connectionDTO.setUrl(url);
-            connectionDTO.setRequestMethod("GET");
+            connectionDTO.setRequestMethod("POST");
             connectionDTO.addAttributeHeader("Content-Type", "application/json; charset=UTF-8");
             connectionDTO.addAttributeHeader("username", username);
             connectionDTO.addAttributeHeader("token", token);
@@ -74,7 +71,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
     @Override
     protected void onPreExecute() {
         dialog = new ProgressDialog(activity);
-        dialog.setMessage(activity.getString(R.string.login_waiting));
+        dialog.setMessage(activity.getString(R.string.home_logout_waiting));
         dialog.setCancelable(false);
         dialog.show();
     }
@@ -86,8 +83,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
             Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             return;
         }
-
-
         try {
             String result = (String) jsonObject.get("result");
             if (result.equals("ERROR")) {
@@ -97,46 +92,11 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            Gson gson = new Gson();
-            FolderDTO folderDTO = gson.fromJson(jsonObject.get("data").toString(), FolderDTO.class);
-            refreshViewActivity(folderDTO);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            }
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivity(intent);
     }
 
 
-    private void refreshViewActivity(FolderDTO folderDTO) {
-        activity.setTitle(folderDTO.getName());
-
-        final ArrayList<DocumentChildDTO> documentChildDTOs = folderDTO.getChildren();
-
-        final DocumentAdapter adapter = new DocumentAdapter(activity,
-                R.layout.listview_item_document, documentChildDTOs);
-
-        ListView documentList = (ListView) activity.findViewById(R.id.documentList);
-
-        documentList.setAdapter(adapter);
-        documentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                DocumentChildDTO documentChildSelected = documentChildDTOs.get(position);
-                if (documentChildSelected.getType().equals("folder")) {
-                    String idFolderSelected = documentChildSelected.getId();
-                    Intent intent = new Intent(activity, HomeActivity.class);
-                    intent.putExtra("idFolder", idFolderSelected);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                } else {
-                    Toast.makeText(activity, "Abro el archivo", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-    }
 
 }
 

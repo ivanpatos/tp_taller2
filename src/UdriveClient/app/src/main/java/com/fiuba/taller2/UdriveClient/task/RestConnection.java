@@ -26,13 +26,17 @@ public class RestConnection {
         Map<String, String> attributesHeader = connectionDTO.getAttributesHeader();
         HttpURLConnection conn = null;
         JSONObject response = new JSONObject();
+        Log.d("REQUEST CONNECTION", "BEGIN");
+        Log.d("url", connectionDTO.getUrl().toString());
+        Log.d("request method", requestMethod);
+        Log.d("attributes header", attributesHeader.entrySet().toString());
+        Log.d("jsonBody", json);
         try {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(requestMethod);
-            Log.d("request method", requestMethod);
+
             for (Map.Entry<String, String> attribute : attributesHeader.entrySet())
             {
-                Log.d(attribute.getKey(), attribute.getValue());
                 conn.setRequestProperty(attribute.getKey(), attribute.getValue());
             }
             if(!json.isEmpty()){

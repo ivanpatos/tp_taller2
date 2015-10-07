@@ -32,21 +32,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void onClickRegisterButton(View view) throws ExecutionException, InterruptedException {
-        Button button = (Button) findViewById(R.id.buttonRegister);
         RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask(this);
         String username = ((TextView) findViewById(R.id.registerTextUsername)).getText().toString();
         String name = ((TextView) findViewById(R.id.registerTextName)).getText().toString();
@@ -57,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerRequestDTO.setUsername(username);
         registerRequestDTO.setMail(mail);
         registerRequestDTO.setPassword(password);
-        RegisterValidator registerValidator = new RegisterValidator(this.getBaseContext());
+        RegisterValidator registerValidator = new RegisterValidator(this);
         if (registerValidator.validate(registerRequestDTO)) {
             Gson gson = new Gson();
             String json = gson.toJson(registerRequestDTO);

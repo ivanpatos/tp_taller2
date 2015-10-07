@@ -32,29 +32,17 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public void onClickLoginButton(View view) throws ExecutionException, InterruptedException {
-        Button button = (Button) findViewById(R.id.buttonLogin);
         LoginAsyncTask loginAsyncTask = new LoginAsyncTask(this);
         String username = ((TextView) findViewById(R.id.loginTextUsername)).getText().toString();
         String password = ((TextView) findViewById(R.id.loginTextPassword)).getText().toString();
         LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
         loginRequestDTO.setUsername(username);
         loginRequestDTO.setPassword(password);
-        LoginValidator loginValidator = new LoginValidator(this.getBaseContext());
+        LoginValidator loginValidator = new LoginValidator(this);
         if (loginValidator.validate(loginRequestDTO)) {
             Gson gson = new Gson();
             String json = gson.toJson(loginRequestDTO);
