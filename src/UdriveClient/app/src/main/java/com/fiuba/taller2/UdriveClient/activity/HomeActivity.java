@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.dto.FolderDTO;
 import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
+import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
 
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void onLogoutAction(){
-        Log.d("Logout", "Si");
-
+        LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask(this);
+        logoutAsyncTask.execute();
     }
 }

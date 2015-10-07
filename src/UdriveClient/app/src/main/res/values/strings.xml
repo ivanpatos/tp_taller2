@@ -46,6 +46,8 @@
     <string name="home.actionBar.title">HOME</string>
     <string name="home.hello">HOME</string>
     <string name="home.menu.action.logout">Logout</string>
+    <string name="home.logout.waiting">Desloguendo...</string>
+
 
 
 </resources>
