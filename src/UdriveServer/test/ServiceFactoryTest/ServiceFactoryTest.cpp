@@ -109,6 +109,26 @@ TEST(ServiceFactoryTest,updateUserService){
 	std::string name = (serverFactory.createService(resource, method))->name();
 	EXPECT_TRUE(name == "UpdateUserService");
 }
+
+TEST(ServiceFactoryTest,deleteFolderService){
+	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
+	const std::string resource = "folder";
+	const std::string method = "DELETE";
+
+	std::string name = (serverFactory.createService(resource, method))->name();
+	EXPECT_TRUE(name == "DeleteFolderService");
+}
+
+TEST(ServiceFactoryTest,deleteFileService){
+	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
+	const std::string resource = "file";
+	const std::string method = "DELETE";
+
+	std::string name = (serverFactory.createService(resource, method))->name();
+	EXPECT_TRUE(name == "DeleteFileService");
+}
 int main(int argc, char *argv[]){
 	testing::InitGoogleTest(&argc,argv);
 	return RUN_ALL_TESTS();
