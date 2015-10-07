@@ -2,6 +2,7 @@ package com.fiuba.taller2.UdriveClient.task;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -105,6 +106,7 @@ public class LoginAsyncTask extends AsyncTask<String, String, JSONObject> {
             editor.putString("username", userDTO.getUsername());
             editor.putString("mail", userDTO.getMail());
             editor.putString("token", userDTO.getToken());
+            editor.remove("homeCycleLevel");
             editor.apply();
         } catch (JSONException e) {
             e.printStackTrace();

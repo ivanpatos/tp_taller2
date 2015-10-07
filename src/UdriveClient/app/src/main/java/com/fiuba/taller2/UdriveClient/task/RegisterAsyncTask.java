@@ -102,6 +102,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
             editor.putString("username", userDTO.getUsername());
             editor.putString("mail", userDTO.getMail());
             editor.putString("token", userDTO.getToken());
+            editor.remove("homeCycleLevel");
             editor.apply();
         } catch (JSONException e) {
             e.printStackTrace();

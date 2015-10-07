@@ -36,14 +36,25 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             idFolder = sharedPreferences.getString("username", "");
         }
+        increaseCycleLevel();
         GetFolderAsyncTask folderAsyncTask = new GetFolderAsyncTask(this);
         folderAsyncTask.execute(idFolder);
+
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0);
+        if(cycleLevel <= 1){
+            moveTaskToBack(true);
+            finish();
+            super.onBackPressed();
+        }else{
+            reduceCycleLevel();
+            super.onBackPressed();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
     }
 
     @Override
@@ -65,5 +76,21 @@ public class HomeActivity extends AppCompatActivity {
     private void onLogoutAction(){
         LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask(this);
         logoutAsyncTask.execute();
+    }
+
+    private void increaseCycleLevel(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0) + 1;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("homeCycleLevel", cycleLevel);
+        editor.apply();
+    }
+
+    private void reduceCycleLevel(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0) - 1;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("homeCycleLevel", cycleLevel);
+        editor.apply();
     }
 }
