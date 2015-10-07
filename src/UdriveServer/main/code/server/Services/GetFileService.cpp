@@ -12,6 +12,10 @@ GetFileService::GetFileService(Database &userDB, Database &fileDB, Database &dat
 GetFileService::~GetFileService(){
 }
 
+const char* GetFileService::name() const{
+	return "GetFileService";
+}
+
 std::string GetFileService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::string response = "";
 	std::string userJsonString = this->userDB.getValue(username);

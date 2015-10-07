@@ -12,6 +12,10 @@ DeleteFileService::DeleteFileService(Database &userDB, Database &folderDB, Datab
 DeleteFileService::~DeleteFileService(){
 }
 
+const char* DeleteFileService::name() const{
+	return "DeleteFileService";
+}
+
 void DeleteFileService::deleteFileFromOwner(Folder* folder, File *file) const{
 	if (folder->hasFile(file->getName(), file->getExtension())){
 		folder->removeFileChildren(file);

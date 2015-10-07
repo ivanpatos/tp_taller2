@@ -11,6 +11,9 @@ GetFolderService::GetFolderService(Database &userDB, Database &folderDB, Databas
 GetFolderService::~GetFolderService(){
 }
 
+const char* GetFolderService::name() const{
+	return "GetFolderService";
+}
 std::string GetFolderService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::string response = "";
 	std::string userJsonString = this->userDB.getValue(username);

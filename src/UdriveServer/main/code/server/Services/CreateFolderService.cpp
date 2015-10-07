@@ -12,6 +12,9 @@ CreateFolderService::CreateFolderService(Database &userDB, Database &folderDB, D
 CreateFolderService::~CreateFolderService(){
 }
 
+const char* CreateFolderService::name() const{
+	return "CreateFolderService";
+}
 std::string CreateFolderService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::string response = "";
 	std::string userJsonString = this->userDB.getValue(username);

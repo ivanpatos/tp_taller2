@@ -10,6 +10,10 @@ UpdateUserService::UpdateUserService(Database &userDB) : userDB(userDB){
 UpdateUserService::~UpdateUserService(){
 }
 
+const char* UpdateUserService::name() const{
+	return "UpdateUserService";
+}
+
 std::string UpdateUserService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::string response = "";
 	std::string userJsonString = this->userDB.getValue(username);

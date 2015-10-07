@@ -5,7 +5,7 @@
 Server::Server() : userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB"),
 	serviceFactory(userDB, folderDB, fileDB, dataDB){
 	this->server = mg_create_server(this, Server::handleEvent);
-	mg_set_option(this->server, "listening_port", "8080");
+	mg.setOption(this->server, "listening_port", "8080");
 }
 
 Server::~Server(){
@@ -44,12 +44,12 @@ void Server::handleRequest(mg_connection *connection){
 
 	Service* service = this->serviceFactory.createService(resource, method);
 	std::string response = service->execute(username, token, data, query);
-	mg_printf_data(connection, response.c_str());
+	mg.mgprintfData(connection, response.c_str());
 	delete service;
 }
 
 std::string Server::getValueFromRequestHeader(mg_connection *connection, const std::string& name){
-	const char* header = mg_get_header(connection, name.c_str());
+	const char* header = mg.getHeader(connection, name.c_str());
 	if (header){
 		std::string value(header);
 		return value;
@@ -59,7 +59,7 @@ std::string Server::getValueFromRequestHeader(mg_connection *connection, const s
 }
 
 std::string Server::getDataFromRequest(mg_connection *connection){
-	if (connection->content_len != 0){
+	if (mg.contentLen(connection)!= 0){
 		std::string data(connection->content, connection->content_len);
 		return data;
 	}
@@ -68,6 +68,11 @@ std::string Server::getDataFromRequest(mg_connection *connection){
 }
 
 std::string Server::getQueryStringFromRequest(mg_connection *connection){
-	return connection->query_string ? connection->query_string : "";
+	return mg.queryString(connection) ? mg.queryString(connection) : "";
+}
+
+//WARNING: only for test
+void Server::setWrapperMongoose(WrapperMongoose &mg_w){
+	mg = mg_w;
 }
 

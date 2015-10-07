@@ -11,6 +11,9 @@ CreateUserService::CreateUserService(Database &userDB, Database &folderDB) : use
 CreateUserService::~CreateUserService(){
 }
 
+const char* CreateUserService::name() const{
+	return "CreateUserService";
+}
 bool CreateUserService::initUserFolders(const User& user) const{
 	std::string username = user.getUsername();
 	Json::Value json;

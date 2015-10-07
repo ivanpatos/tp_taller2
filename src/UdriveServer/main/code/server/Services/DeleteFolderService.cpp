@@ -13,6 +13,10 @@ DeleteFolderService::DeleteFolderService(Database &userDB, Database &folderDB, D
 DeleteFolderService::~DeleteFolderService(){
 }
 
+const char* DeleteFolderService::name() const{
+	return "DeleteFolderService";
+}
+
 void DeleteFolderService::deleteAllTree(Folder *folder, const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::vector<File*> fileChildren = folder->getFileChildren();
 	for(std::vector<File*>::const_iterator it = fileChildren.begin(); it != fileChildren.end(); ++it){

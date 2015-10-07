@@ -10,6 +10,10 @@ GetUserService::GetUserService(Database &userDB) : userDB(userDB){
 GetUserService::~GetUserService(){
 }
 
+const char* GetUserService::name() const{
+	return "GetUserService";
+}
+
 std::string GetUserService::execute(const std::string& username, const std::string& token, const std::string& data, const std::string& query) const{
 	std::string response = "";
 	std::string userJsonString = this->userDB.getValue(username);
