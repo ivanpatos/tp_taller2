@@ -1,0 +1,38 @@
+language: c
+compiler: gcc
+install:
+   #RocksDB
+   - sudo apt-get install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev
+   - git clone https://github.com/facebook/rocksdb
+   - cd rocksdb/
+   - make static_lib
+   - make install
+        
+   #Pip
+   - git clone https://bootstrap.pypa.io/get-pip.py
+   - sudo python get-pip.py
+   - pip install requests
+
+   #Udrive
+   - git clone https://github.com/ivanpatos/tp_taller2.git
+
+before-script:
+    - mkdir src/UdriveServer/main/build
+
+script:
+    - cd src/UdriveServer/main/build
+    - cmake ../
+    - make
+    
+    #correr tests
+    - cd ../../test/
+    - cmake HttpResponseTest/CMakeLists.txt
+    - cd HttpResponseTest/
+    - make
+    - ./HttpResponseTestRun
+    - cd ..
+    - cmake ServiceFactoryTest/CMakeLists.txt
+    - cd ServiceFactoryTest/
+    - make
+    - ./ServiceFactoryTestRun
+
