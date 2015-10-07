@@ -123,7 +123,7 @@ Como tener el sistema de test con google-mock y google-test
 
 9) sudo cp -a . /usr/include/gtest/
 
-10) Crear carpeta cmake/module/ en el proyecto
+10) Crear carpeta cmake/Modules/ en el proyecto
     Colcar el archivo FindGMock.cmake ahi
 
 11) cmake . ( en la carpeta donde este el CMakeLists.txt. Es buena recomendacion buildear en un lugar distinto a los sources )
