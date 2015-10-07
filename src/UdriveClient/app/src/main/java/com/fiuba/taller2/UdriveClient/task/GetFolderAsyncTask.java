@@ -42,8 +42,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... params) {
-        Log.d("BACK EXECUTE GET FOL", "jeje");
-
         PropertyManager propertyManager = new PropertyManager(activity);
         String serverUrl = propertyManager.getProperty("url.server");
         String folderUrl = propertyManager.getProperty("url.folder");
@@ -55,9 +53,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         String username = sharedPreferences.getString("username", "null");
         String token = sharedPreferences.getString("token", "null");
         try {
-            Log.d("username", username);
-            Log.d("token",token);
-            Log.d("ACA", serverUrl + folderUrl + folderUrlQueryString + idFolder);
             URL url = new URL(serverUrl + folderUrl + folderUrlQueryString + idFolder);
             connectionDTO.setUrl(url);
             connectionDTO.setRequestMethod("GET");
@@ -78,8 +73,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     @Override
     protected void onPreExecute() {
-        Log.d("PRE EXECUTE GET FOL", "jeje");
-
         dialog = new ProgressDialog(activity);
         dialog.setMessage(activity.getString(R.string.login_waiting));
         dialog.setCancelable(false);
@@ -89,7 +82,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
         dialog.dismiss();
-        Log.d("DESPUES EXECUTE GET FOL", jsonObject.toString());
         if (!errorMessage.isEmpty()) {
             Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             return;
@@ -109,10 +101,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         try {
             Gson gson = new Gson();
             FolderDTO folderDTO = gson.fromJson(jsonObject.get("data").toString(), FolderDTO.class);
-            Log.d("DocumentDTO1", folderDTO.toString());
-            Log.d("DocumentDTO2", folderDTO.getName());
-            Log.d("DocumentDTO3", folderDTO.getId());
-            Log.d("DocumentDTO4", folderDTO.getChildren().toString());
             refreshViewActivity(folderDTO);
 
         } catch (JSONException e) {

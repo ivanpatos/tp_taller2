@@ -46,7 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onClickRegisterButton(View view) throws ExecutionException, InterruptedException {
-        Button button = (Button) findViewById(R.id.buttonRegister);
         RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask(this);
         String username = ((TextView) findViewById(R.id.registerTextUsername)).getText().toString();
         String name = ((TextView) findViewById(R.id.registerTextName)).getText().toString();
@@ -57,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerRequestDTO.setUsername(username);
         registerRequestDTO.setMail(mail);
         registerRequestDTO.setPassword(password);
-        RegisterValidator registerValidator = new RegisterValidator(this.getBaseContext());
+        RegisterValidator registerValidator = new RegisterValidator(this);
         if (registerValidator.validate(registerRequestDTO)) {
             Gson gson = new Gson();
             String json = gson.toJson(registerRequestDTO);

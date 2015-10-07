@@ -20,9 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         return true;
     }
 
@@ -32,19 +30,16 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     public void onClickRegisterButton(View view){
-        Button button = (Button) findViewById(R.id.buttonRegister);
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
 
     }
 
     public void onClickLoginButton(View view){
-        Button button = (Button) findViewById(R.id.buttonRegister);
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
