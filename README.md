@@ -28,11 +28,35 @@ Finalmente hacer $ make install
 Para instalar cmake hacer: $ sudo apt-get install cmake
 
 
+*GMOCK + GTEST*
+
+Para instalar gmock junto a gtest hacer los pasos siguientes: 
+
+$ sudo apt-get install google-mock
+
+$ cd /usr/src/gmock
+
+$ sudo cmake .
+
+$ sudo make
+
+$ sudo cp -a *.a /usr/lib
+
+$ cd /usr/src/gmock/gtest
+
+$ sudo cp -a *.a /usr/lib
+
+
 *PYTHON REQUESTS*
 
 Primero instalar pip si no se lo tiene instalado: bajar el script get-pip.py (https://bootstrap.pypa.io/get-pip.py) y correr el script haciendo: $ sudo python get-pip.py
 
 Finalmente instalar requests: $ pip install requests
+
+
+*LCOV*
+
+$ sudo apt-get install lcov 
 
 
 #Compilacion y ejecucion de servidor#
@@ -46,6 +70,26 @@ $ make
 $ ./udrive_server
 
 Para frenar el servidor, hacer ctrl+c (provisorio)
+
+
+#Compilacion y ejecución de servidor junto a tests#
+
+Para compilar el servidor junto a los tests (incluye ejecución automática de los test con respectivo informe de code coverage)
+
+Crear una carpeta donde se quiera hacer el build del proyecto, luego parado en dicha carpeta ejecutar:
+
+$ cmake path_a_CMakeLists.txt (se encuentra en src/UdriveServer)
+
+$ make
+
+En la carpeta donde se realizó el build, la carpeta main contiene el ejecutable del server. Si se desea ejecutarlo:
+
+$ ./udrive-server
+
+En la carpeta test se encuentra el reporte generado de code coverage. Para verlo abrir index.html
+
+Si se desea ejecutar los tests individualmente ir a la correspondiente carpeta del test ubicada en la carpeta test y correr el ejecutable respectivo (también se puede ejecutar con el comando ctest)
+
 
 
 #Ejecucion de tests python requests#
