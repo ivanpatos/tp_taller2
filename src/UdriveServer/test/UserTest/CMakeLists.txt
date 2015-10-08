@@ -35,4 +35,5 @@ ADD_EXECUTABLE(UserTestRun ${SRC_FILES} UserTest.cpp )
 # Linkea las librerías
 TARGET_LINK_LIBRARIES(UserTestRun ${LINK_LIBRARIES} )
 
+set(UNIT_TEST_TARGETS ${UNIT_TEST_TARGETS} UserTestRun PARENT_SCOPE)
 add_test(UserTestRun UserTestRun)

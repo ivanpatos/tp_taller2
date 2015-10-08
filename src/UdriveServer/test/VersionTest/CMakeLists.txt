@@ -35,4 +35,5 @@ ADD_EXECUTABLE(VersionTestRun ${SRC_FILES} VersionTest.cpp)
 # Linkea las librerías
 TARGET_LINK_LIBRARIES(VersionTestRun ${LINK_LIBRARIES})
 
+set(UNIT_TEST_TARGETS ${UNIT_TEST_TARGETS} VersionTestRun PARENT_SCOPE)
 add_test(VersionTestRun VersionTestRun)

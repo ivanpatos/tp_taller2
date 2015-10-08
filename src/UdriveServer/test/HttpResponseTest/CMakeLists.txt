@@ -16,4 +16,5 @@ ADD_EXECUTABLE(HttpResponseTestRun ${SRC_FILES} HttpResponseTest.cpp )
 # Linkea las librerías
 TARGET_LINK_LIBRARIES(HttpResponseTestRun ${LINK_LIBRARIES})
 
+set(UNIT_TEST_TARGETS ${UNIT_TEST_TARGETS} HttpResponseTestRun PARENT_SCOPE)
 add_test( HttpResponseTestRun HttpResponseTestRun )

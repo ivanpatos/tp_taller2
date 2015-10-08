@@ -35,4 +35,5 @@ ADD_EXECUTABLE(ServiceFactoryTestRun ${SRC_FILES} ServiceFactoryTest.cpp)
 # Linkea las librerías
 TARGET_LINK_LIBRARIES(ServiceFactoryTestRun ${LINK_LIBRARIES})
 
+set(UNIT_TEST_TARGETS ${UNIT_TEST_TARGETS} ServiceFactoryTestRun PARENT_SCOPE)
 add_test(ServiceFactoryTestRun ServiceFactoryTestRun)
