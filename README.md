@@ -59,6 +59,11 @@ Finalmente instalar requests: $ pip install requests
 $ sudo apt-get install lcov 
 
 
+*SPHINX*
+
+$ sudo pip install Sphinx
+
+
 #Compilacion y ejecucion de servidor#
 
 Crear una carpeta donde se quiera hacer el build del proyecto, luego parado en dicha carpeta ejecutar:
