@@ -104,9 +104,9 @@ Get user (###### LISTO ######)
 
 - request: 
 
-url: /user
+url: /user/username
 method: GET
-query string: username
+query string: -
 header: username, token
 json: -
 
@@ -179,9 +179,9 @@ Get Folder (###### LISTO ######)
 
 - request: 
 
-url: /folder
+url: /folder/idFolder
 method: GET 
-query string: idFolder
+query string: -
 header: username, token
 json: -
 
@@ -201,9 +201,9 @@ Update Folder
 
 - request: 
 
-url: /folder
+url: /folder/idFolder
 method: PUT
-query string: idFolder
+query string: -
 header: username, token
 json: name, users (lista username)
 
@@ -221,9 +221,9 @@ Delete Folder (###### LISTO ######)
 
 - request: 
 
-url: /folder
+url: /folder/idFolder
 method: DELETE
-query string: idFolder
+query string: -
 header: username, token
 json: -
 
@@ -275,9 +275,9 @@ Get File (logico, obtengo solo los metadatos) (###### LISTO ######)
 
 - request: 
 
-url: /file
+url: /file/idFile
 method: GET 
-query string: idFile
+query string: -
 header: username, token
 json: -
 
@@ -317,9 +317,9 @@ Get File (fisico, o sea download) (###### LISTO ######)
 
 - request: 
 
-url: /file
+url: /file/idFile
 method: GET 
-query string: idFile, version (por ejemplo: /file?idFile=idsarasa&version=2)
+query string: version (por ejemplo: /file/idsarasa?version=2)
 header: username, token
 json: -
 
@@ -339,9 +339,9 @@ Update File (logico, modifico solo los metadatos) (###### LISTO ######)
 
 - request: 
 
-url: /file
+url: /file/idFile
 method: PUT
-query string: idFile
+query string: -
 header: username, token
 json: name, extension, labels (lista), users (lista username), deleted
 
@@ -363,9 +363,9 @@ Update File (fisico) (###### LISTO ######)
 
 - request: 
 
-url: /file
+url: /file/idFile
 method: PUT
-query string: idFile
+query string: -
 header: username, token
 json: data
 
@@ -387,9 +387,9 @@ Delete File (###### LISTO ######)
 
 - request: 
 
-url: /file
+url: /file/idFile
 method: DELETE
-query string: idFile
+query string: -
 header: username, token
 json: -
 

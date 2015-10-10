@@ -34,7 +34,7 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 
 		headersGetUser={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		r = requests.get('http://localhost:8080/user?username=juanperez', headers=headersGetUser)
+		r = requests.get('http://localhost:8080/user/juanperez', headers=headersGetUser)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("juanperez", jsonResponse["data"]["username"])
@@ -104,7 +104,7 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 
 		headersGetFolder={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		r = requests.get('http://localhost:8080/folder?idFolder=tptaller2', headers=headersGetFolder)
+		r = requests.get('http://localhost:8080/folder/tptaller2', headers=headersGetFolder)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("root", jsonResponse["data"]["name"])
@@ -118,10 +118,10 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 
 		headers={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		r = requests.get('http://localhost:8080/folder?idFolder=tptaller2', headers=headers)
+		r = requests.get('http://localhost:8080/folder/tptaller2', headers=headers)
 		jsonResponse = r.json()
 
-		r = requests.get('http://localhost:8080/file?idFile='+jsonResponse["data"]["children"][0]["id"], headers=headers)
+		r = requests.get('http://localhost:8080/file/'+jsonResponse["data"]["children"][0]["id"], headers=headers)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("file1", jsonResponse["data"]["name"])
@@ -136,10 +136,10 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 
 		headers={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		r = requests.get('http://localhost:8080/folder?idFolder=tptaller2', headers=headers)
+		r = requests.get('http://localhost:8080/folder/tptaller2', headers=headers)
 		jsonResponse = r.json()
 
-		r = requests.get('http://localhost:8080/file?idFile='+jsonResponse["data"]["children"][0]["id"]+'&version=1', headers=headers)
+		r = requests.get('http://localhost:8080/file/'+jsonResponse["data"]["children"][0]["id"]+'?version=1', headers=headers)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("data111111111111111111", jsonResponse["data"]["data"])
@@ -151,16 +151,16 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 
 		headers={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		r = requests.get('http://localhost:8080/folder?idFolder=tptaller2', headers=headers)
+		r = requests.get('http://localhost:8080/folder/tptaller2', headers=headers)
 		jsonResponseGetFolder = r.json()
 
 		jsonUpdateFile = {'data': '222'}
-		r = requests.put('http://localhost:8080/file?idFile='+jsonResponseGetFolder["data"]["children"][0]["id"], json=jsonUpdateFile, headers=headers)
+		r = requests.put('http://localhost:8080/file/'+jsonResponseGetFolder["data"]["children"][0]["id"], json=jsonUpdateFile, headers=headers)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual(2, jsonResponse["data"]["version"])
 
-		r = requests.get('http://localhost:8080/file?idFile='+jsonResponseGetFolder["data"]["children"][0]["id"]+'&version=2', headers=headers)
+		r = requests.get('http://localhost:8080/file/'+jsonResponseGetFolder["data"]["children"][0]["id"]+'?version=2', headers=headers)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("222", jsonResponse["data"]["data"])
@@ -175,7 +175,7 @@ class TestRequests(unittest.TestCase):
 		jsonCreateFolder = {'name': 'folder2', 'idParent': 'tptaller2'}
 		requests.post('http://localhost:8080/folder', json=jsonCreateFolder, headers=headers)
 
-		r = requests.delete('http://localhost:8080/folder?idFolder=tptaller2/folder2', headers=headers)
+		r = requests.delete('http://localhost:8080/folder/tptaller2/folder2', headers=headers)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])
 
@@ -189,14 +189,14 @@ class TestRequests(unittest.TestCase):
 		jsonCreateFile = {'name': 'file2', 'extension': 'txt', 'idFolder': 'tptaller2/folder1', 'labels': [{'description': 'qwerty'}], 'data': 'datos y mas datos'}
 		requests.post('http://localhost:8080/file', json=jsonCreateFile, headers=headers)
 
-		r = requests.get('http://localhost:8080/folder?idFolder=tptaller2/folder1', headers=headers)
+		r = requests.get('http://localhost:8080/folder/tptaller2/folder1', headers=headers)
 		jsonResponseGetFolder = r.json()
 
-		r = requests.delete('http://localhost:8080/file?idFile='+jsonResponseGetFolder["data"]["children"][0]["id"], headers=headers)
+		r = requests.delete('http://localhost:8080/file/'+jsonResponseGetFolder["data"]["children"][0]["id"], headers=headers)
 		jsonResponseDeleteFolder = r.json()
 		self.assertEqual("OK", jsonResponseDeleteFolder["result"])
 
-		r = requests.get('http://localhost:8080/folder?idFolder=trash_tptaller2', headers=headers)
+		r = requests.get('http://localhost:8080/folder/trash_tptaller2', headers=headers)
 		jsonResponseGetFolder = r.json()
 		self.assertEqual("file2", jsonResponseGetFolder["data"]["children"][0]["name"])
 
@@ -207,17 +207,17 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 
 		headers={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		r = requests.get('http://localhost:8080/folder?idFolder=trash_tptaller2', headers=headers)
+		r = requests.get('http://localhost:8080/folder/trash_tptaller2', headers=headers)
 		jsonResponseGetFolder = r.json()
 		self.assertEqual("file2", jsonResponseGetFolder["data"]["children"][0]["name"])
 
 		jsonUpdateFile = {'name': 'file2_renombrado', 'extension': 'gif', 'labels': '', 'users': '', 'deleted': False}
-		r = requests.put('http://localhost:8080/file?idFile='+jsonResponseGetFolder["data"]["children"][0]["id"], json=jsonUpdateFile, headers=headers)
+		r = requests.put('http://localhost:8080/file/'+jsonResponseGetFolder["data"]["children"][0]["id"], json=jsonUpdateFile, headers=headers)
 		jsonResponseUpdateFile = r.json()
 		self.assertEqual("OK", jsonResponseUpdateFile["result"])
 		self.assertEqual("file2_renombrado", jsonResponseUpdateFile["data"]["name"])
 
-		r = requests.get('http://localhost:8080/folder?idFolder=recovered_tptaller2', headers=headers)
+		r = requests.get('http://localhost:8080/folder/recovered_tptaller2', headers=headers)
 		jsonResponseGetFolder = r.json()
 		self.assertEqual("file2_renombrado", jsonResponseGetFolder["data"]["children"][0]["name"])
 
@@ -228,17 +228,17 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 
 		headers={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		r = requests.get('http://localhost:8080/folder?idFolder=recovered_tptaller2', headers=headers)
+		r = requests.get('http://localhost:8080/folder/recovered_tptaller2', headers=headers)
 		jsonResponseGetFolder = r.json()
 		jsonUpdateFile = {'name': 'file2_renombrado', 'extension': 'gif', 'labels': '', 'users': [{'username': 'juanperez'}], 'deleted': False}
-		requests.put('http://localhost:8080/file?idFile='+jsonResponseGetFolder["data"]["children"][0]["id"], json=jsonUpdateFile, headers=headers)
+		requests.put('http://localhost:8080/file/'+jsonResponseGetFolder["data"]["children"][0]["id"], json=jsonUpdateFile, headers=headers)
 
 
 		jsonLogin = {'username': 'juanperez', 'password': 'juanperez'}
 		r = requests.post('http://localhost:8080/login', json=jsonLogin)
 		jsonResponse = r.json()
 		headers = {'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		r = requests.get('http://localhost:8080/folder?idFolder=sharedwith_juanperez', headers=headers)
+		r = requests.get('http://localhost:8080/folder/sharedwith_juanperez', headers=headers)
 		jsonResponseGetFolder = r.json()
 		self.assertEqual("file2_renombrado", jsonResponseGetFolder["data"]["children"][0]["name"])
 

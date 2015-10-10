@@ -98,9 +98,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /user
+	url: /user/username
 	method: GET
-	query string: username
+	query string: -
 	header: username, token
 	json: -
 
@@ -165,9 +165,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /folder
+	url: /folder/idFolder
 	method: GET 
-	query string: idFolder
+	query string: -
 	header: username, token
 	json: -
 
@@ -187,9 +187,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /folder
+	url: /folder/idFolder
 	method: PUT
-	query string: idFolder
+	query string: -
 	header: username, token
 	json: name, users (lista username)
 
@@ -207,9 +207,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /folder
+	url: /folder/idFolder
 	method: DELETE
-	query string: idFolder
+	query string: -
 	header: username, token
 	json: -
 
@@ -253,9 +253,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /file
+	url: /file/idFile
 	method: GET 
-	query string: idFile
+	query string: -
 	header: username, token
 	json: -
 
@@ -295,9 +295,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /file
+	url: /file/idFile
 	method: GET 
-	query string: idFile, version (por ejemplo: /file?idFile=idsarasa&version=2)
+	query string: version (por ejemplo: /file/idsarasa?version=2)
 	header: username, token
 	json: -
 
@@ -317,9 +317,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /file
+	url: /file/idFile
 	method: PUT
-	query string: idFile
+	query string: -
 	header: username, token
 	json: name, extension, labels (lista), users (lista username), deleted
 
@@ -341,9 +341,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /file
+	url: /file/idFile
 	method: PUT
-	query string: idFile
+	query string: -
 	header: username, token
 	json: data
 
@@ -365,9 +365,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	- request: 
 
-	url: /file
+	url: /file/idFile
 	method: DELETE
-	query string: idFile
+	query string: -
 	header: username, token
 	json: -
 

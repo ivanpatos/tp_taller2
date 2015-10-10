@@ -21,8 +21,7 @@ std::string GetUserService::execute(const std::string& username, const std::stri
 		User user(userJsonString);
 		if (user.authenticateToken(token)){
 			if (query != ""){
-				std::string queryKey("username=");
-				std::string queryUsername = query.substr(query.find(queryKey)+queryKey.length());
+				std::string queryUsername = query;
 				std::string userQueryJsonString = this->userDB.getValue(queryUsername);
 				if (userQueryJsonString != ""){
 					User userQuery(userQueryJsonString);

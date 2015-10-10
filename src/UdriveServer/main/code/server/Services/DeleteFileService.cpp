@@ -35,8 +35,7 @@ std::string DeleteFileService::execute(const std::string& username, const std::s
 			User user(userJsonString);
 			if (user.authenticateToken(token)){
 
-				std::string queryKey("idFile=");
-				std::string fileId = query.substr(query.find(queryKey)+queryKey.length());
+				std::string fileId = query;
 				std::string fileJsonString = this->fileDB.getValue(fileId);
 
 				if (fileJsonString != ""){

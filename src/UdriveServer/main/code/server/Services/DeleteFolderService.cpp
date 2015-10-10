@@ -37,8 +37,7 @@ std::string DeleteFolderService::execute(const std::string& username, const std:
 		User user(userJsonString);
 		if (user.authenticateToken(token)){
 
-			std::string queryKey("idFolder=");
-			std::string folderId = query.substr(query.find(queryKey)+queryKey.length());
+			std::string folderId = query;
 			std::string folderJsonString = this->folderDB.getValue(folderId);
 			if (folderJsonString != ""){
 				Folder *folder = new Folder(folderJsonString, this->userDB, this->folderDB, this->fileDB);

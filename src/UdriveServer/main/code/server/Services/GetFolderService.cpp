@@ -20,8 +20,7 @@ std::string GetFolderService::execute(const std::string& username, const std::st
 	if (userJsonString != ""){
 		User user(userJsonString);
 		if (user.authenticateToken(token)){
-			std::string queryKey("idFolder=");
-			std::string queryIdFolder = query.substr(query.find(queryKey)+queryKey.length());
+			std::string queryIdFolder = query;
 			std::string folderQueryJsonString = this->folderDB.getValue(queryIdFolder);
 			if (folderQueryJsonString != ""){
 				Folder queryFolder(folderQueryJsonString, this->userDB, this->folderDB, this->fileDB);

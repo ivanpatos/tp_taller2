@@ -33,9 +33,9 @@ int Server::handleEvent(mg_connection *connection, mg_event event){
 
 void Server::handleRequest(mg_connection *connection){
 
+	std::string uri = connection->uri;
 	std::string method = connection->request_method;
-	std::string resource = connection->uri;
-	resource = resource.substr(1);
+	std::string resource = uri.substr(1, uri.find("/",1)-1);
 
 	std::string username = this->getValueFromRequestHeader(connection, "username");
 	std::string token = this->getValueFromRequestHeader(connection, "token");
@@ -68,7 +68,19 @@ std::string Server::getDataFromRequest(mg_connection *connection){
 }
 
 std::string Server::getQueryStringFromRequest(mg_connection *connection){
-	return mg.queryString(connection) ? mg.queryString(connection) : "";
+	std::string query;
+	std::string uri = connection->uri;
+	if (uri.find("/",1) != std::string::npos){
+		query = uri.substr(uri.find("/",1)+1);
+		if (mg.queryString(connection))
+			query = query + "?" + mg.queryString(connection);
+	}
+	else
+	if (mg.queryString(connection))
+		query = mg.queryString(connection);
+	else
+		query = "";
+	return query;
 }
 
 //WARNING: only for test

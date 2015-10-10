@@ -25,10 +25,10 @@ std::string GetFileService::execute(const std::string& username, const std::stri
 
 			//get fisico
 			if (query.find("version=") != std::string::npos){
+
 				std::string queryKey("version=");
 				std::string queryVersion = query.substr(query.find(queryKey)+queryKey.length());
-				queryKey = "idFile=";
-				std::string queryIdFile = query.substr(query.find(queryKey)+queryKey.length(), query.find("&version=")-query.find(queryKey)-queryKey.length());
+				std::string queryIdFile = query.substr(0, query.find("?"));
 				std::string queryIdVersion = queryIdFile + "_" + queryVersion;
 				std::string versionData = this->dataDB.getValue(queryIdVersion);
 
@@ -42,8 +42,7 @@ std::string GetFileService::execute(const std::string& username, const std::stri
 
 			//get logico
 			else{
-				std::string queryKey("idFile=");
-				std::string queryIdFile = query.substr(query.find(queryKey)+queryKey.length());
+				std::string queryIdFile = query;
 				std::string fileQueryJsonString = this->fileDB.getValue(queryIdFile);
 				if (fileQueryJsonString != ""){
 					File queryFile(fileQueryJsonString, this->userDB);
