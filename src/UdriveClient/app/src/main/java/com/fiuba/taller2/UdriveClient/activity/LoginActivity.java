@@ -1,9 +1,13 @@
 package com.fiuba.taller2.UdriveClient.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         EditText password = (EditText) findViewById(R.id.loginTextPassword);
         password.setTypeface(Typeface.DEFAULT);
@@ -49,4 +54,5 @@ public class LoginActivity extends AppCompatActivity {
             loginAsyncTask.execute(json);
         }
     }
+
 }

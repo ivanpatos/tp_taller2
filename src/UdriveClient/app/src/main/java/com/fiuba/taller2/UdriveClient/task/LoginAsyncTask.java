@@ -106,12 +106,15 @@ public class LoginAsyncTask extends AsyncTask<String, String, JSONObject> {
             editor.putString("username", userDTO.getUsername());
             editor.putString("mail", userDTO.getMail());
             editor.putString("token", userDTO.getToken());
+            editor.putBoolean("logged", true);
             editor.remove("homeCycleLevel");
             editor.apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Intent intent = new Intent(activity, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
     }
 }

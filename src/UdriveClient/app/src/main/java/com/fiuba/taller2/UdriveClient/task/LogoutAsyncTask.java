@@ -92,7 +92,16 @@ public class LogoutAsyncTask extends AsyncTask<String, String, JSONObject> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("username");
+        editor.remove("token");
+        editor.putBoolean("logged", false);
+        editor.apply();
         Intent intent = new Intent(activity, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
     }
 

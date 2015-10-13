@@ -102,6 +102,7 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
             editor.putString("username", userDTO.getUsername());
             editor.putString("mail", userDTO.getMail());
             editor.putString("token", userDTO.getToken());
+            editor.putBoolean("logged", true);
             editor.remove("homeCycleLevel");
             editor.apply();
         } catch (JSONException e) {
@@ -109,6 +110,8 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
         }
 
         Intent intent = new Intent(activity, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
         Toast.makeText(activity, activity.getString(R.string.register_success), Toast.LENGTH_SHORT).show();
     }

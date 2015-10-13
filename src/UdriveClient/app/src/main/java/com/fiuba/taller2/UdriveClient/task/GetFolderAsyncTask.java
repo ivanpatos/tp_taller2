@@ -45,7 +45,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         PropertyManager propertyManager = new PropertyManager(activity);
         String serverUrl = propertyManager.getProperty("url.server");
         String folderUrl = propertyManager.getProperty("url.folder");
-        String folderUrlQueryString = propertyManager.getProperty("url.folder.query.string.key");
         String idFolder = params[0];
         JSONObject response = null;
         ConnectionDTO connectionDTO = new ConnectionDTO();
@@ -53,7 +52,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         String username = sharedPreferences.getString("username", "null");
         String token = sharedPreferences.getString("token", "null");
         try {
-            URL url = new URL(serverUrl + folderUrl + folderUrlQueryString + idFolder);
+            URL url = new URL(serverUrl + folderUrl + "/" + idFolder);
             connectionDTO.setUrl(url);
             connectionDTO.setRequestMethod("GET");
             connectionDTO.addAttributeHeader("Content-Type", "application/json; charset=UTF-8");

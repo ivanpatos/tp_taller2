@@ -48,9 +48,12 @@ public class RestConnection {
             }
 
             int responseCode = conn.getResponseCode();
+
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String responseString = readStream(conn.getInputStream());
                 response = new JSONObject(responseString);
+            }else{
+                throw new ConnectionException("Invalid Connection");
             }
         }
         catch (Exception ex) {
