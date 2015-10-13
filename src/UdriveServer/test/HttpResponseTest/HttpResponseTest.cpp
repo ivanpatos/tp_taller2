@@ -7,7 +7,7 @@ using ::testing::_;
 
 const char* data = "data";
 
-std::string getResponse(const char* result){
+std::string getResponse(std::string result){
 	Json::Value jsonResponse;
 	jsonResponse["result"] = result;
 	if (result == "ERROR"){

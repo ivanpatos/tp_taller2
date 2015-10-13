@@ -1,12 +1,6 @@
 language: c
 compiler: gcc
 install:
-   #RocksDB
-   - sudo apt-get install libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev
-   - git clone https://github.com/facebook/rocksdb
-   - cd rocksdb/
-   - make static_lib
-   - make install
         
    #Pip
    - git clone https://bootstrap.pypa.io/get-pip.py
