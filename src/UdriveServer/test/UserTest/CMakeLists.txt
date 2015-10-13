@@ -23,6 +23,7 @@ ${CMAKE_SOURCE_DIR}/main/code/server/Services/UpdateUserService.cpp
 ${CMAKE_SOURCE_DIR}/main/code/server/Services/DeleteFolderService.cpp 
 ${CMAKE_SOURCE_DIR}/main/code/server/Services/DeleteFileService.cpp 
 ${CMAKE_SOURCE_DIR}/main/code/server/Services/UpdateFileService.cpp
+${CMAKE_SOURCE_DIR}/main/code/server/Services/UpdateFolderService.cpp
 ${CMAKE_SOURCE_DIR}/main/others/jsoncpp.cpp
 ${CMAKE_SOURCE_DIR}/main/others/mongoose.c 
 ${CMAKE_SOURCE_DIR}/main/code/utilities/Time.cpp 

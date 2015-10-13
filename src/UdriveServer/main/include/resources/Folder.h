@@ -26,6 +26,7 @@ public:
 	std::vector<File*> getFileChildren() const;
 	Json::Value getJson() const;
 	std::string getJsonString() const;
+	void setName(const std::string& name);
 	void addFolderChildren(Folder *folder);
 	void addFileChildren(File *file);
 	void removeFileChildren(File *file);

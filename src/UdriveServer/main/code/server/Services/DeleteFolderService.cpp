@@ -21,7 +21,7 @@ void DeleteFolderService::deleteAllTree(Folder *folder, const std::string& usern
 	std::vector<File*> fileChildren = folder->getFileChildren();
 	for(std::vector<File*>::const_iterator it = fileChildren.begin(); it != fileChildren.end(); ++it){
 		DeleteFileService deleteFileService(this->userDB, this->folderDB, this->fileDB);
-		std::string response = deleteFileService.execute(username, token, data, "idFile="+(*it)->getId());
+		std::string response = deleteFileService.execute(username, token, data, (*it)->getId());
 	}
 	std::vector<Folder*> folderChildren = folder->getFolderChildren();
 	for(std::vector<Folder*>::const_iterator it = folderChildren.begin(); it != folderChildren.end(); ++it)

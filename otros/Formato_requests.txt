@@ -197,7 +197,7 @@ errorCode: codigo de error
 1 - ERROR_AUTHENTICATION
 10 - ERROR_INVALID_FOLDER
 -------------------------------------------------------------------------------------------------------------------------------
-Update Folder
+Update Folder (###### LISTO ######)
 
 - request: 
 
@@ -216,6 +216,9 @@ data: id, name, children (lista con <type, id, name> type puede ser file o folde
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+6 - ERROR_SAVING_DATA
+10 - ERROR_INVALID_FOLDER
 -------------------------------------------------------------------------------------------------------------------------------
 Delete Folder (###### LISTO ######)
 

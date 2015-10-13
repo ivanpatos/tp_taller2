@@ -94,6 +94,10 @@ std::string Folder::getJsonString() const{
 	return Json::writeString(builder,json);
 }
 
+void Folder::setName(const std::string& name){
+	this->name = name;
+}
+
 void Folder::addFolderChildren(Folder *folder){
 	this->folderChildren.push_back(folder);
 }
