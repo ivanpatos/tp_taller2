@@ -233,7 +233,6 @@ class TestRequests(unittest.TestCase):
 		jsonUpdateFile = {'name': 'file2_renombrado', 'extension': 'gif', 'labels': '', 'users': [{'username': 'juanperez'}], 'deleted': False}
 		requests.put('http://localhost:8080/file/'+jsonResponseGetFolder["data"]["children"][0]["id"], json=jsonUpdateFile, headers=headers)
 
-
 		jsonLogin = {'username': 'juanperez', 'password': 'juanperez'}
 		r = requests.post('http://localhost:8080/login', json=jsonLogin)
 		jsonResponse = r.json()
@@ -241,6 +240,36 @@ class TestRequests(unittest.TestCase):
 		r = requests.get('http://localhost:8080/folder/sharedwith_juanperez', headers=headers)
 		jsonResponseGetFolder = r.json()
 		self.assertEqual("file2_renombrado", jsonResponseGetFolder["data"]["children"][0]["name"])
+
+	#update de carpeta (renombro carpeta y comparto archivos que incluye la carpeta)
+	def test_update_folder_sharing(self):
+		jsonLogin = {'username': 'tptaller2', 'password': 'pass'}
+		r = requests.post('http://localhost:8080/login', json=jsonLogin)
+		jsonResponse = r.json()
+
+		headers={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
+		jsonCreateFolder = {'name': 'folder_1', 'idParent': 'tptaller2'}
+		r = requests.post('http://localhost:8080/folder', json=jsonCreateFolder, headers=headers)
+
+		jsonCreateFolder = {'name': 'folder_2', 'idParent': 'tptaller2/folder_1'}
+		r = requests.post('http://localhost:8080/folder', json=jsonCreateFolder, headers=headers)
+
+		jsonCreateFile = {'name': 'file_1', 'extension': 'jpg', 'idFolder': 'tptaller2/folder_1/folder_2', 'labels': [{'description': 'label1'}], 'data': 'data'}
+		r = requests.post('http://localhost:8080/file', json=jsonCreateFile, headers=headers)
+
+		jsonUpdateFolder = {'name':'FOLDER_1', 'users': [{'username': 'juanperez'}]}
+		r = requests.put('http://localhost:8080/folder/tptaller2/folder_1', json=jsonUpdateFolder, headers=headers)
+		jsonResponse = r.json()
+		self.assertEqual("OK", jsonResponse["result"])
+		self.assertEqual("FOLDER_1", jsonResponse["data"]["name"])
+
+		jsonLogin = {'username': 'juanperez', 'password': 'juanperez'}
+		r = requests.post('http://localhost:8080/login', json=jsonLogin)
+		jsonResponse = r.json()
+		headers = {'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
+		r = requests.get('http://localhost:8080/folder/sharedwith_juanperez', headers=headers)
+		jsonResponse = r.json()
+		self.assertEqual("file_1", jsonResponse["data"]["children"][1]["name"])
 
 
 if __name__ == '__main__':
