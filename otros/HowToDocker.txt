@@ -1,0 +1,36 @@
+1) cd mydockerbuild ( esta carpeta tiene que tener el Dockerfile y NINGUN otro archivo mas )
+
+2) sudo docker build .
+
+ESPERAR QUE TERMINE ... tarda aprox 15 min ( intenta instalar todo desde 0, bajandose todo de internet, compilando librerias,etc )
+
+3) sudo docker images
+
+Vas a ver tu nueva imagen creada , con su respectivo <IMAGE ID>
+
+4) sudo docker tag <IMAGE ID> server ( en el image id podes poner solo los primeros 3 caracteres del hash)
+
+Esto es para ponerle un tag y no tener que seguir usando el hash, que es incomodo
+
+5) sudo docker run -p 8080:8080 server
+
+Aca queda corriendo el servidor en un container. Te pone un nombre aleatorio , como fervent_carson, evil_einstein etc
+
+6) En otra terminal , sudo docker ps -a
+
+Aca vemos nuestro container 
+
+0.0.0.0:8080->8080/tcp , o sea que en localhost 8080 el servidor esta respondiendo ( como hicimos siempre )
+
+7) Prueba de fuego => ir a tp_taller2/src/UdriveServer/test y correr python request_test.py
+
+Deberia estar todo bien y responder como venia haciendo desde siempre ( solo que ahora corre desde docker ! )
+
+
+Manual:
+sudo docker stop <CONTAINER NAME>, para el server
+sudo docker stop <CONTAINER ID>, para el server ( podes poner solo los primeros 3 caracteres del hash )
+sudo docker rm <CONTAINER NAME>, borra el contenedor
+sudo docker rm <CONTAINER ID>, borra el contenedor ( podes poner solo los primeros 3 caracteres del hash )
+sudo docker ps -a , muestra TODOS los contenedores
+sudo docker rmi <IMAGE ID> , borra la imagen ( en nuestro caso sudo docker rmi server )
