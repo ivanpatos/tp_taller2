@@ -34,8 +34,9 @@ public class RegisterAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... params) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         PropertyManager propertyManager = new PropertyManager(activity);
-        String serverUrl = propertyManager.getProperty("url.server");
+        String serverUrl = sharedPreferences.getString("serverUrl", propertyManager.getProperty("url.server"));
         String userUrl = propertyManager.getProperty("url.user");
         JSONObject response = null;
         ConnectionDTO connectionDTO = new ConnectionDTO();
