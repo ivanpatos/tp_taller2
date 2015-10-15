@@ -21,10 +21,10 @@ private:
 	std::string getValueFromRequestHeader(mg_connection *connection, const std::string& name);
 	std::string getDataFromRequest(mg_connection *connection);
 	std::string getQueryStringFromRequest(mg_connection *connection);
-	void setWrapperMongoose(WrapperMongoose &mg_w);
 
 public:
 	Server();
+	void setWrapperMongoose(WrapperMongoose &mg_w);
 	~Server();
 
 	void start();

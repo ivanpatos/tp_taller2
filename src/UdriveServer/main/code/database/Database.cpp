@@ -1,15 +1,25 @@
 #include "../../include/database/Database.h"
 
 
+Database::Database(){
+	this->database = NULL;
+}
+
 Database::Database(const std::string& path): path(path){
+	init();
+}
+
+void Database::init(){
 	rocksdb::Options options;
 	options.create_if_missing = true;
 	rocksdb::Status status = rocksdb::DB::Open(options, this->path, &this->database);
 }
 
 Database::~Database(){
-	delete this->database;
-	this->database = NULL;
+	if (this->database != NULL){
+		delete this->database;
+	    this->database = NULL;
+	}
 }
 
 std::string Database::getValue(const std::string& key) const{

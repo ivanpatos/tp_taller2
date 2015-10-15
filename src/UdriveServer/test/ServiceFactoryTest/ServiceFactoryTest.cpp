@@ -1,13 +1,14 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../../main/include/server/ServiceFactory.h"
+#include "../Mock/MockDatabase.h"
 
 using ::testing::Return;
 using ::testing::_;
 
 
 TEST(ServiceFactoryTest,loginService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string login = "login";
 	const std::string post = "POST";
@@ -17,7 +18,7 @@ TEST(ServiceFactoryTest,loginService){
 }
 
 TEST(ServiceFactoryTest,logoutService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB,folderDB,fileDB,dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string logout = "logout";
 	const std::string post = "POST";
@@ -27,7 +28,7 @@ TEST(ServiceFactoryTest,logoutService){
 }
 
 TEST(ServiceFactoryTest,createFileService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "file";
 	const std::string method = "POST";
@@ -36,7 +37,7 @@ TEST(ServiceFactoryTest,createFileService){
 	EXPECT_TRUE(name == "CreateFileService");
 }
 TEST(ServiceFactoryTest,createFolderService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "folder";
 	const std::string method = "POST";
@@ -46,7 +47,7 @@ TEST(ServiceFactoryTest,createFolderService){
 }
 
 TEST(ServiceFactoryTest,createUserService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "user";
 	const std::string method = "POST";
@@ -56,7 +57,7 @@ TEST(ServiceFactoryTest,createUserService){
 }
 
 TEST(ServiceFactoryTest,getFileService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "file";
 	const std::string method = "GET";
@@ -65,7 +66,7 @@ TEST(ServiceFactoryTest,getFileService){
 	EXPECT_TRUE(name == "GetFileService");
 }
 TEST(ServiceFactoryTest,getFolderService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "folder";
 	const std::string method = "GET";
@@ -74,7 +75,7 @@ TEST(ServiceFactoryTest,getFolderService){
 	EXPECT_TRUE(name == "GetFolderService");
 }
 TEST(ServiceFactoryTest,getUserService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "user";
 	const std::string method = "GET";
@@ -83,7 +84,7 @@ TEST(ServiceFactoryTest,getUserService){
 	EXPECT_TRUE(name == "GetUserService");
 }
 TEST(ServiceFactoryTest,nonExistentService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "other";
 	const std::string method = "other";
@@ -92,7 +93,7 @@ TEST(ServiceFactoryTest,nonExistentService){
 	EXPECT_TRUE(name == "NonExistentService");
 }
 TEST(ServiceFactoryTest,UpdateFileService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "file";
 	const std::string method = "PUT";
@@ -101,7 +102,7 @@ TEST(ServiceFactoryTest,UpdateFileService){
 	EXPECT_TRUE(name == "UpdateFileService");
 }
 TEST(ServiceFactoryTest,updateUserService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "user";
 	const std::string method = "PUT";
@@ -111,7 +112,7 @@ TEST(ServiceFactoryTest,updateUserService){
 }
 
 TEST(ServiceFactoryTest,deleteFolderService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "folder";
 	const std::string method = "DELETE";
@@ -121,7 +122,7 @@ TEST(ServiceFactoryTest,deleteFolderService){
 }
 
 TEST(ServiceFactoryTest,deleteFileService){
-	Database userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB");
+	MockDatabase userDB, folderDB, fileDB, dataDB;
 	ServiceFactory serverFactory(userDB,folderDB,fileDB,dataDB);
 	const std::string resource = "file";
 	const std::string method = "DELETE";
@@ -129,6 +130,7 @@ TEST(ServiceFactoryTest,deleteFileService){
 	std::string name = (serverFactory.createService(resource, method))->name();
 	EXPECT_TRUE(name == "DeleteFileService");
 }
+
 int main(int argc, char *argv[]){
 	testing::InitGoogleTest(&argc,argv);
 	return RUN_ALL_TESTS();
