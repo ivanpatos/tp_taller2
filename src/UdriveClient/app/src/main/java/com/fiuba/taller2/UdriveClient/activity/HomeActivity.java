@@ -1,5 +1,6 @@
 package com.fiuba.taller2.UdriveClient.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,15 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.fiuba.taller2.UdriveClient.R;
-import com.fiuba.taller2.UdriveClient.dto.FolderDTO;
 import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
 
-import java.util.Map;
-
 public class HomeActivity extends AppCompatActivity {
-
-    private Map<String, FolderDTO> documents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +62,26 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_logout) {
-            onLogoutAction();
-            return true;
+        switch (id){
+            case R.id.action_logout:
+                onLogoutAction();
+                return true;
+            case R.id.action_config:
+                onConfigAction();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void onLogoutAction(){
         LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask(this);
         logoutAsyncTask.execute();
+    }
+
+    private void onConfigAction(){
+        Intent intent = new Intent(this, ConfigActivity.class);
+        startActivity(intent);
     }
 
     private void increaseCycleLevel(){

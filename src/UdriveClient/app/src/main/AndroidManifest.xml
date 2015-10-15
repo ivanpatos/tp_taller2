@@ -28,6 +28,9 @@
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/home.actionBar.title"></activity>
+        <activity
+            android:name=".activity.ConfigActivity"
+            android:label="@string/config.actionBar.title"></activity>
     </application>
 
 </manifest>

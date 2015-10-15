@@ -42,13 +42,13 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... params) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         PropertyManager propertyManager = new PropertyManager(activity);
-        String serverUrl = propertyManager.getProperty("url.server");
+        String serverUrl = sharedPreferences.getString("serverUrl", propertyManager.getProperty("url.server"));
         String folderUrl = propertyManager.getProperty("url.folder");
         String idFolder = params[0];
         JSONObject response = null;
         ConnectionDTO connectionDTO = new ConnectionDTO();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         String username = sharedPreferences.getString("username", "null");
         String token = sharedPreferences.getString("token", "null");
         try {
