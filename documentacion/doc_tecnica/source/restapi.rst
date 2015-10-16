@@ -277,7 +277,7 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	url: /file
 	method: GET 
-	query string: name, extension, labels (lista), owner, deleted
+	query string: name, extension, labels (lista), owner
 	header: username, token
 	json: -
 
@@ -290,6 +290,8 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 	si salio mal:
 	result : ERROR
 	errorCode: codigo de error
+	1 - ERROR_AUTHENTICATION
+	17 - ERROR_NO_FILES_FOUND
 
 **Get File** (fisico)::
 

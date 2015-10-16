@@ -76,8 +76,10 @@ std::string Server::getQueryStringFromRequest(mg_connection *connection){
 			query = query + "?" + mg.queryString(connection);
 	}
 	else
-	if (mg.queryString(connection))
+	if (mg.queryString(connection)){
 		query = mg.queryString(connection);
+		query = "?" + query;
+	}
 	else
 		query = "";
 	return query;

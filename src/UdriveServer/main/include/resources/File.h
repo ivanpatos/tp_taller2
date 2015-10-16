@@ -35,6 +35,7 @@ public:
 	std::vector<User*> getUsers() const;
 	bool isOwner(const User& user) const;
 	void increaseVersion();
+	bool hasAnyLabel(const std::vector<std::string>& labels) const;
 	bool hasPermission(const User& user) const;
 	void setDeleted(const bool& state);
 	void setName(const std::string& name);

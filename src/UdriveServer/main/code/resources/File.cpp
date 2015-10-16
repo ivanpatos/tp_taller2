@@ -92,6 +92,16 @@ void File::increaseVersion(){
 	++this->version;
 }
 
+bool File::hasAnyLabel(const std::vector<std::string>& labels) const{
+	for(std::vector<std::string>::const_iterator it = this->labels.begin(); it != this->labels.end(); ++it){
+		for(std::vector<std::string>::const_iterator it2 = labels.begin(); it2 != labels.end(); ++it2){
+			if (*it == *it2)
+				return true;
+		}
+	}
+	return false;
+}
+
 bool File::hasPermission(const User& user) const{
 	if (this->owner->getUsername() == user.getUsername())
 		return true;

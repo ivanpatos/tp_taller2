@@ -44,7 +44,7 @@ Service* ServiceFactory::createService(const std::string& resource, const std::s
 	if (resource == "file" && method == "POST")
 		return new CreateFileService(this->userDB, this->folderDB, this->fileDB, this->dataDB);
 	if (resource == "file" && method == "GET")
-			return new GetFileService(this->userDB, this->fileDB, this->dataDB);
+			return new GetFileService(this->userDB, this->folderDB, this->fileDB, this->dataDB);
 	if (resource == "file" && method == "PUT")
 			return new UpdateFileService(this->userDB, this->folderDB, this->fileDB, this->dataDB);
 	if (resource == "file" && method == "DELETE")

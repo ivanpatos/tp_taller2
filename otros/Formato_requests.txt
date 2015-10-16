@@ -296,13 +296,15 @@ errorCode: codigo de error
 1 - ERROR_AUTHENTICATION
 13 - ERROR_INVALID_FILE
 -------------------------------------------------------------------------------------------------------------------------------
-Get Files (query de varios archivos, metadatos)
+Get Files (query de varios archivos, metadatos) (###### LISTO ######)
 
 - request: 
 
 url: /file
 method: GET 
-query string: name, extension, labels (lista), owner, deleted
+query string: name, extension, label (puede haber multiples label), owner 
+(por ejemplo: /file?name=sarasa&extension=gif&label=l1&label=l2&owner=juanperez)
+(si no es necesario algun parametro no se pasa por ejemplo: /file?name=sarasa&extension=gif)
 header: username, token
 json: -
 
@@ -315,6 +317,8 @@ data: lista con (id, name, deleted, lastModified, lastUser, labels (lista), owne
 si salio mal:
 result : ERROR
 errorCode: codigo de error
+1 - ERROR_AUTHENTICATION
+17 - ERROR_NO_FILES_FOUND
 -------------------------------------------------------------------------------------------------------------------------------
 Get File (fisico, o sea download) (###### LISTO ######)
 
