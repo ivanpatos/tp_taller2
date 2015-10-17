@@ -271,6 +271,29 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 		self.assertEqual("file_1", jsonResponse["data"]["children"][1]["name"])
 
+	#busqueda de archivos (metadatos)
+	def test_get_files(self):
+
+		jsonCreateUser = {'username': 'qwerty', 'password': 'qwerty', 'name': 'qwerty', 'mail': 'q@g.com', 'profilePicture': 'qwerty'}
+		requests.post('http://localhost:8080/user', json=jsonCreateUser)
+		jsonLogin = {'username': 'qwerty', 'password': 'qwerty'}
+		r = requests.post('http://localhost:8080/login', json=jsonLogin)
+		jsonResponse = r.json()
+
+		headers={'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
+		jsonCreateFile = {'name': 'f1', 'extension': 'jpg', 'idFolder': 'qwerty', 'labels': [{'description': 'a'}], 'data': 'data'}
+		r = requests.post('http://localhost:8080/file', json=jsonCreateFile, headers=headers)
+		jsonCreateFile = {'name': 'f2', 'extension': 'txt', 'idFolder': 'qwerty', 'labels': [{'description': 'r'}], 'data': 'data'}
+		r = requests.post('http://localhost:8080/file', json=jsonCreateFile, headers=headers)
+		jsonCreateFile = {'name': 'f3', 'extension': 'doc', 'idFolder': 'qwerty', 'labels': [], 'data': 'data'}
+		r = requests.post('http://localhost:8080/file', json=jsonCreateFile, headers=headers)
+
+		r = requests.get('http://localhost:8080/file?name=f3&extension=jpg&label=r', headers=headers)
+		jsonResponse = r.json()
+		self.assertEqual("OK", jsonResponse["result"])
+		self.assertEqual("f1", jsonResponse["data"][0]["name"])
+		self.assertEqual("f2", jsonResponse["data"][1]["name"])
+		self.assertEqual("f3", jsonResponse["data"][2]["name"])
 
 if __name__ == '__main__':
 	suite = unittest.TestLoader().loadTestsFromTestCase(TestRequests)
