@@ -34,7 +34,6 @@ install:
     - cd gmock-1.7.0
     - ./configure
     - make
-    - make install
     - cd ../../..
 
    #GTEST
@@ -43,7 +42,6 @@ install:
     - cd gtest-1.7.0
     - ./configure
     - make
-    - make install
     - cd ../../..
 
    #LCOV
