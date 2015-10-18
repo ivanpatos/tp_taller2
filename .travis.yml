@@ -3,9 +3,9 @@ compiler: gcc
 install:
         
    #Pip
-   - git clone https://bootstrap.pypa.io/get-pip.py
-   - sudo python get-pip.py
-   - pip install requests
+   #- git clone https://bootstrap.pypa.io/get-pip.py
+   #- sudo python get-pip.py
+   #- pip install requests
 
    #Udrive
    - git clone https://github.com/ivanpatos/tp_taller2.git
@@ -15,18 +15,7 @@ before-script:
 
 script:
     - cd src/UdriveServer/main/build
-    - cmake ../
+    - cmake -DONLYTEST=ON ..
     - make
     
-    #correr tests
-    - cd ../../test/
-    - cmake HttpResponseTest/CMakeLists.txt
-    - cd HttpResponseTest/
-    - make
-    - ./HttpResponseTestRun
-    - cd ..
-    - cmake ServiceFactoryTest/CMakeLists.txt
-    - cd ServiceFactoryTest/
-    - make
-    - ./ServiceFactoryTestRun
 
