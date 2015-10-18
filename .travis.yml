@@ -23,6 +23,22 @@ install:
    #CMAKE
    - sudo apt-get install cmake
 
+   #GMOCK 
+    - sudo apt-get install google-mock
+    - cd /usr/src/gmock
+    - sudo cmake .
+    - sudo make
+    - sudo cp -a *.a /usr/lib
+    - cd /usr/src/gmock/gtest
+    - sudo cp -a *.a /usr/lib
+
+   #LCOV
+    - sudo apt-get install lcov
+
+   #Sphinx
+    #- sudo pip install Sphinx
+
+
 
 before-script:
 
