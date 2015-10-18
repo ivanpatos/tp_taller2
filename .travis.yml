@@ -12,9 +12,9 @@ install:
     - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
     - sudo apt-get update
     - sudo apt-get install g++-4.8
-    #We replace the symlinks with ours, removing the actuals first:
+   
     - sudo rm /usr/bin/cpp /usr/bin/gcc /usr/bin/g++
-    #Then creating ours
+    
     - sudo ln -s /usr/bin/cpp-4.8 /usr/bin/cpp
     - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
     - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
@@ -22,6 +22,7 @@ install:
    
    #CMAKE
    - sudo apt-get install cmake
+
 
    #GMOCK 
     - sudo apt-get install google-mock
@@ -34,13 +35,6 @@ install:
 
    #LCOV
     - sudo apt-get install lcov
-
-   #Sphinx
-    #- sudo pip install Sphinx
-
-
-
-before-script:
 
 script:
     - ls
