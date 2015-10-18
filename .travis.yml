@@ -27,7 +27,7 @@ install:
     - cd gmock-1.7.0
     - ./configure
     - make
-    - ll
+    - ls
     - sudo cp *.a /usr/lib
     - cd /usr/include/
     - sudo mkdir gmock
