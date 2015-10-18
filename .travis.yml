@@ -22,39 +22,33 @@ install:
     - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 
    #GTEST
-    #- cd $PROJECT_DIR/otros/deps
-    #- unzip gtest-1.7.0.zip
-    #- cd gtest-1.7.0
-    #- ./configure
-    #- make
-    #- cd lib/
-    #- ls
-    #- sudo cp *.la /usr/lib
-    #- cd /usr/include/
-    #- sudo mkdir gtest
-    #- cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
-    #- sudo cp -a . /usr/include/gtest/
+    - cd $PROJECT_DIR/otros/deps
+    - unzip gtest-1.7.0.zip
+    - cd gtest-1.7.0
+    - ./configure
+    - make
+    - cd lib/
+    - ls
+    - sudo cp -a *.la /usr/lib
+    - cd /usr/include/
+    - sudo mkdir gtest
+    - cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
+    - sudo cp -a . /usr/include/gtest/
 
    #GMOCK 
-   # - cd $PROJECT_DIR/otros/deps
-    #- unzip gmock-1.7.0.zip
-    #- cd gmock-1.7.0
-    #- ./configure
-    #- make
-    #- cd lib/
-    #- ls
-    #- sudo cp *.la /usr/lib
-    #- cd /usr/include/
-    #- sudo mkdir gmock
-    #- cd $PROJECT_DIR/otros/deps/gmock-1.7.0/include/gmock/
-    #- sudo cp -a . /usr/include/gmock/
-    - sudo apt-get install google-mock
-    - cd /usr/src/gmock 
-    - sudo cmake . 
-    - sudo make 
-    - sudo cp -a *.a /usr/lib 
-    - cd /usr/src/gmock/gtest 
-    - sudo cp -a *.a /usr/lib
+    - cd $PROJECT_DIR/otros/deps
+    - unzip gmock-1.7.0.zip
+    - cd gmock-1.7.0
+    - ./configure
+    - make
+    - ls
+    - cd lib/
+    - ls
+    - sudo cp *.la /usr/lib
+    - cd /usr/include/
+    - sudo mkdir gmock
+    - cd $PROJECT_DIR/otros/deps/gmock-1.7.0/include/gmock/
+    - sudo cp -a . /usr/include/gmock/
 
    # Fuentes de rocksdb
     - cd $PROJECT_DIR/otros/deps
