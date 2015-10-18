@@ -60,7 +60,7 @@ install:
    #Pip
     - cd $PROJECT_DIR/otros/deps
     - sudo python get-pip.py
-    - pip install requests
+    - sudo pip install requests
    
 
 script:
