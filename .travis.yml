@@ -7,7 +7,14 @@ install:
    #- sudo python get-pip.py
    #- pip install requests
    
-    - sudo apt-get install cmake
+   #g++4.8 
+    - sudo apt-get install python-software-properties
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    - sudo apt-get update
+    - sudo apt-get install g++-4.8
+   
+   #CMAKE
+   - sudo apt-get install cmake
 
 
 before-script:
