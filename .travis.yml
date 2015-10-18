@@ -27,13 +27,14 @@ install:
     - cd gtest-1.7.0
     - ./configure
     - make
-    - cd lib/
-    - ls
-    - sudo cp -a *.la /usr/lib
-    - cd /usr/include/
-    - sudo mkdir gtest
-    - cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
-    - sudo cp -a . /usr/include/gtest/
+    - make install
+    #- cd lib/
+    #- ls
+    #- sudo cp -a *.la /usr/lib
+    #- cd /usr/include/
+    #- sudo mkdir gtest
+    #- cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
+    #- sudo cp -a . /usr/include/gtest/
 
    #GMOCK 
     - cd $PROJECT_DIR/otros/deps
