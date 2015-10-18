@@ -21,9 +21,6 @@ install:
     - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
     - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 
-   
-   #CMAKE
-    - sudo apt-get install cmake
 
    # Fuentes de rocksdb
     - cd $PROJECT_DIR/otros/deps
