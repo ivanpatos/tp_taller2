@@ -6,14 +6,16 @@ install:
    #- git clone https://bootstrap.pypa.io/get-pip.py
    #- sudo python get-pip.py
    #- pip install requests
+   
+    - sudo apt-get install cmake
 
 
 before-script:
 
 script:
     - ls
-    - cd src/UdriveServer/main/build
     - mkdir src/UdriveServer/main/build
+    - cd src/UdriveServer/main/build
     - cmake -DONLYTEST=ON ..
     - make
     
