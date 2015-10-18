@@ -8,7 +8,8 @@ install:
    #- pip install requests
 
    #Udrive
-   - git clone https://github.com/ivanpatos/tp_taller2.git
+   - cd src/
+   - ll
 
 before-script:
     - mkdir src/UdriveServer/main/build
