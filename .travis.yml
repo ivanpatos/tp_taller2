@@ -30,7 +30,6 @@ install:
     - sudo cp rocksdb.zip /usr/local/include
     - cd /usr/local/include
     - sudo unzip rocksdb.zip
-    - rm -rf rocksdb.zip
 
    #GMOCK 
     - cd $PROJECT_DIR/otros/deps
