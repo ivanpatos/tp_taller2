@@ -7,15 +7,11 @@ install:
    #- sudo python get-pip.py
    #- pip install requests
 
-   #Udrive
-   - cd src/
-   - ll
 
 before-script:
-    - mkdir src/UdriveServer/main/build
-
+   - mkdir tp_taller2/src/UdriveServer/main/build
 script:
-    - cd src/UdriveServer/main/build
+    - cd tp_taller2/src/UdriveServer/main/build
     - cmake -DONLYTEST=ON ..
     - make
     
