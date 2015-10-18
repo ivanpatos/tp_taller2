@@ -8,16 +8,17 @@ install:
    #- pip install requests
    
    #g++4.8 
-    - sudo apt-get install python-software-properties
-    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+   #- sudo apt-get install python-software-properties
+   # - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    - g++ --version
     - sudo apt-get update
-    - sudo apt-get install g++-4.8
+    - sudo apt-get install g++-4.7
    
     - sudo rm /usr/bin/cpp /usr/bin/gcc /usr/bin/g++
     
-    - sudo ln -s /usr/bin/cpp-4.8 /usr/bin/cpp
-    - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
-    - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
+    - sudo ln -s /usr/bin/cpp-4.7 /usr/bin/cpp
+    - sudo ln -s /usr/bin/gcc-4.7 /usr/bin/gcc
+    - sudo ln -s /usr/bin/g++-4.7 /usr/bin/g++
 
    
    #CMAKE
