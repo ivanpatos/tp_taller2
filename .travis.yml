@@ -27,7 +27,8 @@ install:
     - cd gmock-1.7.0
     - ./configure
     - make
-    #- sudo cp *.a /usr/lib
+    - ll
+    - sudo cp *.a /usr/lib
     - cd /usr/include/
     - sudo mkdir gmock
     - cd $PROJECT_DIR/otros/deps/gmock-1.7.0/include/gmock/
@@ -39,7 +40,7 @@ install:
     - cd gtest-1.7.0
     - ./configure
     - make
-    #- sudo cp *.a /usr/lib
+    - sudo cp *.a /usr/lib
     - cd /usr/include/
     - sudo mkdir gtest
     - cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
