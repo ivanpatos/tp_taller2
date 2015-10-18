@@ -21,20 +21,6 @@ install:
     - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
     - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 
-   #GMOCK 
-    - cd $PROJECT_DIR/otros/deps
-    - unzip gmock-1.7.0.zip
-    - cd gmock-1.7.0
-    - ./configure
-    - make
-    - cd lib/
-    - ls
-    - sudo cp *.la /usr/lib
-    - cd /usr/include/
-    - sudo mkdir gmock
-    - cd $PROJECT_DIR/otros/deps/gmock-1.7.0/include/gmock/
-    - sudo cp -a . /usr/include/gmock/
-
    #GTEST
     - cd $PROJECT_DIR/otros/deps
     - unzip gtest-1.7.0.zip
@@ -49,6 +35,19 @@ install:
     - cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
     - sudo cp -a . /usr/include/gtest/
 
+   #GMOCK 
+    - cd $PROJECT_DIR/otros/deps
+    - unzip gmock-1.7.0.zip
+    - cd gmock-1.7.0
+    - ./configure
+    - make
+    - cd lib/
+    - ls
+    - sudo cp *.la /usr/lib
+    - cd /usr/include/
+    - sudo mkdir gmock
+    - cd $PROJECT_DIR/otros/deps/gmock-1.7.0/include/gmock/
+    - sudo cp -a . /usr/include/gmock/
 
 
    # Fuentes de rocksdb
@@ -66,6 +65,7 @@ install:
     - sudo python get-pip.py
     - sudo pip install requests
    
+    - sudo ldconfig
 
 script:
     - mkdir $PROJECT_DIR/src/UdriveServer/build
