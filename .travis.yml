@@ -7,12 +7,9 @@ before_install:
     - sudo apt-get update
 
 install:
-        
-   #Pip
-   #- git clone https://bootstrap.pypa.io/get-pip.py
-   #- sudo python get-pip.py
-   #- pip install requests
-   
+      
+
+   PROJECT_DIR=$PWD
    #g++4.8 
 
     - sudo apt-get install g++-4.8
@@ -27,9 +24,15 @@ install:
    #CMAKE
     - sudo apt-get install cmake
 
+   # Fuentes de rocksdb
+    - cd $PROJECT_DIR/otros/deps
+    - sudo cp rocksdb.zip /usr/local/include
+    - cd /usr/local/include
+    - sudo unzip rocksdb.zip
+    - rm -rf rocksdb.zip
 
    #GMOCK 
-    - cd otros/deps
+    - cd $PROJECT_DIR/otros/deps
     - unzip gmock-1.7.0.zip
     - cd gmock-1.7.0
     - ./configure
@@ -39,10 +42,9 @@ install:
     - mkdir gmock
     - cd /opt/gmock-1.7.0/include/gmock/
     - sudo cp -a . /usr/include/gmock/
-    - cd ../../..
 
    #GTEST
-    - cd otros/deps
+    - cd $PROJECT_DIR/otros/deps
     - unzip gtest-1.7.0.zip
     - cd gtest-1.7.0
     - ./configure
@@ -52,13 +54,17 @@ install:
     - mkdir gtest
     - cd /opt/gtest-1.7.0/include/gtest/
     - sudo cp -a . /usr/include/gtest/
-    - cd ../../..
 
    #LCOV
     - sudo apt-get install lcov
 
+   #Pip
+    - cd $PROJECT_DIR/otros/deps
+    - sudo python get-pip.py
+    - pip install requests
+   
+
 script:
-    - ls
     - mkdir src/UdriveServer/build
     - cd src/UdriveServer/build
     - cmake -DONLYTEST=ON ..
