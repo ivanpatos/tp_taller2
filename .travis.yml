@@ -11,6 +11,7 @@ install:
 before-script:
    - mkdir tp_taller2/src/UdriveServer/main/build
 script:
+    - ls
     - cd tp_taller2/src/UdriveServer/main/build
     - cmake -DONLYTEST=ON ..
     - make
