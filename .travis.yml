@@ -49,8 +49,8 @@ install:
 
 script:
     - ls
-    - mkdir src/UdriveServer/main/build
-    - cd src/UdriveServer/main/build
+    - mkdir src/UdriveServer/build
+    - cd src/UdriveServer/build
     - cmake -DONLYTEST=ON ..
     - make
     
