@@ -15,13 +15,13 @@ install:
    
    #g++4.8 
 
-    - sudo apt-get install g++-4.7
+    - sudo apt-get install g++-4.8
    
     - sudo rm /usr/bin/cpp /usr/bin/gcc /usr/bin/g++
     
-    - sudo ln -s /usr/bin/cpp-4.7 /usr/bin/cpp
-    - sudo ln -s /usr/bin/gcc-4.7 /usr/bin/gcc
-    - sudo ln -s /usr/bin/g++-4.7 /usr/bin/g++
+    - sudo ln -s /usr/bin/cpp-4.8 /usr/bin/cpp
+    - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
+    - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 
    
    #CMAKE
@@ -29,13 +29,22 @@ install:
 
 
    #GMOCK 
-    - sudo apt-get install google-mock
-    - cd /usr/src/gmock
-    - sudo cmake .
-    - sudo make
-    - sudo cp -a *.a /usr/lib
-    - cd /usr/src/gmock/gtest
-    - sudo cp -a *.a /usr/lib
+    - cd otros/deps
+    - unzip gmock-1.7.0.zip
+    - cd gmock-1.7.0
+    - ./configure
+    - make
+    - make install
+    - cd ../../..
+
+   #GTEST
+    - cd otros/deps
+    - unzip gtest-1.7.0.zip
+    - cd gtest-1.7.0
+    - ./configure
+    - make
+    - make install
+    - cd ../../..
 
    #LCOV
     - sudo apt-get install lcov
