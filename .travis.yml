@@ -1,5 +1,11 @@
 language: c
 compiler: gcc
+
+before_install:
+    - sudo apt-get install python-software-properties
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    - sudo apt-get update
+
 install:
         
    #Pip
@@ -8,10 +14,7 @@ install:
    #- pip install requests
    
    #g++4.8 
-   #- sudo apt-get install python-software-properties
-   # - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-    - g++ --version
-    - sudo apt-get update
+
     - sudo apt-get install g++-4.7
    
     - sudo rm /usr/bin/cpp /usr/bin/gcc /usr/bin/g++
