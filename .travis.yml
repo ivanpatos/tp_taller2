@@ -9,10 +9,11 @@ install:
 
 
 before-script:
-   - mkdir src/UdriveServer/main/build
+
 script:
     - ls
     - cd src/UdriveServer/main/build
+    - mkdir src/UdriveServer/main/build
     - cmake -DONLYTEST=ON ..
     - make
     
