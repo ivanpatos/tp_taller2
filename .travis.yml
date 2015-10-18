@@ -21,13 +21,6 @@ install:
     - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
     - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 
-
-   # Fuentes de rocksdb
-    - cd $PROJECT_DIR/otros/deps
-    - sudo cp rocksdb.zip /usr/local/include
-    - cd /usr/local/include
-    - sudo unzip rocksdb.zip
-
    #GMOCK 
     - cd $PROJECT_DIR/otros/deps
     - unzip gmock-1.7.0.zip
@@ -52,6 +45,15 @@ install:
     - cd /opt/gtest-1.7.0/include/gtest/
     - sudo cp -a . /usr/include/gtest/
 
+
+
+   # Fuentes de rocksdb
+    - cd $PROJECT_DIR/otros/deps
+    - sudo cp rocksdb.zip /usr/local/include
+    - cd /usr/local/include
+    - sudo unzip rocksdb.zip
+
+
    #LCOV
     - sudo apt-get install lcov
 
@@ -62,8 +64,8 @@ install:
    
 
 script:
-    - mkdir src/UdriveServer/build
-    - cd src/UdriveServer/build
+    - mkdir $PROJECT_DIR/src/UdriveServer/build
+    - cd $PROJECT_DIR/src/UdriveServer/build
     - cmake -DONLYTEST=ON ..
     - make
     
