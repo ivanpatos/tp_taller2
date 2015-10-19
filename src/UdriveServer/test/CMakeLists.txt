@@ -23,7 +23,7 @@ SET(CMAKE_C_FLAGS "-g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
 SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
 
 # Variable con las librerías
-SET(LINK_LIBRARIES rocksdb pthread z bz2 snappy gtest gmock gcov)
+SET(LINK_LIBRARIES pthread z bz2 snappy gtest gmock gcov)
 
 if(BUILD_TESTING)
 	add_subdirectory (UserTest)
