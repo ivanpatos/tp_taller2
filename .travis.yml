@@ -68,6 +68,7 @@ install:
     - sudo cp rocksdb.zip /usr/local/include
     - cd /usr/local/include
     - sudo unzip rocksdb.zip
+    - sudo apt-get install libsnappy-dev zlib1g-dev libbz2-dev -y
 
 
    #LCOV
