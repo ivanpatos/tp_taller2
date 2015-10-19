@@ -68,6 +68,7 @@ install:
     - sudo python get-pip.py
     - sudo pip install requests
    
+    - sudo apt-get install libgtest-dev -y 
     - sudo ldconfig
 
 script:
