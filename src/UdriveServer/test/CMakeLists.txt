@@ -29,7 +29,9 @@ if(BUILD_TESTING)
 	add_subdirectory (UserTest)
 	add_subdirectory (HttpResponseTest)
 	add_subdirectory (VersionTest)
-	add_subdirectory (ServiceFactoryTest)
+	# TODO reactivar add_subdirectory (ServiceFactoryTest)
+        add_subdirectory (FolderTest)
+        add_subdirectory (FileTest)
 
 	#creo un target cuya dependencia son todos los unit tests ( deben ser agregados manualmente )
 	add_custom_target( all_tests ALL
@@ -41,8 +43,8 @@ if(BUILD_TESTING)
 			   	COMMENT "borrando zero counters"
 			   	PRE_BUILD 
 				# Cleanup lcov
-				COMMAND ${LCOV_PATH} --directory . --zerocounters
-				COMMAND ${LCOV_PATH} --capture --initial --directory . --output-file output.info
+#				COMMAND ${LCOV_PATH} --directory . --zerocounters 
+#				COMMAND ${LCOV_PATH} --capture --initial --directory . --output-file output.info
 	)
 
 
