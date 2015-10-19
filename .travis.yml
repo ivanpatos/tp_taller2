@@ -56,7 +56,8 @@ install:
     - sudo apt-get install google-mock
     - cd /usr/src/ 
     - ls
-    - cd gtest/gmock
+    - cd gtest
+    - ls
     - sudo cmake . 
     - sudo make 
     - sudo cp -a *.a /usr/lib 
