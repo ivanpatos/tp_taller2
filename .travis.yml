@@ -50,7 +50,7 @@ install:
     - sudo pip install requests
    
    #Update ld 
-   - sudo ldconfig
+    - sudo ldconfig
 
 script:
     - mkdir $PROJECT_DIR/src/UdriveServer/build
