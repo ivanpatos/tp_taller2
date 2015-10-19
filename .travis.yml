@@ -8,51 +8,17 @@ before_install:
 
 install:
       
-
+   #Source folder
     - PROJECT_DIR=$PWD
 
    #g++4.8 
-
-    - sudo apt-get install g++-4.8
-   
+    - sudo apt-get install g++-4.8 
     - sudo rm /usr/bin/cpp /usr/bin/gcc /usr/bin/g++
-    
     - sudo ln -s /usr/bin/cpp-4.8 /usr/bin/cpp
     - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
     - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 
-   #GTEST
-    #- cd $PROJECT_DIR/otros/deps
-    #- unzip gtest-1.7.0.zip
-    #- cd gtest-1.7.0
-    #- ./configure
-    #- make
-    #- ls
-    #- cd lib/
-    #- ls
-    #- sudo cp -a *.la /usr/lib
-    #- ls /usr/lib
-    #- cd /usr/include/
-    #- sudo mkdir gtest
-    #- cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
-    #- sudo cp -a . /usr/include/gtest/
-
-   #GMOCK 
-   # - cd $PROJECT_DIR/otros/deps
-    #- unzip gmock-1.7.0.zip
-    #- cd gmock-1.7.0
-    #- ./configure
-    #- make
-    #- ls
-    #- cd lib/
-    #- ls
-    #- sudo cp *.la /usr/lib
-    #- ls /usr/lib
-    #- cd /usr/include/
-    #- sudo mkdir gmock
-    #- cd $PROJECT_DIR/otros/deps/gmock-1.7.0/include/gmock/
-    #- sudo cp -a . /usr/include/gmock/
-
+   #GMock
     - sudo apt-get install google-mock
     - cd /usr/src/ 
     - ls
@@ -62,6 +28,10 @@ install:
     - sudo make 
     - ls
     - sudo cp -a *.a /usr/lib 
+
+   #Gtest
+    - sudo apt-get install libgtest-dev -y 
+   
    
   # Fuentes de rocksdb
     - cd $PROJECT_DIR/otros/deps
@@ -79,8 +49,8 @@ install:
     - sudo python get-pip.py
     - sudo pip install requests
    
-    - sudo apt-get install libgtest-dev -y 
-    - sudo ldconfig
+   #Update ld 
+   - sudo ldconfig
 
 script:
     - mkdir $PROJECT_DIR/src/UdriveServer/build
