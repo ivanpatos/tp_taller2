@@ -29,14 +29,14 @@ install:
     - make
     - cd ..
     - ls
-    - cd lib/
-    - ls
-    - sudo cp -a *.la /usr/lib
-    - ls /usr/lib
-    - cd /usr/include/
-    - sudo mkdir gtest
-    - cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
-    - sudo cp -a . /usr/include/gtest/
+    #- cd lib/
+    #- ls
+    #- sudo cp -a *.la /usr/lib
+    #- ls /usr/lib
+    #- cd /usr/include/
+    #- sudo mkdir gtest
+    #- cd $PROJECT_DIR/otros/deps/gtest-1.7.0/include/gtest/
+    #- sudo cp -a . /usr/include/gtest/
 
    #GMOCK 
     - cd $PROJECT_DIR/otros/deps
@@ -44,13 +44,13 @@ install:
     - cd gmock-1.7.0/cmake
     - cmake ..
     - make
-    - cd ../lib
-    - ls
-    - sudo cp *.la /usr/lib
-    - cd /usr/include/
-    - sudo mkdir gmock
-    - cd $PROJECT_DIR/otros/deps/gmock-1.7.0/include/gmock/
-    - sudo cp -a . /usr/include/gmock/
+    #- cd ../lib
+    #- ls
+    #- sudo cp *.la /usr/lib
+    #- cd /usr/include/
+    #- sudo mkdir gmock
+    #- cd $PROJECT_DIR/otros/deps/gmock-1.7.0/include/gmock/
+    #- sudo cp -a . /usr/include/gmock/
 
    # Fuentes de rocksdb
     - cd $PROJECT_DIR/otros/deps
