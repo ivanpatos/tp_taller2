@@ -24,9 +24,11 @@ install:
    #GTEST
     - cd $PROJECT_DIR/otros/deps
     - unzip gtest-1.7.0.zip
-    - cd gtest-1.7.0
-    - ./configure
+    - cd gtest-1.7.0/cmake
+    - cmake ..
     - make
+    - cd ..
+    - ls
     - cd lib/
     - ls
     - sudo cp -a *.la /usr/lib
@@ -39,11 +41,10 @@ install:
    #GMOCK 
     - cd $PROJECT_DIR/otros/deps
     - unzip gmock-1.7.0.zip
-    - cd gmock-1.7.0
-    - ./configure
+    - cd gmock-1.7.0/cmake
+    - cmake ..
     - make
-    - ls
-    - cd lib/
+    - cd ../lib
     - ls
     - sudo cp *.la /usr/lib
     - cd /usr/include/
