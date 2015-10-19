@@ -60,9 +60,8 @@ install:
     - ls
     - sudo cmake . 
     - sudo make 
+    - ls
     - sudo cp -a *.a /usr/lib 
-    - cd /usr/src/gtest/gmock 
-    - sudo cp -a *.a /usr/lib
    
   # Fuentes de rocksdb
     - cd $PROJECT_DIR/otros/deps
