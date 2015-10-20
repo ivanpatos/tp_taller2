@@ -82,6 +82,10 @@ std::string Server::getQueryStringFromRequest(mg_connection *connection){
 	}
 	else
 		query = "";
+	while (query.find("%20") != std::string::npos){
+		int pos = query.find("%20");
+		query = query.replace(query.find("%20"),3," ");
+	}
 	return query;
 }
 
