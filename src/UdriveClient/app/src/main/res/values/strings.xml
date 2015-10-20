@@ -46,6 +46,12 @@
     <string name="home.menu.action.logout">Logout</string>
     <string name="home.menu.action.config">Configuracion</string>
     <string name="home.logout.waiting">Desloguendo...</string>
+    <string name="home.menu.bottom.title">Acciones</string>
+    <string name="home.menu.bottom.new_folder">Agregar nueva carpeta</string>
+    <string name="home.menu.bottom.new_file">Agregar nuevo archivo</string>
+
+
+
 
     <!-- String Config Activity -->
     <string name="config.actionBar.title">CONFIGURACION</string>
@@ -53,5 +59,6 @@
     <string name="config.hint.ipserver">Ingrese la url del servidor</string>
     <string name="config.button.save">Guardar</string>
     <string name="config.save.success">La configuracion se ha guardado correctamente</string>
+
 
 </resources>

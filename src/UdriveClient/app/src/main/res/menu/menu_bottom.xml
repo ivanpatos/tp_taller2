@@ -1,0 +1,4 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/new_folder" android:title="@string/home.menu.bottom.new_folder" android:icon="@drawable/folder"/>
+    <item android:id="@+id/new_file" android:title="@string/home.menu.bottom.new_file" android:icon="@drawable/file"/>
+</menu>

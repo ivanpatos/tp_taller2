@@ -1,5 +1,6 @@
 package com.fiuba.taller2.UdriveClient.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
@@ -20,8 +24,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initViewList();
-
     }
+
 
     private void initViewList() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -42,6 +46,8 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0);
+
+
         if(cycleLevel <= 1){
             moveTaskToBack(true);
             finish();
@@ -62,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         switch (id){
             case R.id.action_logout:
                 onLogoutAction();
@@ -99,4 +106,24 @@ public class HomeActivity extends AppCompatActivity {
         editor.putInt("homeCycleLevel", cycleLevel);
         editor.apply();
     }
+
+    public void onFloatingMenuAction(final View view){
+        new BottomSheet.Builder(this).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_bottom).listener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case R.id.new_folder:
+                        Toast.makeText(view.getContext(), "Agrego carpeta", Toast.LENGTH_SHORT).show();
+                        Log.d("Folder", "New Folder");
+                        break;
+                    case R.id.new_file:
+                        Toast.makeText(view.getContext(), "Agrego archivo", Toast.LENGTH_SHORT).show();
+                        Log.d("File", "New File");
+                        break;
+                }
+            }
+        }).show();
+    }
+
+
 }
