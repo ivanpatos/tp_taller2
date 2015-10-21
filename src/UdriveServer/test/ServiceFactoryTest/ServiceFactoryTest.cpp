@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../../main/include/server/ServiceFactory.h"
-#include "../Mock/MockDatabase.h"
+#include "../../main/include/database/MockDatabase.h"
 
 using ::testing::Return;
 using ::testing::_;
