@@ -1,5 +1,6 @@
 package com.fiuba.taller2.UdriveClient.dto;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +23,10 @@ public class RestConnectionDTO {
         return url;
     }
 
-    public void setUrl(URL url) {
-        this.url = url;
+    public void setUrl(URL url) throws MalformedURLException {
+        String strEncodedUrl = url.toString().replace(" ", "%20");
+        URL encodedUrl = new URL(strEncodedUrl);
+        this.url = encodedUrl;
     }
 
     public String getJson() {
