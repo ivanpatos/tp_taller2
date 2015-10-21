@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -97,6 +98,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         try {
             Gson gson = new Gson();
+            Log.d("fsdfdsf", jsonObject.get("data").toString());
             FolderResponseDTO folderResponseDTO = gson.fromJson(jsonObject.get("data").toString(), FolderResponseDTO.class);
             increaseCycleLevel();
             refreshViewActivity(folderResponseDTO);

@@ -105,6 +105,7 @@ public class AddFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
             Intent intent = new Intent(activity, HomeActivity.class);
             intent.putExtra("idFolder", idFolderSelected);
             activity.startActivity(intent);
+
             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
 

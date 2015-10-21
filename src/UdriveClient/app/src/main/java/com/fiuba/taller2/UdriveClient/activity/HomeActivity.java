@@ -36,6 +36,11 @@ public class HomeActivity extends AppCompatActivity {
         initViewList();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        initViewList();
+    }
 
     private void initViewList() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -66,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
             reduceCycleLevel();
             super.onBackPressed();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
         }
     }
 
@@ -117,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
         }).show();
     }
 
-    private void actionOnCreateFolder(){
+    private void actionOnCreateFolder() {
         LayoutInflater li = LayoutInflater.from(context);
         View promptsView = li.inflate(R.layout.dialog_add_folder, null);
 
