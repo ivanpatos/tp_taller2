@@ -54,9 +54,9 @@ if(BUILD_TESTING)
 		           	POST_BUILD 
 				COMMAND ctest ARGS --output-on-failure
 				# Capturing lcov counters and generating report
-
 				COMMAND ${LCOV_PATH} --no-checksum --directory . --capture --output-file output.info
+				COMMAND ${LCOV_PATH} --remove output.info /usr/include/c++/* /usr/include/c++/*/bits /usr/include/c++/*/ext /usr/include/*/c++/*/bits /usr/include/gmock/* /usr/include/gmock/internal/* /usr/include/gtest/* /usr/include/gtest/internal/* --output-file output.info
+				#COMMAND ${LCOV_PATH} --extract output.info code/resources code/server code/server/Services code/utilities include/database	include/server/Services	include/utilities others others/json
 				COMMAND ${GENHTML_PATH} output.info
 	)
 endif()
-

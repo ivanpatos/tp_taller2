@@ -13,7 +13,7 @@ class Server{
 private:
 	mg_server *server;
 	ServiceFactory serviceFactory;
-	Database userDB, folderDB, fileDB, dataDB;
+	Database &userDB, &folderDB, &fileDB, &dataDB;
 	WrapperMongoose mg;
 
 	static int handleEvent(mg_connection *connection, mg_event event);
@@ -23,7 +23,10 @@ private:
 	std::string getQueryStringFromRequest(mg_connection *connection);
 
 public:
-	Server();
+	//este constructor esta pensando para Dependency Injection
+	Server(Database& userDB,Database& folderDB,Database& fileDB,Database& dataDB);
+
+	//Server();
 	void setWrapperMongoose(WrapperMongoose &mg_w);
 	~Server();
 

@@ -2,11 +2,18 @@
 
 #include "../include/utilities/easylogging++.h"
 
+#include "../include/database/RocksDatabase.h"
+
 INITIALIZE_EASYLOGGINGPP
 
 int main() {
 
-	Server server;
+	RocksDatabase userDB("./userDB");
+	RocksDatabase folderDB("./folderDB");
+	RocksDatabase fileDB("./fileDB");
+	RocksDatabase dataDB("./dataDB");
+
+	Server server(userDB,folderDB,fileDB,dataDB);
 	LOG(INFO) << "Server UP and RUNNING";
 	server.start();
 
