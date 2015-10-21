@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
-import com.fiuba.taller2.UdriveClient.dto.FolderCreateRequestDTO;
+import com.fiuba.taller2.UdriveClient.dto.FolderRequestDTO;
 import com.fiuba.taller2.UdriveClient.task.AddFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
@@ -28,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private String idFolder;
     private Activity context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,6 @@ public class HomeActivity extends AppCompatActivity {
             idFolder = sharedPreferences.getString("username", "");
 
         }
-        Log.d("-----------------aca------------", idFolder);
         GetFolderAsyncTask getFolderAsyncTask = new GetFolderAsyncTask(this);
         getFolderAsyncTask.execute(idFolder);
 
@@ -58,18 +57,12 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0);
 
-
-
         if(cycleLevel <= 1){
-            Log.d("-----------------acaAAA------------", String.valueOf(cycleLevel));
-
             resetCycleLevel();
             moveTaskToBack(true);
             finish();
             super.onBackPressed();
         }else{
-            Log.d("-----------------acaBBB------------", String.valueOf(cycleLevel));
-
             reduceCycleLevel();
             super.onBackPressed();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -108,22 +101,6 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void reduceCycleLevel(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0) - 1;
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("homeCycleLevel", cycleLevel);
-        editor.apply();
-    }
-
-    private void resetCycleLevel(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove("homeCycleLevel");
-        editor.apply();
-    }
-
-
     public void onFloatingMenuAction(final View view){
         new BottomSheet.Builder(this).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_bottom).listener(new DialogInterface.OnClickListener() {
             @Override
@@ -156,15 +133,13 @@ public class HomeActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.confirm,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                FolderCreateRequestDTO folderCreateRequestDTO = new FolderCreateRequestDTO();
-                                folderCreateRequestDTO.setName(userInput.getText().toString());
-                                folderCreateRequestDTO.setIdParent(idFolder);
+                                FolderRequestDTO folderRequestDTO = new FolderRequestDTO();
+                                folderRequestDTO.setName(userInput.getText().toString());
+                                folderRequestDTO.setIdParent(idFolder);
                                 Gson gson = new Gson();
-                                String json = gson.toJson(folderCreateRequestDTO);
+                                String json = gson.toJson(folderRequestDTO);
                                 AddFolderAsyncTask addFolderAsyncTask = new AddFolderAsyncTask(context);
                                 addFolderAsyncTask.execute(json);
-
-
                             }
                         })
                 .setNegativeButton(R.string.cancel,
@@ -209,6 +184,24 @@ public class HomeActivity extends AppCompatActivity {
         alertDialog.show();
 
     }
+
+
+    private void reduceCycleLevel(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0) - 1;
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("homeCycleLevel", cycleLevel);
+        editor.apply();
+    }
+
+    private void resetCycleLevel(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("homeCycleLevel");
+        editor.apply();
+    }
+
+
 
 
 }

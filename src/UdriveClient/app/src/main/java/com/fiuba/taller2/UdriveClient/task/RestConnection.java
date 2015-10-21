@@ -2,7 +2,7 @@ package com.fiuba.taller2.UdriveClient.task;
 
 import android.util.Log;
 
-import com.fiuba.taller2.UdriveClient.dto.ConnectionDTO;
+import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 
 import org.json.JSONObject;
@@ -19,15 +19,15 @@ import java.util.Map;
 
 public class RestConnection {
 
-    JSONObject execute(ConnectionDTO connectionDTO) throws ConnectionException{
-        URL url = connectionDTO.getUrl();
-        String json = connectionDTO.getJson();
-        String requestMethod = connectionDTO.getRequestMethod();
-        Map<String, String> attributesHeader = connectionDTO.getAttributesHeader();
+    JSONObject execute(RestConnectionDTO restConnectionDTO) throws ConnectionException{
+        URL url = restConnectionDTO.getUrl();
+        String json = restConnectionDTO.getJson();
+        String requestMethod = restConnectionDTO.getRequestMethod();
+        Map<String, String> attributesHeader = restConnectionDTO.getAttributesHeader();
         HttpURLConnection conn = null;
         JSONObject response = new JSONObject();
         Log.d("REQUEST CONNECTION", "BEGIN");
-        Log.d("url", connectionDTO.getUrl().toString());
+        Log.d("url", restConnectionDTO.getUrl().toString());
         Log.d("request method", requestMethod);
         Log.d("attributes header", attributesHeader.entrySet().toString());
         Log.d("jsonBody", json);

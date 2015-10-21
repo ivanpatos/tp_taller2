@@ -3,7 +3,7 @@ package com.fiuba.taller2.UdriveClient.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FolderCreateRequestDTO implements Serializable {
+public class FolderRequestDTO implements Serializable {
 
     private String name;
     private String idParent;

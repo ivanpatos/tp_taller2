@@ -2,7 +2,6 @@ package com.fiuba.taller2.UdriveClient.task;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -11,8 +10,8 @@ import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
-import com.fiuba.taller2.UdriveClient.dto.ConnectionDTO;
-import com.fiuba.taller2.UdriveClient.dto.UserDTO;
+import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
+import com.fiuba.taller2.UdriveClient.dto.UserRequestDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 import com.google.gson.Gson;
@@ -40,16 +39,16 @@ public class LoginAsyncTask extends AsyncTask<String, String, JSONObject> {
         String serverUrl = sharedPreferences.getString("serverUrl", propertyManager.getProperty("url.server"));
         String loginUrl = propertyManager.getProperty("url.login");
         JSONObject response = null;
-        ConnectionDTO connectionDTO = new ConnectionDTO();
+        RestConnectionDTO restConnectionDTO = new RestConnectionDTO();
         try{
             URL url = new URL(serverUrl + loginUrl);
             String json = params[0];
-            connectionDTO.setUrl(url);
-            connectionDTO.setJson(json);
-            connectionDTO.setRequestMethod("POST");
-            connectionDTO.addAttributeHeader("Content-Type","application/json; charset=UTF-8");
+            restConnectionDTO.setUrl(url);
+            restConnectionDTO.setJson(json);
+            restConnectionDTO.setRequestMethod("POST");
+            restConnectionDTO.addAttributeHeader("Content-Type","application/json; charset=UTF-8");
             RestConnection restConnection = new RestConnection();
-            response = restConnection.execute(connectionDTO);
+            response = restConnection.execute(restConnectionDTO);
         }catch (MalformedURLException ex){
             ex.printStackTrace();
             errorMessage = activity.getString(R.string.malformed_url_error);
@@ -100,13 +99,13 @@ public class LoginAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         try {
             Gson gson = new Gson();
-            UserDTO userDTO = gson.fromJson(jsonObject.get("data").toString(), UserDTO.class);
+            UserRequestDTO userRequestDTO = gson.fromJson(jsonObject.get("data").toString(), UserRequestDTO.class);
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("name", userDTO.getName());
-            editor.putString("username", userDTO.getUsername());
-            editor.putString("mail", userDTO.getMail());
-            editor.putString("token", userDTO.getToken());
+            editor.putString("name", userRequestDTO.getName());
+            editor.putString("username", userRequestDTO.getUsername());
+            editor.putString("mail", userRequestDTO.getMail());
+            editor.putString("token", userRequestDTO.getToken());
             editor.putBoolean("logged", true);
             editor.remove("homeCycleLevel");
             editor.apply();

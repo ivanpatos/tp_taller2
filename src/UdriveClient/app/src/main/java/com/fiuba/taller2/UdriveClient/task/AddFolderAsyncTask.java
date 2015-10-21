@@ -6,19 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
-import com.fiuba.taller2.UdriveClient.dto.ConnectionDTO;
-import com.fiuba.taller2.UdriveClient.dto.DocumentChildDTO;
+import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderResponseDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
-import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 import com.google.gson.Gson;
 
@@ -27,7 +21,6 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class AddFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
@@ -46,20 +39,20 @@ public class AddFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         String serverUrl = sharedPreferences.getString("serverUrl", propertyManager.getProperty("url.server"));
         String folderUrl = propertyManager.getProperty("url.folder");
         JSONObject response = null;
-        ConnectionDTO connectionDTO = new ConnectionDTO();
+        RestConnectionDTO restConnectionDTO = new RestConnectionDTO();
         String username = sharedPreferences.getString("username", "null");
         String token = sharedPreferences.getString("token", "null");
         String json = params[0];
         try {
             URL url = new URL(serverUrl + folderUrl);
-            connectionDTO.setUrl(url);
-            connectionDTO.setRequestMethod("POST");
-            connectionDTO.setJson(json);
-            connectionDTO.addAttributeHeader("Content-Type", "application/json; charset=UTF-8");
-            connectionDTO.addAttributeHeader("username", username);
-            connectionDTO.addAttributeHeader("token", token);
+            restConnectionDTO.setUrl(url);
+            restConnectionDTO.setRequestMethod("POST");
+            restConnectionDTO.setJson(json);
+            restConnectionDTO.addAttributeHeader("Content-Type", "application/json; charset=UTF-8");
+            restConnectionDTO.addAttributeHeader("username", username);
+            restConnectionDTO.addAttributeHeader("token", token);
             RestConnection restConnection = new RestConnection();
-            response = restConnection.execute(connectionDTO);
+            response = restConnection.execute(restConnectionDTO);
         } catch (ConnectionException ex) {
             ex.printStackTrace();
             errorMessage = activity.getString(R.string.connection_error);
@@ -110,7 +103,6 @@ public class AddFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
             FolderResponseDTO folderResponseDTO = gson.fromJson(jsonObject.get("data").toString(), FolderResponseDTO.class);
             String idFolderSelected = folderResponseDTO.getId();
             Intent intent = new Intent(activity, HomeActivity.class);
-            Log.d("IDFOLDER", idFolderSelected);
             intent.putExtra("idFolder", idFolderSelected);
             activity.startActivity(intent);
             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

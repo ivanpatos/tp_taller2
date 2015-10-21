@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.MainActivity;
-import com.fiuba.taller2.UdriveClient.dto.ConnectionDTO;
+import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 
@@ -36,18 +36,18 @@ public class LogoutAsyncTask extends AsyncTask<String, String, JSONObject> {
         String serverUrl = sharedPreferences.getString("serverUrl", propertyManager.getProperty("url.server"));
         String folderUrl = propertyManager.getProperty("url.logout");
         JSONObject response = null;
-        ConnectionDTO connectionDTO = new ConnectionDTO();
+        RestConnectionDTO restConnectionDTO = new RestConnectionDTO();
         String username = sharedPreferences.getString("username", "null");
         String token = sharedPreferences.getString("token", "null");
         try {
             URL url = new URL(serverUrl + folderUrl);
-            connectionDTO.setUrl(url);
-            connectionDTO.setRequestMethod("POST");
-            connectionDTO.addAttributeHeader("Content-Type", "application/json; charset=UTF-8");
-            connectionDTO.addAttributeHeader("username", username);
-            connectionDTO.addAttributeHeader("token", token);
+            restConnectionDTO.setUrl(url);
+            restConnectionDTO.setRequestMethod("POST");
+            restConnectionDTO.addAttributeHeader("Content-Type", "application/json; charset=UTF-8");
+            restConnectionDTO.addAttributeHeader("username", username);
+            restConnectionDTO.addAttributeHeader("token", token);
             RestConnection restConnection = new RestConnection();
-            response = restConnection.execute(connectionDTO);
+            response = restConnection.execute(restConnectionDTO);
         } catch (ConnectionException ex) {
             ex.printStackTrace();
             errorMessage = activity.getString(R.string.connection_error);

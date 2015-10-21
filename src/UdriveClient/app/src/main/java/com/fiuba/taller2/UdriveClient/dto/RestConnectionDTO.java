@@ -7,13 +7,13 @@ import java.util.Map;
 /**
  * Created by jscialabba on 04/10/15.
  */
-public class ConnectionDTO {
+public class RestConnectionDTO {
     URL url;
     String json;
     String requestMethod;
     Map<String, String> attributesHeader;
 
-    public ConnectionDTO() {
+    public RestConnectionDTO() {
         json = "";
         attributesHeader = new HashMap<>();
     }

@@ -3,7 +3,7 @@ package com.fiuba.taller2.UdriveClient.dto;
 /**
  * Created by jscialabba on 03/10/15.
  */
-public class UserDTO {
+public class UserRequestDTO {
     private String username;
     private String mail;
     private String name;
