@@ -6,28 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
-import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
 import com.fiuba.taller2.UdriveClient.activity.MainActivity;
 import com.fiuba.taller2.UdriveClient.dto.ConnectionDTO;
-import com.fiuba.taller2.UdriveClient.dto.DocumentChildDTO;
-import com.fiuba.taller2.UdriveClient.dto.FolderDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
-import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
-import com.google.gson.Gson;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class LogoutAsyncTask extends AsyncTask<String, String, JSONObject> {
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class FolderDTO implements Serializable {
+public class FolderResponseDTO implements Serializable {
 
     private String id;
     private String name;
