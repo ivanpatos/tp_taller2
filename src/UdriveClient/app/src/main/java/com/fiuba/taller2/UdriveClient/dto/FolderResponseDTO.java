@@ -2,13 +2,12 @@ package com.fiuba.taller2.UdriveClient.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 
-public class FolderDTO implements Serializable {
+public class FolderResponseDTO implements Serializable {
 
     private String id;
     private String name;
-    private ArrayList<DocumentChildDTO> children;
+    private ArrayList<DocumentChildResponseDTO> children;
 
 
     public String getId() {
@@ -27,11 +26,11 @@ public class FolderDTO implements Serializable {
         this.name = name;
     }
 
-    public ArrayList<DocumentChildDTO> getChildren() {
+    public ArrayList<DocumentChildResponseDTO> getChildren() {
         return children;
     }
 
-    public void setChildren(ArrayList<DocumentChildDTO> children) {
+    public void setChildren(ArrayList<DocumentChildResponseDTO> children) {
         this.children = children;
     }
 }
