@@ -54,7 +54,7 @@ if(BUILD_TESTING)
 		           	POST_BUILD 
 				COMMAND ctest ARGS --output-on-failure
 				# Capturing lcov counters and generating report
-				COMMAND ${LCOV_PATH} --no-checksum --directory . -b . --capture --output-file output.info
+				COMMAND ${LCOV_PATH} --compat split_crc=on --no-checksum --directory . -b . --capture --output-file output.info
 
 				#http://swarminglogic.com/jotting/2014_05_lcov
 
