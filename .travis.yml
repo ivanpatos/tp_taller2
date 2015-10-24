@@ -55,8 +55,8 @@ install:
 
 script:
     - mkdir $PROJECT_DIR/src/UdriveServer/build
-    - cd $PROJECT_DIR/src/UdriveServer/build
-    - cmake -DONLYTEST=ON ..
+    - cd $PROJECT_DIR/src
+    - cmake -DONLYTEST=ON UdriveServer/
     - make
     
 
