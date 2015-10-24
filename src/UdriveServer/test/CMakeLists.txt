@@ -43,8 +43,8 @@ if(BUILD_TESTING)
 			   	COMMENT "borrando zero counters"
 			   	PRE_BUILD 
 				# Cleanup lcov
-				COMMAND ${LCOV_PATH} --directory . --zerocounters 
-				COMMAND ${LCOV_PATH} --capture --initial --directory . --output-file output.info
+				COMMAND ${LCOV_PATH} --compat split_crc=on --directory . --zerocounters 
+				COMMAND ${LCOV_PATH} --compat split_crc=on --capture --initial --directory . --output-file output.info
 	)
 
 
