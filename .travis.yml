@@ -48,6 +48,7 @@ install:
     - tar -xzf lcov-1.10.tar.gz
     - cd lcov-1.10/
     - sudo make install
+    - sudo apt-get install ggcov
 
    #Pip
     - cd $PROJECT_DIR/otros/deps
