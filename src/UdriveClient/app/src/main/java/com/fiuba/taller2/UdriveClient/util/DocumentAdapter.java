@@ -10,17 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fiuba.taller2.UdriveClient.R;
-import com.fiuba.taller2.UdriveClient.dto.DocumentChildDTO;
+import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
 
 import java.util.ArrayList;
 
-public class DocumentAdapter extends ArrayAdapter<DocumentChildDTO> {
+public class DocumentAdapter extends ArrayAdapter<DocumentChildResponseDTO> {
 
     Context context;
     int layoutResourceId;
-    ArrayList<DocumentChildDTO> data = null;
+    ArrayList<DocumentChildResponseDTO> data = null;
 
-    public DocumentAdapter(Context context, int layoutResourceId, ArrayList<DocumentChildDTO> data) {
+    public DocumentAdapter(Context context, int layoutResourceId, ArrayList<DocumentChildResponseDTO> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -47,7 +47,7 @@ public class DocumentAdapter extends ArrayAdapter<DocumentChildDTO> {
             holder = (DocumentHolder)row.getTag();
         }
 
-        DocumentChildDTO Document = data.get(position);
+        DocumentChildResponseDTO Document = data.get(position);
         holder.documentName.setText(Document.getName());
         String uri = "drawable/".concat(Document.getType());
         int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());

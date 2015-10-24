@@ -3,7 +3,7 @@
 #include <sstream>
 #include "../../main/include/resources/File.h"
 #include "../../main/include/resources/Folder.h"
-#include "../Mock/MockDatabase.h"
+#include "../../main/include/database/MockDatabase.h"
 #include "../Utils/Utils.h"
 
 const unsigned int VERSION = 1;

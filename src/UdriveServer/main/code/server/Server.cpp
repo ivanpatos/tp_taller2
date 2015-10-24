@@ -2,8 +2,22 @@
 #include "../../include/server/HttpResponse.h"
 
 
-Server::Server() : userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB"),
-	serviceFactory(userDB, folderDB, fileDB, dataDB){
+//Server::Server() : userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB"),
+//	serviceFactory(userDB, folderDB, fileDB, dataDB){
+//	this->server = mg_create_server(this, Server::handleEvent);
+//	mg.setOption(this->server, "listening_port", "8080");
+//}
+
+Server::Server(	Database& userDB,
+				Database& folderDB,
+				Database& fileDB,
+				Database& dataDB
+				) : userDB(userDB),
+					folderDB(folderDB),
+					fileDB(fileDB),
+					dataDB(dataDB),
+					serviceFactory(userDB, folderDB, fileDB, dataDB) {
+
 	this->server = mg_create_server(this, Server::handleEvent);
 	mg.setOption(this->server, "listening_port", "8080");
 }
@@ -82,6 +96,10 @@ std::string Server::getQueryStringFromRequest(mg_connection *connection){
 	}
 	else
 		query = "";
+	while (query.find("%20") != std::string::npos){
+		int pos = query.find("%20");
+		query = query.replace(query.find("%20"),3," ");
+	}
 	return query;
 }
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by jscialabba on 29/09/15.
  */
-public class DocumentChildDTO implements Serializable {
+public class DocumentChildResponseDTO implements Serializable {
 
     private String id;
     private String name;

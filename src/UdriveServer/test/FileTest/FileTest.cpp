@@ -2,7 +2,7 @@
 #include <gmock/gmock.h>
 #include <sstream>
 #include "../../main/include/resources/File.h"
-#include "../Mock/MockDatabase.h"
+#include "../../main/include/database/MockDatabase.h"
 #include "../Utils/Utils.h"
 
 

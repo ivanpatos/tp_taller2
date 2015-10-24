@@ -4,6 +4,15 @@
     <!-- Strings General -->
     <string name="connection.error">Error en la conexion. Intente luego.</string>
     <string name="malformed.url.error">Error en la url del servidor</string>
+    <string name="loading">Cargando...</string>
+    <string name="creating_folder">Creando carpeta...</string>
+    <string name="folder_already_exists">El nombre de carpeta ya existe.</string>
+    <string name="add_folder_title">Agregar carpeta</string>
+    <string name="add_file_title">Agregar archivo</string>
+    <string name="add_file_input_hint">Ingrese el nombre de la carpeta</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+
 
     <!-- Strings Main Activity -->
     <string name="main.title">Bienvenido!</string>
@@ -46,6 +55,12 @@
     <string name="home.menu.action.logout">Logout</string>
     <string name="home.menu.action.config">Configuracion</string>
     <string name="home.logout.waiting">Desloguendo...</string>
+    <string name="home.menu.bottom.title">Acciones</string>
+    <string name="home.menu.bottom.new_folder">Agregar nueva carpeta</string>
+    <string name="home.menu.bottom.new_file">Agregar nuevo archivo</string>
+
+
+
 
     <!-- String Config Activity -->
     <string name="config.actionBar.title">CONFIGURACION</string>
@@ -53,5 +68,9 @@
     <string name="config.hint.ipserver">Ingrese la url del servidor</string>
     <string name="config.button.save">Guardar</string>
     <string name="config.save.success">La configuracion se ha guardado correctamente</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
