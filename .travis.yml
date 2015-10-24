@@ -11,8 +11,9 @@ install:
    #Source folder
     - PROJECT_DIR=$PWD
 
-   #g++4.8 
+   #g++4.8 and gcc4.8
     - sudo apt-get install g++-4.8 
+    - sudo apt-get install gcc-4.8
     - sudo rm /usr/bin/cpp /usr/bin/gcc /usr/bin/g++
     - sudo ln -s /usr/bin/cpp-4.8 /usr/bin/cpp
     - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
