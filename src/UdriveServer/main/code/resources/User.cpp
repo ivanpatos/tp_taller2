@@ -45,6 +45,10 @@ std::string User::getToken() const{
 	return this->token;
 }
 
+std::string User::getEmail() const{
+	return this->mail;
+}
+
 std::string User::getJsonString() const{
 	Json::Value json = this->getJsonProfile();
 	json["password"] = this->password;

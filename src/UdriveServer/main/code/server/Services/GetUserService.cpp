@@ -4,11 +4,9 @@
 #include "../../../others/json/json.h"
 
 
-GetUserService::GetUserService(Database &userDB) : userDB(userDB){
-}
+GetUserService::GetUserService(Database &userDB) : userDB(userDB){ }
 
-GetUserService::~GetUserService(){
-}
+GetUserService::~GetUserService(){ }
 
 const char* GetUserService::name() const{
 	return "GetUserService";
