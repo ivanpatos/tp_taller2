@@ -18,3 +18,10 @@ Dirigirse a src/UdriveServer/test y ejecutar::
 	$ pyhton request_test.py
 
 .. warning:: Estos tests están pensados para ejecutarse únicamente con la base de datos vacía. Para ello eliminar las carpetas dataDB, fileDB, folderDB y userDB de la carpeta donde se haya hecho el build del server.
+
+Ejecución de test de stress
+---------------------------
+
+Dirigirse a src/UdriveServer/test y ejecutar::
+
+	$ pyhton stress_test.py

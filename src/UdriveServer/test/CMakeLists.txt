@@ -61,7 +61,7 @@ if(BUILD_TESTING)
 
 				#http://swarminglogic.com/jotting/2014_05_lcov
 
-				COMMAND ${LCOV_PATH} --remove output.info /test/* /others/* /code/utilities/* /include/utilities/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info
+				COMMAND ${LCOV_PATH} --remove output.info /test/* /others/* /code/utilities/* /include/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info
 				
 				COMMAND ${GENHTML_PATH} output.info
 	)
