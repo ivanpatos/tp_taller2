@@ -31,6 +31,9 @@ public:
 	void updateProfile(const std::string& jsonString);	// actualiza profile a partir de json string
 	void generateToken();
 	bool authenticateToken(const std::string& token) const;
+	std::string getEmail() const;
+	void setUserName(const std::string& str);
+	void setPassword(const std::string& str);
 };
 
 
