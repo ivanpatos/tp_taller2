@@ -49,10 +49,10 @@ install:
     - tar -xzf lcov-1.10.tar.gz
     - cd lcov-1.10/
     - sudo make install
-    - ll /usr/bin/gcov*
-    - ll /usr/bin/lcov*
-    - ll /usr/bin/gcc*
-    - ll /usr/bin/g++*
+    - ls -la /usr/bin/gcov*
+    - ls -la /usr/bin/lcov*
+    - ls -la /usr/bin/gcc*
+    - ll -la /usr/bin/g++*
     
 
    #Pip
