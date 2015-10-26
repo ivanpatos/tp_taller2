@@ -49,6 +49,14 @@ std::string User::getEmail() const{
 	return this->mail;
 }
 
+void User::setUserName(const std::string& str){
+	this->username = str;
+}
+
+void User::setPassword(const std::string& str){
+	this->password = str;
+}
+
 std::string User::getJsonString() const{
 	Json::Value json = this->getJsonProfile();
 	json["password"] = this->password;

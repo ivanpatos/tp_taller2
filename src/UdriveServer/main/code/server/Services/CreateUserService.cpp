@@ -4,7 +4,6 @@
 #include "../../../include/resources/Folder.h"
 #include "../../../others/json/json.h"
 
-
 CreateUserService::CreateUserService(Database &userDB, Database &folderDB) : userDB(userDB), folderDB(folderDB){
 }
 
@@ -52,13 +51,14 @@ std::string CreateUserService::execute(const std::string& username, const std::s
 	Json::Value jsonData;
 	Json::Reader reader;
 	reader.parse(data, jsonData);
-
 	User user(jsonData);
-	if (this->userDB.getValue(user.getUsername()) != "")
+	if (this->userDB.getValue(user.getUsername()) != "") {
 		response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_USERNAME_EXISTS);
+	}
 	else{
-		if (user.getUsername() == "")
+		if (user.getUsername() == ""){
 			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_USERNAME_MISSING);
+		}
 		else if (user.getPassword() == "")
 			response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_PASSWORD_MISSING);
 		else{
