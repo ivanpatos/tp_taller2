@@ -30,20 +30,16 @@ if(BUILD_TESTING)
 	add_subdirectory (HttpResponseTest)
 	add_subdirectory (VersionTest)
 	add_subdirectory (ServiceFactoryTest)
-    add_subdirectory (FolderTest)
-    add_subdirectory (FileTest)
-    add_subdirectory (CreateUserServiceTest)
-    add_subdirectory (GetUserServiceTest)
-    add_subdirectory (UpdateUserServiceTest)
-<<<<<<< HEAD
-    add_subdirectory (LoginServiceTest)
-    add_subdirectory (LogoutServiceTest)
-
-=======
-    add_subdirectory (CreateFolderServiceTest)
-    add_subdirectory (GetFolderServiceTest)
+        add_subdirectory (FolderTest)
+        add_subdirectory (FileTest)
+        add_subdirectory (CreateUserServiceTest)
+        add_subdirectory (GetUserServiceTest)
+        add_subdirectory (UpdateUserServiceTest)
+        add_subdirectory (LoginServiceTest)
+        add_subdirectory (LogoutServiceTest)
+        add_subdirectory (CreateFolderServiceTest)
+        add_subdirectory (GetFolderServiceTest)
     
->>>>>>> 9d77e1b14546ca6b0b7889cee83d5a4c063576da
 	#creo un target cuya dependencia son todos los unit tests ( deben ser agregados manualmente )
 	add_custom_target( all_tests ALL
 		           DEPENDS ${UNIT_TEST_TARGETS}
