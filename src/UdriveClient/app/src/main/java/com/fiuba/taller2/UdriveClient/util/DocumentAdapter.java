@@ -47,9 +47,12 @@ public class DocumentAdapter extends ArrayAdapter<DocumentChildResponseDTO> {
             holder = (DocumentHolder)row.getTag();
         }
 
-        DocumentChildResponseDTO Document = data.get(position);
-        holder.documentName.setText(Document.getName());
-        String uri = "drawable/".concat(Document.getType());
+        DocumentChildResponseDTO document = data.get(position);
+        holder.documentName.setText(document.getName());
+        if(document.getExtension() != null){
+            holder.documentName.setText(document.getName() + "." + document.getExtension());
+        }
+        String uri = "drawable/".concat(document.getType());
         int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
         holder.documentType.setImageResource(imageResource);
         return row;

@@ -5,9 +5,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,23 +21,33 @@ import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
+import com.fiuba.taller2.UdriveClient.dto.FileRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderRequestDTO;
+import com.fiuba.taller2.UdriveClient.task.AddFileAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.AddFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
 
     private String idFolder;
     private Activity context;
+    private static final int RESULT_LOAD_FILE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         context = this;
+
         initViewList();
+
     }
 
     @Override
@@ -161,36 +175,69 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void actionOnCreateFile(){
-        LayoutInflater li = LayoutInflater.from(context);
-        View promptsView = li.inflate(R.layout.dialog_add_folder, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                context).setTitle(R.string.add_file_title);
-
-        alertDialogBuilder.setView(promptsView);
-
-        final EditText userInput = (EditText) promptsView
-                .findViewById(R.id.folderNameInput);
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                Toast.makeText(context, userInput.getText(), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        startActivityForResult(intent, RESULT_LOAD_FILE);
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if(resultCode == RESULT_OK){
+                switch (requestCode){
+                    case RESULT_LOAD_FILE:
+                        if(data != null){
+                            Uri uri = data.getData();
+
+                            String fileName = "";
+                            Cursor cursor = getContentResolver().query(uri, null, null, null, null, null);
+                            try {
+                                if (cursor != null && cursor.moveToFirst()) {
+                                    fileName = cursor.getString(
+                                            cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+
+                                }
+                            } finally {
+                                cursor.close();
+                            }
+                            InputStream inputStream = getContentResolver().openInputStream(uri);
+                            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
+                                    inputStream));
+                            StringBuilder sb = new StringBuilder();
+                            String line;
+                            while ((line = bufferedReader.readLine()) != null) {
+                                sb.append(line);
+                            }
+                            int pos = fileName.lastIndexOf(".");
+                            String filenameWithoutExtension = "";
+                            String extension = "";
+                            if (pos > 0) {
+                                filenameWithoutExtension = fileName.substring(0,pos);
+                                extension = fileName.substring(pos + 1);
+                            }
+                            FileRequestDTO fileRequestDTO = new FileRequestDTO();
+                            fileRequestDTO.setName(filenameWithoutExtension);
+                            fileRequestDTO.setExtension(extension);
+                            fileRequestDTO.setLabels(new ArrayList<String>());
+                            fileRequestDTO.setIdFolder(idFolder);
+                            fileRequestDTO.setData(sb.toString());
+                            Gson gson = new Gson();
+                            String json = gson.toJson(fileRequestDTO);
+                            AddFileAsyncTask addFileAsyncTask = new AddFileAsyncTask(context);
+                            addFileAsyncTask.execute(json);
+                        }
+                }
+
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
+                    .show();
+        }
+
+    }
 
     private void reduceCycleLevel(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -206,6 +253,7 @@ public class HomeActivity extends AppCompatActivity {
         editor.remove("homeCycleLevel");
         editor.apply();
     }
+
 
 
 

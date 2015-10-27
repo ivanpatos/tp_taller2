@@ -35,9 +35,15 @@ if(BUILD_TESTING)
     add_subdirectory (CreateUserServiceTest)
     add_subdirectory (GetUserServiceTest)
     add_subdirectory (UpdateUserServiceTest)
+<<<<<<< HEAD
     add_subdirectory (LoginServiceTest)
     add_subdirectory (LogoutServiceTest)
 
+=======
+    add_subdirectory (CreateFolderServiceTest)
+    add_subdirectory (GetFolderServiceTest)
+    
+>>>>>>> 9d77e1b14546ca6b0b7889cee83d5a4c063576da
 	#creo un target cuya dependencia son todos los unit tests ( deben ser agregados manualmente )
 	add_custom_target( all_tests ALL
 		           DEPENDS ${UNIT_TEST_TARGETS}
@@ -63,7 +69,7 @@ if(BUILD_TESTING)
 
 				#http://swarminglogic.com/jotting/2014_05_lcov
 
-				COMMAND ${LCOV_PATH} --remove output.info /test/* /others/* /code/utilities/* /include/utilities/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info
+				COMMAND ${LCOV_PATH} --remove output.info /test/* /others/* /code/utilities/* /include/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info
 				
 				COMMAND ${GENHTML_PATH} output.info
 	)
