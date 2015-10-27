@@ -50,8 +50,8 @@ if(BUILD_TESTING)
 			   	COMMENT "borrando zero counters"
 			   	PRE_BUILD 
 				# Cleanup lcov
-				COMMAND ${LCOV_PATH} --compat split_crc=on --directory . --zerocounters 
-				COMMAND ${LCOV_PATH} --compat split_crc=on --capture --initial --directory . --output-file output.info
+				COMMAND ${LCOV_PATH} --compat split_crc=on --directory . --zerocounters > /dev/null
+				COMMAND ${LCOV_PATH} --compat split_crc=on --capture --initial --directory . --output-file output.info > /dev/null
 	)
 
 
@@ -61,11 +61,11 @@ if(BUILD_TESTING)
 		           	POST_BUILD 
 				COMMAND ctest ARGS --output-on-failure
 				# Capturing lcov counters and generating report
-				COMMAND ${LCOV_PATH} --compat split_crc=on --no-checksum --directory . -b . --capture --output-file output.info
+				COMMAND ${LCOV_PATH} --compat split_crc=on --no-checksum --directory . -b . --capture --output-file output.info > /dev/null
 
 				#http://swarminglogic.com/jotting/2014_05_lcov
 
-				COMMAND ${LCOV_PATH} --remove output.info /test/* /others/* /code/utilities/* /include/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info
+				COMMAND ${LCOV_PATH} --remove output.info /test/* /others/* /code/utilities/* /include/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info  > /dev/null
 				
 				COMMAND ${GENHTML_PATH} output.info
 	)
