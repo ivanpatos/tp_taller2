@@ -101,3 +101,38 @@ Si se desea ejecutar los tests individualmente ir a la correspondiente carpeta d
 
 Dirigirse a src/UdriveServer/test y ejecutar: $ pyhton request_test.py
 
+
+#Ejecucion de test de stress#
+
+Dirigirse a src/UdriveServer/test y ejecutar: $ pyhton stress_test.py
+
+
+
+#Instalacion y ejecucion de servidor con Docker#
+
+Para instalar Docker:
+
+$ sudo apt-get update
+
+$ sudo apt-get install wget
+
+$ wget -qO- https://get.docker.com/ | sh
+
+Una vez instalado Docker, procedemos a crear la imagen:
+
+$ cd src/UdriveServer
+
+$ sudo docker build .
+
+Para ver la nueva imagen creada, con su respectivo <IMAGE ID>:
+
+$ sudo docker images
+
+Luego asignarle un tag a la imagen:
+
+$ sudo docker tag <IMAGE ID> server
+
+Finalmente para ejecutar el servidor:
+
+$ sudo docker run -p 8080:8080 server
+

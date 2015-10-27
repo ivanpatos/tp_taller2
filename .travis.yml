@@ -44,11 +44,14 @@ install:
 
    #LCOV
     #- sudo apt-get install lcov
+    - sudo apt-get install ggcov
     - cd $PROJECT_DIR/otros/deps
     - tar -xzf lcov-1.10.tar.gz
     - cd lcov-1.10/
     - sudo make install
-    - sudo apt-get install ggcov
+    - sudo rm /usr/bin/gcov
+    - sudo ln -s /usr/bin/gcov-4.8 /usr/bin/gcov
+    
 
    #Pip
     - cd $PROJECT_DIR/otros/deps

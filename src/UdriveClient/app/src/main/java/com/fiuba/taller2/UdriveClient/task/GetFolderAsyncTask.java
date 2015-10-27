@@ -98,7 +98,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         try {
             Gson gson = new Gson();
-            Log.d("fsdfdsf", jsonObject.get("data").toString());
             FolderResponseDTO folderResponseDTO = gson.fromJson(jsonObject.get("data").toString(), FolderResponseDTO.class);
             increaseCycleLevel();
             refreshViewActivity(folderResponseDTO);
@@ -130,7 +129,8 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                     activity.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 } else {
-                    Toast.makeText(activity, "Abro el archivo", Toast.LENGTH_SHORT).show();
+                    String idFileSelected = documentChildSelected.getId();
+                    Toast.makeText(activity, "Abro el archivo id: " + idFileSelected, Toast.LENGTH_SHORT).show();
                 }
             }
         });
