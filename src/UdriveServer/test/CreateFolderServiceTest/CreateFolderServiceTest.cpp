@@ -32,7 +32,6 @@ TEST_F(CreateFolderServiceFixture,createFolderServiceOK) {
 	json["name"] = "root";
 	Folder rootFolder(json);
 
-	std::cout << stringHeader << std::endl;
 	EXPECT_CALL( folderDB,getValue( jsonHeader.get("idParent", "").asCString() ) )
 	.WillRepeatedly(Return( rootFolder.getJsonString() ));
 
