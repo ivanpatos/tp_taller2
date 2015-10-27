@@ -45,6 +45,10 @@ Para instalar requests hacer::
 
 	$ pip install requests
 
+Asegurarse de que se tiene última versión estable de requests (2.8.1)::
+
+	$ sudo pip install requests --upgrade
+
 *LCOV*::
 
 	$ sudo apt-get install lcov 
