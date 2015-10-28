@@ -53,6 +53,10 @@ Primero instalar pip si no se lo tiene instalado: bajar el script get-pip.py (ht
 
 Finalmente instalar requests: $ pip install requests
 
+Asegurarse de que se tiene última versión estable de requests (2.8.1):
+
+$ sudo pip install requests --upgrade
+
 
 *LCOV*
 
