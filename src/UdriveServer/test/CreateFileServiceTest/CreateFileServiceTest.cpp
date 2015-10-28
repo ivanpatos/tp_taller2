@@ -10,12 +10,10 @@ using ::testing::_;
 
 TEST_F(CreateFileServiceFixture,invalidUsername) {
 
-	query = username;
-
 	EXPECT_CALL(userDB,getValue( username ) )
 		.WillOnce(Return(""));
 
-	std::string responseFromService = createFileService->execute( username, token, data , query );
+	std::string responseFromService = createFileService->execute( username, token, "" , "" );
 
 	Json::Value jsonData;
 	Json::Reader reader;
@@ -27,13 +25,12 @@ TEST_F(CreateFileServiceFixture,invalidUsername) {
 
 TEST_F(CreateFileServiceFixture,invalidToken) {
 
-	query = username;
 	userNotSavedInDb.setToken("555");
 	std::string data2 = userNotSavedInDb.getJsonString();
 	EXPECT_CALL(userDB,getValue( username ) )
 			.WillOnce(Return(data2));
 
-	std::string responseFromService = createFileService->execute( username, token, data , query );
+	std::string responseFromService = createFileService->execute( username, token, "" , "" );
 
 	Json::Value jsonData;
 	Json::Reader reader;
@@ -45,21 +42,30 @@ TEST_F(CreateFileServiceFixture,invalidToken) {
 
 TEST_F(CreateFileServiceFixture,invalidFolderParent) {
 
-	query = username;
-
-	std::string data2 = userNotSavedInDb.getJsonString();
 	EXPECT_CALL(userDB,getValue( username ) )
-			.WillOnce(Return(data2));
+			.WillOnce(Return(dataUser));
+
+	Json::Value jsonFolderData;
+	jsonFolderData["name"] 	 	= folderName;
+	jsonFolderData["id"] 	= pathNewFolder;
+	Folder folderBuscada(jsonFolderData);
+
+	Json::StreamWriterBuilder builder;
+	Json::Value jsonFileHeader;
+	jsonFileHeader["name"] 	 	= fileName;
+	jsonFileHeader["idFolder"] 	= pathNewFolder;
+	jsonFileHeader["extension"] = extension;
+	jsonFileHeader["data"]		= dataTxtFile;
+	builder.settings_["indentation"] = "\t";
+	std::string fileHeader =  Json::writeString(builder,jsonFileHeader);
+
+	EXPECT_CALL(folderDB,getValue( pathNewFolder ) )
+					.WillOnce(Return( "" ));
+
+	std::string responseFromService = createFileService->execute( username, token, fileHeader , "" );
 
 	Json::Value jsonData;
 	Json::Reader reader;
-	reader.parse(data, jsonData);
-
-	EXPECT_CALL(folderDB,getValue(jsonData.get("idFolder", "").asCString()) )
-				.WillOnce(Return(""));
-
-	std::string responseFromService = createFileService->execute( username, token, data , query );
-
 	reader.parse( responseFromService, jsonData);
 
 	EXPECT_EQ(	ERROR, jsonData["result"].asCString() );
@@ -68,18 +74,26 @@ TEST_F(CreateFileServiceFixture,invalidFolderParent) {
 }
 
 TEST_F(CreateFileServiceFixture, errorSavingData) {
-	query = username;
 
-	std::string data2 = userNotSavedInDb.getJsonString();
 	EXPECT_CALL(userDB,getValue( username ) )
-			.WillRepeatedly(Return(data2));
+			.WillRepeatedly(Return(dataUser));
 
-	Json::Value jsonData;
-	Json::Reader reader;
-	reader.parse(data, jsonData);
+	Json::Value jsonFolderData;
+	jsonFolderData["name"] 	 	= folderName;
+	jsonFolderData["id"] 	= pathNewFolder;
+	Folder folderBuscada(jsonFolderData);
 
-	EXPECT_CALL(folderDB,getValue(jsonData.get("idFolder", "").asCString()) )
-					.WillOnce(Return("folder"));
+	Json::StreamWriterBuilder builder;
+	Json::Value jsonFileHeader;
+	jsonFileHeader["name"] 	 	= fileName;
+	jsonFileHeader["idFolder"] 	= pathNewFolder;
+	jsonFileHeader["extension"] = extension;
+	jsonFileHeader["data"]		= dataTxtFile;
+	builder.settings_["indentation"] = "\t";
+	std::string fileHeader =  Json::writeString(builder,jsonFileHeader);
+
+	EXPECT_CALL(folderDB,getValue(jsonFileHeader.get("idFolder", "").asCString()) )
+					.WillOnce(Return( folderBuscada.getJsonString() ));
 
 	EXPECT_CALL(fileDB,saveValue( _ , _ ))
 		.WillOnce(Return(true));
@@ -90,9 +104,12 @@ TEST_F(CreateFileServiceFixture, errorSavingData) {
 	EXPECT_CALL(folderDB,saveValue( _ , _ ))
 			.WillOnce(Return(false));
 
-	std::string responseFromService = createFileService->execute( username, token, data , query );
+	std::string responseFromService = createFileService->execute( username, token, fileHeader , "" );
 
+	Json::Value jsonData;
+	Json::Reader reader;
 	reader.parse( responseFromService, jsonData);
+
 	EXPECT_EQ(	ERROR, jsonData["result"].asCString() );
 	EXPECT_EQ(	 jsonData["errorCode"] , HttpResponse::ERROR_SAVING_DATA );
 
@@ -102,33 +119,51 @@ TEST_F(CreateFileServiceFixture, errorFileExists) {
 //TODO
 }
 
-TEST_F(CreateFileServiceFixture, createFileOk) {
-	query = username;
+TEST_F(CreateFileServiceFixture,createFileServiceOK) {
 
-	std::string data2 = userNotSavedInDb.getJsonString();
 	EXPECT_CALL(userDB,getValue( username ) )
-			.WillRepeatedly(Return(data2));
+	.WillOnce(Return(dataUser))
+	.WillOnce(Return(dataUser));
+
+	Json::Value jsonFolderData;
+	jsonFolderData["name"] 	 	= folderName;
+	jsonFolderData["id"] 	= pathNewFolder;
+	Folder folderBuscada(jsonFolderData);
+
+	Json::StreamWriterBuilder builder;
+	Json::Value jsonFileHeader;
+	jsonFileHeader["name"] 	 	= fileName;
+	jsonFileHeader["idFolder"] 	= pathNewFolder;
+	jsonFileHeader["extension"] = extension;
+	jsonFileHeader["data"]		= dataTxtFile;
+	builder.settings_["indentation"] = "\t";
+	std::string fileHeader =  Json::writeString(builder,jsonFileHeader);
+
+	EXPECT_CALL(folderDB,getValue(jsonFileHeader.get("idFolder", "").asCString()) )
+					.WillOnce(Return( folderBuscada.getJsonString() ));
+
+	EXPECT_CALL( folderDB, saveValue( _ , _ ) )
+	.WillOnce(Return( true ));
+
+	EXPECT_CALL( fileDB, saveValue( _ , _ ) )
+	.WillOnce(Return( true ));
+
+	EXPECT_CALL( dataDB, saveValue( _ , dataTxtFile ) )
+	.WillOnce(Return( true ));
+
+	std::string responseFromService = createFileService->execute( username, token, fileHeader , "" );
 
 	Json::Value jsonData;
 	Json::Reader reader;
-	reader.parse(data, jsonData);
-
-	EXPECT_CALL(folderDB,getValue(jsonData.get("idFolder", "").asCString()) )
-					.WillOnce(Return("folder"));
-
-	EXPECT_CALL(fileDB,saveValue( _ , _ ))
-		.WillOnce(Return(true));
-
-	EXPECT_CALL(dataDB,saveValue( _ , _ ))
-		.WillOnce(Return(true));
-
-	EXPECT_CALL(folderDB,saveValue( _ , _ ))
-			.WillOnce(Return(true));
-
-	std::string responseFromService = createFileService->execute( username, token, data , query );
-
 	reader.parse( responseFromService, jsonData);
-	EXPECT_EQ(	OK, jsonData["result"].asCString() );
+
+	EXPECT_EQ(	OK 	 , jsonData["result"].asCString() );
+	//std::string idFile = folderName + "/" + fileName + "." + extension;
+	EXPECT_EQ(	fileName 	 , jsonData["data"]["name"].asCString()  );
+	EXPECT_EQ(	extension 	 , jsonData["data"]["extension"].asCString()  );
+	int versionResponse = jsonData["data"]["version"].asInt();
+	EXPECT_EQ(	version 	 , versionResponse  );
+	EXPECT_EQ( username ,jsonData["data"]["owner"].asCString() );
 }
 
 
