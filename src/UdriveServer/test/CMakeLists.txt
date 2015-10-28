@@ -39,6 +39,8 @@ if(BUILD_TESTING)
         add_subdirectory (LogoutServiceTest)
         add_subdirectory (CreateFolderServiceTest)
         add_subdirectory (GetFolderServiceTest)
+        add_subdirectory (CreateFileServiceTest)
+        add_subdirectory (UpdateFileServiceTest)
     
 	#creo un target cuya dependencia son todos los unit tests ( deben ser agregados manualmente )
 	add_custom_target( all_tests ALL
