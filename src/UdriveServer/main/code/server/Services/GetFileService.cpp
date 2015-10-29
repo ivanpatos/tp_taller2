@@ -67,6 +67,7 @@ std::string GetFileService::execute(const std::string& username, const std::stri
 					Json::Value versionJson = version.getJson();
 					File queryFile(this->fileDB.getValue(queryIdFile), this->userDB);
 					versionJson["name"] = queryFile.getName();
+					versionJson["extension"] = queryFile.getExtension();
 					response = HttpResponse::GetHttpOkResponse(versionJson);
 				}
 				else
