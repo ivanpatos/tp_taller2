@@ -1,12 +1,17 @@
 #include "../../include/server/Server.h"
 #include "../../include/server/HttpResponse.h"
 
-
 //Server::Server() : userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB"),
 //	serviceFactory(userDB, folderDB, fileDB, dataDB){
 //	this->server = mg_create_server(this, Server::handleEvent);
 //	mg.setOption(this->server, "listening_port", "8080");
 //}
+
+#ifndef _FLAG_TOM_
+#define _FLAG_TOM_
+#include "../../include/utilities/easylogging++.h"
+INITIALIZE_EASYLOGGINGPP
+#endif
 
 Server::Server(	Database& userDB,
 				Database& folderDB,
@@ -27,6 +32,7 @@ Server::~Server(){
 }
 
 void Server::start(){
+	LOG(INFO) << std::string("Server UP & RUNNING!!") ;
 	printf("Starting on port %s\n", mg_get_option(this->server, "listening_port"));
 	for (;;)
 		mg_poll_server(server, 1000);
@@ -57,7 +63,14 @@ void Server::handleRequest(mg_connection *connection){
 	std::string query = this->getQueryStringFromRequest(connection);
 
 	Service* service = this->serviceFactory.createService(resource, method);
+
+	LOG(INFO) << std::string("Usuario: ") + username + " con token: " + token;
+	LOG(INFO) << std::string("Se ha pedido el servicio: ") + service->name() ;
+
 	std::string response = service->execute(username, token, data, query);
+
+	LOG(INFO) << "respuesta: " + response;
+
 	mg.mgprintfData(connection, response.c_str());
 	delete service;
 }

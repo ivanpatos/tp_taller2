@@ -7,7 +7,6 @@
 #include "../utilities/WrapperMongoose.h"
 #include "ServiceFactory.h"
 
-
 class Server{
 
 private:

@@ -63,7 +63,6 @@ std::string UpdateFolderService::execute(const std::string& username, const std:
 				if (!folderParent.hasFolder(jsonData.get("name", "").asCString()))
 					folder->setName(jsonData.get("name", "").asCString());
 				this->updateAllTree(folder, username, token, data, query);
-
 				if (this->folderDB.saveValue(folder->getId(), folder->getJsonString()))
 					response = HttpResponse::GetHttpOkResponse(folder->getJson());
 				else

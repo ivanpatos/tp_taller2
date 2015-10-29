@@ -41,7 +41,8 @@ if(BUILD_TESTING)
     add_subdirectory (GetFolderServiceTest)
     add_subdirectory (CreateFileServiceTest)
     add_subdirectory (UpdateFileServiceTest)
-    
+    add_subdirectory (UpdateFolderServiceTest)
+
 	#creo un target cuya dependencia son todos los unit tests ( deben ser agregados manualmente )
 	add_custom_target( all_tests ALL
 		           DEPENDS ${UNIT_TEST_TARGETS}
@@ -67,7 +68,7 @@ if(BUILD_TESTING)
 
 				#http://swarminglogic.com/jotting/2014_05_lcov
 
-				COMMAND ${LCOV_PATH} --remove output.info /test/* /others/* /code/utilities/* /include/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info  > /dev/null
+				COMMAND ${LCOV_PATH} --remove output.info /server/Server.cpp /test/* /others/* /code/utilities/* /include/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info  > /dev/null
 				
 				COMMAND ${GENHTML_PATH} output.info
 	)
