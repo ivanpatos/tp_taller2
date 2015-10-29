@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,9 +29,8 @@ import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
 import com.google.gson.Gson;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
@@ -45,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         context = this;
-
         initViewList();
 
     }
@@ -103,9 +101,6 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.action_logout:
                 onLogoutAction();
                 return true;
-            case R.id.action_config:
-                onConfigAction();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -114,11 +109,6 @@ public class HomeActivity extends AppCompatActivity {
     private void onLogoutAction(){
         LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask(this);
         logoutAsyncTask.execute();
-    }
-
-    private void onConfigAction(){
-        Intent intent = new Intent(this, ConfigActivity.class);
-        startActivity(intent);
     }
 
     public void onFloatingMenuAction(final View view){
@@ -204,13 +194,16 @@ public class HomeActivity extends AppCompatActivity {
                                 cursor.close();
                             }
                             InputStream inputStream = getContentResolver().openInputStream(uri);
-                            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
-                                    inputStream));
-                            StringBuilder sb = new StringBuilder();
-                            String line;
-                            while ((line = bufferedReader.readLine()) != null) {
-                                sb.append(line);
+                            byte[] buffer = new byte[8192];
+                            int bytesRead;
+                            ByteArrayOutputStream output = new ByteArrayOutputStream();
+                            while ((bytesRead = inputStream.read(buffer)) != -1)
+                            {
+                                output.write(buffer, 0, bytesRead);
                             }
+                            byte[] fbytesFile = output.toByteArray();
+
+                            String fileEncoded = Base64.encodeToString(fbytesFile, Base64.DEFAULT);
                             int pos = fileName.lastIndexOf(".");
                             String filenameWithoutExtension = "";
                             String extension = "";
@@ -218,12 +211,13 @@ public class HomeActivity extends AppCompatActivity {
                                 filenameWithoutExtension = fileName.substring(0,pos);
                                 extension = fileName.substring(pos + 1);
                             }
+
                             FileRequestDTO fileRequestDTO = new FileRequestDTO();
                             fileRequestDTO.setName(filenameWithoutExtension);
                             fileRequestDTO.setExtension(extension);
                             fileRequestDTO.setLabels(new ArrayList<String>());
                             fileRequestDTO.setIdFolder(idFolder);
-                            fileRequestDTO.setData(sb.toString());
+                            fileRequestDTO.setData(fileEncoded);
                             Gson gson = new Gson();
                             String json = gson.toJson(fileRequestDTO);
                             AddFileAsyncTask addFileAsyncTask = new AddFileAsyncTask(context);
@@ -233,7 +227,7 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
+            Toast.makeText(this, getString(R.string.error_save_file), Toast.LENGTH_LONG)
                     .show();
         }
 

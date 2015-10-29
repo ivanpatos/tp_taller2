@@ -6,8 +6,7 @@ import java.util.ArrayList;
 public class FileResponseDTO implements Serializable {
 
     private String id;
-    private String name;
-    private ArrayList<DocumentChildResponseDTO> children;
+    private String data;
 
 
     public String getId() {
@@ -18,19 +17,12 @@ public class FileResponseDTO implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getData() {
+        return data;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    public ArrayList<DocumentChildResponseDTO> getChildren() {
-        return children;
-    }
-
-    public void setChildren(ArrayList<DocumentChildResponseDTO> children) {
-        this.children = children;
-    }
 }

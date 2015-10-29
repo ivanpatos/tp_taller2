@@ -8,6 +8,8 @@
     <string name="creating_folder">Creando carpeta...</string>
     <string name="folder_already_exists">El nombre de carpeta ya existe</string>
     <string name="file_already_exists">El archivo ya existe</string>
+    <string name="error_open_file">Error al abrir el archivo</string>
+    <string name="error_save_file">Error al guardar el archivo</string>
 
     <string name="add_folder_title">Agregar carpeta</string>
     <string name="add_file_title">Agregar archivo</string>
@@ -21,6 +23,7 @@
     <string name="main.register">Registrarse</string>
     <string name="main.hasAccount">Ya tenes una cuenta?</string>
     <string name="main.login">Inicia Sesion</string>
+    <string name="main.config.server.url">Configurar url servidor</string>
 
     <!-- Strings Register Activity -->
     <string name="register.actionBar.title">REGISTRO</string>

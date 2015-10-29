@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -14,9 +13,9 @@ import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
-import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderResponseDTO;
+import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
@@ -130,7 +129,11 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                     activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 } else {
                     String idFileSelected = documentChildSelected.getId();
-                    Toast.makeText(activity, "Abro el archivo id: " + idFileSelected, Toast.LENGTH_SHORT).show();
+                    GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
+
+                    // Cuando implementemos la version, no va hardcodeada
+                    String version = "1";
+                    getFileAsyncTask.execute(idFileSelected, version);
                 }
             }
         });

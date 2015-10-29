@@ -62,4 +62,16 @@
         android:layout_alignLeft="@+id/buttonRegister"
         android:layout_alignStart="@+id/buttonRegister" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main.config.server.url"
+        android:id="@+id/linkConfigServer"
+        android:paddingRight="20dp"
+        android:onClick="onClickConfigServer"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

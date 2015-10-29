@@ -3,6 +3,8 @@
     package="com.fiuba.taller2.UdriveClient">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +31,7 @@
             android:name=".activity.HomeActivity"
             android:label="@string/home.actionBar.title"></activity>
         <activity
-            android:name=".activity.ConfigActivity"
+            android:name=".activity.ConfigServerActivity"
             android:label="@string/config.actionBar.title"></activity>
     </application>
 

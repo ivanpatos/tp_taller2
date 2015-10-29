@@ -17,7 +17,7 @@ import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 
-public class ConfigActivity extends AppCompatActivity {
+public class ConfigServerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class ConfigActivity extends AppCompatActivity {
         editor.putString("serverUrl", urlServer);
         editor.apply();
         Toast.makeText(this, getString(R.string.config_save_success), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

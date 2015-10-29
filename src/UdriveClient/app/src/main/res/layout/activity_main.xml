@@ -68,4 +68,16 @@
         android:paddingRight="20dp"
         android:onClick="onClickLoginButton"/>
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main.config.server.url"
+        android:id="@+id/linkConfigServer"
+        android:paddingRight="20dp"
+        android:onClick="onClickConfigServer"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
+
 </RelativeLayout>
