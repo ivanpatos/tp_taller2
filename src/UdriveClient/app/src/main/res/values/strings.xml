@@ -64,6 +64,11 @@
     <string name="home.menu.bottom.new_folder">Agregar nueva carpeta</string>
     <string name="home.menu.bottom.new_file">Agregar nuevo archivo</string>
 
+    <string name="home.menu.actions.modify.name">Cambiar nombre</string>
+    <string name="home.menu.actions.invite.users">Invitar a otros usuarios</string>
+    <string name="home.menu.actions.delete">Eliminar</string>
+
+
 
 
 

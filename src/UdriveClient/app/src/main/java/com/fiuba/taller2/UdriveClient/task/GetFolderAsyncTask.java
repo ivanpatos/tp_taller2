@@ -1,19 +1,25 @@
 package com.fiuba.taller2.UdriveClient.task;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
 import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
+import com.fiuba.taller2.UdriveClient.dto.FolderRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
@@ -135,6 +141,28 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                     String version = "1";
                     getFileAsyncTask.execute(idFileSelected, version);
                 }
+            }
+        });
+        documentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long arg3) {
+                DocumentChildResponseDTO documentChildSelected = documentChildResponseDTOs.get(position);
+                new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item).listener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case R.id.modify_name:
+                                Toast.makeText(activity, "Modificar nombre", Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.invite_users:
+                                Toast.makeText(activity,  "Invitar usuarios", Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.delete:
+                                Toast.makeText(activity,  "Enviar a papelera", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                }).show();
+                return true;
             }
         });
 
