@@ -64,7 +64,10 @@ std::string GetFileService::execute(const std::string& username, const std::stri
 
 				if (versionData != ""){
 					Version version(queryIdVersion, versionData);
-					response = HttpResponse::GetHttpOkResponse(version.getJson());
+					Json::Value versionJson = version.getJson();
+					File queryFile(this->fileDB.getValue(queryIdFile), this->userDB);
+					versionJson["name"] = queryFile.getName();
+					response = HttpResponse::GetHttpOkResponse(versionJson);
 				}
 				else
 					response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_INVALID_FILE_VERSION);
