@@ -7,6 +7,8 @@ public class FileResponseDTO implements Serializable {
 
     private String id;
     private String data;
+    private String name;
+    private String extension;
 
 
     public String getId() {
@@ -25,4 +27,19 @@ public class FileResponseDTO implements Serializable {
         this.data = data;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
 }

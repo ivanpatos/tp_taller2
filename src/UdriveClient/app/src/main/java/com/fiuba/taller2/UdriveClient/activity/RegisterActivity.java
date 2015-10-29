@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         String password = ((TextView) findViewById(R.id.registerTextPassword)).getText().toString();
         RegisterRequestDTO registerRequestDTO = new RegisterRequestDTO();
         registerRequestDTO.setName(name);
-        registerRequestDTO.setUsername(username);
+        registerRequestDTO.setUsername(username.trim());
         registerRequestDTO.setMail(mail);
         registerRequestDTO.setPassword(password);
         RegisterValidator registerValidator = new RegisterValidator(this);

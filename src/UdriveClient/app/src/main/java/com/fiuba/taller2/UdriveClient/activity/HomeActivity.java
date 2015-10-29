@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 FolderRequestDTO folderRequestDTO = new FolderRequestDTO();
-                                folderRequestDTO.setName(userInput.getText().toString());
+                                folderRequestDTO.setName(userInput.getText().toString().trim());
                                 folderRequestDTO.setIdParent(idFolder);
                                 Gson gson = new Gson();
                                 String json = gson.toJson(folderRequestDTO);

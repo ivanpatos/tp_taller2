@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         String username = ((TextView) findViewById(R.id.loginTextUsername)).getText().toString();
         String password = ((TextView) findViewById(R.id.loginTextPassword)).getText().toString();
         LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
-        loginRequestDTO.setUsername(username);
+        loginRequestDTO.setUsername(username.trim());
         loginRequestDTO.setPassword(password);
         LoginValidator loginValidator = new LoginValidator(this);
         if (loginValidator.validate(loginRequestDTO)) {

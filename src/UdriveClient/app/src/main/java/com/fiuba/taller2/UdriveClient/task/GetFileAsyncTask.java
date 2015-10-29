@@ -100,10 +100,10 @@ public class GetFileAsyncTask extends AsyncTask<String, String, JSONObject> {
                dir.mkdirs();
             }
 
-            // Modificar server para obtener filename en fileResponseDTO
-            String filename = fileResponseDTO.getId().replace("/","");
+            String filename = fileResponseDTO.getName();
+            String extension = fileResponseDTO.getExtension();
 
-            File file = new File(dir.getAbsolutePath(), filename);
+            File file = new File(dir.getAbsolutePath(), filename + "." + extension);
             if (!file.exists()) {
                file.createNewFile();
             }
@@ -116,9 +116,15 @@ public class GetFileAsyncTask extends AsyncTask<String, String, JSONObject> {
             fop.close();
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
+            String type = "*/*";
+            if(extension.equals("pdf")){
+                type = "application/pdf";
+            }
+            if(extension.equals("jpg") || extension.equals("png") || extension.equals("jpeg") ){
+                type = "image/*";
 
-            // Cuando tengamos el filename, poner el type de acuerdo a su extension
-            intent.setDataAndType(Uri.fromFile(file), "*/*");
+            }
+            intent.setDataAndType(Uri.fromFile(file), type);
             activity.startActivity(intent);
 
 
