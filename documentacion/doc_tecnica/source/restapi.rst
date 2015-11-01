@@ -248,6 +248,7 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 	6 - ERROR_SAVING_DATA
 	8 - ERROR_INVALID_FOLDER_PARENT
 	11 - ERROR_FILE_EXISTS
+	18 - ERROR_NOT_ENOUGH_SPACE
 
 **Get File** (logico, obtengo solo los metadatos)::
 
@@ -307,7 +308,7 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 
 	si salio ok, json con:
 	result : OK
-	data: id (id de la version o sea "idFile_version"), data
+	data: id (id de la version o sea "idFile_version"), name, extension, data
 
 	si salio mal:
 	result : ERROR
@@ -362,6 +363,7 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 	6 - ERROR_SAVING_DATA
 	13 - ERROR_INVALID_FILE
 	15 - ERROR_FILE_PERMISSION_DENIED
+	18 - ERROR_NOT_ENOUGH_SPACE
 
 **Delete File**::
 

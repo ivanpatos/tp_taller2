@@ -37,14 +37,20 @@ std::string UpdateFileService::execute(const std::string& username, const std::s
 
 					//update fisico
 					if (jsonData.isMember("data")){
-						file.increaseVersion();
-						std::ostringstream ss;
-						ss << file.getVersion();
-						Version version(file.getId() + "_" + ss.str(), jsonData.get("data", "").asCString());
-						if (this->fileDB.saveValue(file.getId(), file.getJsonString()) && this->dataDB.saveValue(version.getId(), version.getData()))
-							response = HttpResponse::GetHttpOkResponse(file.getJson());
-						else
-							response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+						std::string dataString = jsonData.get("data", "").asCString();
+						if (user.getSpace() < dataString.length())
+							response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_NOT_ENOUGH_SPACE);
+						else{
+							user.setSpace(user.getSpace()-dataString.length());
+							file.increaseVersion();
+							std::ostringstream ss;
+							ss << file.getVersion();
+							Version version(file.getId() + "_" + ss.str(), dataString);
+							if (this->userDB.saveValue(user.getUsername(), user.getJsonString()) && this->fileDB.saveValue(file.getId(), file.getJsonString()) && this->dataDB.saveValue(version.getId(), version.getData()))
+								response = HttpResponse::GetHttpOkResponse(file.getJson());
+							else
+								response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+						}
 					}
 					//update metadatos
 					else{

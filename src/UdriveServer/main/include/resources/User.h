@@ -15,6 +15,7 @@ private:
 	std::string lastLocation;
 	std::string password;
 	std::string token;
+	int space;
 
 public:
 	User(const Json::Value& json);
@@ -25,15 +26,17 @@ public:
 	std::string getUsername() const;
 	std::string getPassword() const;
 	std::string getToken() const;
+	std::string getEmail() const;
+	int getSpace() const;
+	void setUserName(const std::string& str);
+	void setPassword(const std::string& str);
+	void setSpace(const int& space);
 	std::string getJsonString() const;					// devuelve string de json con todos los atributos
 	Json::Value getJsonProfile() const;					// devuelve json sin password y token
 	Json::Value getJsonProfileWithToken() const;		// devuelve json sin password
 	void updateProfile(const std::string& jsonString);	// actualiza profile a partir de json string
 	void generateToken();
 	bool authenticateToken(const std::string& token) const;
-	std::string getEmail() const;
-	void setUserName(const std::string& str);
-	void setPassword(const std::string& str);
 };
 
 

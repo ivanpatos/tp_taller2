@@ -35,17 +35,22 @@ std::string CreateFileService::execute(const std::string& username, const std::s
 				if (folder.hasFile(jsonData.get("name", "").asCString(),jsonData.get("extension", "").asCString()))
 					response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_FILE_EXISTS);
 				else{
-					jsonData["username"] = user.getUsername();
-					jsonData["id"] = folder.getId()+"/"+jsonData.get("name", "").asCString()+"."+jsonData.get("extension", "").asCString()+","+Time::getCurrentTime();
-					File *file = new File(jsonData, this->userDB);
-					folder.addFileChildren(file);
-					std::string idVersion = file->getId() + "_1";
-					Version version(idVersion,jsonData.get("data", "").asCString());
-
-					if (this->fileDB.saveValue(file->getId(), file->getJsonString()) &&	this->dataDB.saveValue(version.getId(), version.getData()) && this->folderDB.saveValue(folder.getId(), folder.getJsonString()))
-						response = HttpResponse::GetHttpOkResponse(file->getJson());
-					else
-						response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+					std::string dataString = jsonData.get("data", "").asCString();
+					if (user.getSpace() < dataString.length())
+						response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_NOT_ENOUGH_SPACE);
+					else{
+						user.setSpace(user.getSpace()-dataString.length());
+						jsonData["username"] = user.getUsername();
+						jsonData["id"] = folder.getId()+"/"+jsonData.get("name", "").asCString()+"."+jsonData.get("extension", "").asCString()+","+Time::getCurrentTime();
+						File *file = new File(jsonData, this->userDB);
+						folder.addFileChildren(file);
+						std::string idVersion = file->getId() + "_1";
+						Version version(idVersion, dataString);
+						if (this->userDB.saveValue(user.getUsername(), user.getJsonString()) && this->fileDB.saveValue(file->getId(), file->getJsonString()) &&	this->dataDB.saveValue(version.getId(), version.getData()) && this->folderDB.saveValue(folder.getId(), folder.getJsonString()))
+							response = HttpResponse::GetHttpOkResponse(file->getJson());
+						else
+							response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+					}
 				}
 			}
 		}

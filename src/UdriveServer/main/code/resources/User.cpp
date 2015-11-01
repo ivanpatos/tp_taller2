@@ -11,6 +11,7 @@ User::User(const Json::Value& json){
 	this->lastLocation = "";
 	this->password = json.get("password", "").asCString();
 	this->token = "";
+	this->space = 1073741824;
 }
 
 User::User(const std::string& jsonString){
@@ -24,6 +25,7 @@ User::User(const std::string& jsonString){
 	this->lastLocation = json.get("lastLocation", "").asCString();
 	this->password = json.get("password", "").asCString();
 	this->token = json.get("token", "").asCString();
+	this->space = json.get("space", 0).asInt();
 }
 
 User::~User(){
@@ -49,12 +51,20 @@ std::string User::getEmail() const{
 	return this->mail;
 }
 
+int User::getSpace() const{
+	return this->space;
+}
+
 void User::setUserName(const std::string& str){
 	this->username = str;
 }
 
 void User::setPassword(const std::string& str){
 	this->password = str;
+}
+
+void User::setSpace(const int& space){
+	this->space = space;
 }
 
 std::string User::getJsonString() const{
@@ -73,6 +83,7 @@ Json::Value User::getJsonProfile() const{
 	json["mail"] = this->mail;
 	json["profilePicture"] = this->profilePicture;
 	json["lastLocation"] = this->lastLocation;
+	json["space"] = this->space;
 	return json;
 }
 
