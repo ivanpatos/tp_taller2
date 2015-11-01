@@ -1,5 +1,6 @@
 #include "../../include/server/Server.h"
 #include "../../include/server/HttpResponse.h"
+#include <iostream>
 
 //Server::Server() : userDB("./userDB"), folderDB("./folderDB"), fileDB("./fileDB"), dataDB("./dataDB"),
 //	serviceFactory(userDB, folderDB, fileDB, dataDB){
@@ -21,7 +22,8 @@ Server::Server(	Database& userDB,
 					folderDB(folderDB),
 					fileDB(fileDB),
 					dataDB(dataDB),
-					serviceFactory(userDB, folderDB, fileDB, dataDB) {
+					serviceFactory(userDB, folderDB, fileDB, dataDB),
+					finish(false){
 
 	this->server = mg_create_server(this, Server::handleEvent);
 	mg.setOption(this->server, "listening_port", "8080");
@@ -33,9 +35,14 @@ Server::~Server(){
 
 void Server::start(){
 	LOG(INFO) << std::string("Server UP & RUNNING!!") ;
-	printf("Starting on port %s\n", mg_get_option(this->server, "listening_port"));
-	for (;;)
+	LOG(INFO) << std::string("Starting on port ") + mg_get_option(this->server, "listening_port");
+	while (!this->finish)
 		mg_poll_server(server, 1000);
+}
+
+void Server::stop(){
+	this->finish = true;
+	LOG(INFO) << std::string("Server shutting down");
 }
 
 int Server::handleEvent(mg_connection *connection, mg_event event){

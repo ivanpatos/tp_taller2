@@ -14,6 +14,7 @@ private:
 	ServiceFactory serviceFactory;
 	Database &userDB, &folderDB, &fileDB, &dataDB;
 	WrapperMongoose mg;
+	bool finish;
 
 	static int handleEvent(mg_connection *connection, mg_event event);
 	void handleRequest(mg_connection *connection);
@@ -30,6 +31,7 @@ public:
 	~Server();
 
 	void start();
+	void stop();
 };
 
 
