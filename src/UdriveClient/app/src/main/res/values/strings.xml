@@ -6,6 +6,9 @@
     <string name="malformed.url.error">Error en la url del servidor</string>
     <string name="loading">Cargando...</string>
     <string name="creating_folder">Creando carpeta...</string>
+    <string name="deleting_folder">Borrando carpeta...</string>
+    <string name="deleting_file">Borrando archivo...</string>
+
     <string name="folder_already_exists">El nombre de carpeta ya existe</string>
     <string name="file_already_exists">El archivo ya existe</string>
     <string name="error_open_file">Error al abrir el archivo</string>

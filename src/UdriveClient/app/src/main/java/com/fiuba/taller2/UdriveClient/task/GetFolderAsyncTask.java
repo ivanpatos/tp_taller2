@@ -121,7 +121,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         final DocumentAdapter adapter = new DocumentAdapter(activity,
                 R.layout.listview_item_document, documentChildResponseDTOs);
 
-        ListView documentList = (ListView) activity.findViewById(R.id.documentList);
+        final ListView documentList = (ListView) activity.findViewById(R.id.documentList);
 
         documentList.setAdapter(adapter);
         documentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -145,7 +145,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         });
         documentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                DocumentChildResponseDTO documentChildSelected = documentChildResponseDTOs.get(position);
+                final DocumentChildResponseDTO documentChildSelected = documentChildResponseDTOs.get(position);
                 new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item).listener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -157,7 +157,13 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                 Toast.makeText(activity,  "Invitar usuarios", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.delete:
-                                Toast.makeText(activity,  "Enviar a papelera", Toast.LENGTH_SHORT).show();
+                                if(documentChildSelected.getType().equals("file")){
+                                    DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
+                                    deleteFileAsyncTask.execute();
+                                }else{
+                                    DeleteFolderAsyncTask deleteFolderAsyncTask = new DeleteFolderAsyncTask(activity, documentChildSelected);
+                                    deleteFolderAsyncTask.execute();
+                                }
                                 break;
                         }
                     }
