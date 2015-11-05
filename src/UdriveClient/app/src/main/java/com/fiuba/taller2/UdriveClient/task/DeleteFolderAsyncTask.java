@@ -36,6 +36,7 @@ public class DeleteFolderAsyncTask extends AsyncTask<String, String, JSONObject>
     protected JSONObject doInBackground(String... params) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         PropertyManager propertyManager = new PropertyManager(activity);
+        
         String serverUrl = sharedPreferences.getString("serverUrl", propertyManager.getProperty("url.server"));
         String folderUrl = propertyManager.getProperty("url.folder");
         JSONObject response = null;
