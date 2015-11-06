@@ -3,9 +3,15 @@
 
 #include <string>
 
+/**
+ * Clase que devuelve el tiempo actual.
+ */
 class Time{
 
 public:
+	/**
+	 * @return Devuelve el tiempo actual.
+	 */
 	static std::string getCurrentTime();
 };
 

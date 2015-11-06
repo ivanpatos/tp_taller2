@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['generatetoken',['generateToken',['../classUser.html#ae5dc168da634139888009c52145fa9ac',1,'User']]],
+  ['getallvalues',['getAllValues',['../classDatabase.html#adcc9b79d594ac1e2f528fa34252971a8',1,'Database::getAllValues()'],['../classRocksDatabase.html#a7509f490f104092b465642989fa8e388',1,'RocksDatabase::getAllValues()']]],
+  ['getcurrenttime',['getCurrentTime',['../classTime.html#ac3ab358953f7b7bf2ce037547acb1ccb',1,'Time']]],
+  ['getdata',['getData',['../classVersion.html#a6c39cd867266561b62fa7d6a4a74f632',1,'Version']]],
+  ['getdeleted',['getDeleted',['../classFile.html#ae6d2ab4d587debb6dc23ec6f3026a139',1,'File']]],
+  ['getemail',['getEmail',['../classUser.html#a00601492ab5e28c33d67a0d49b432150',1,'User']]],
+  ['getextension',['getExtension',['../classFile.html#a76a7e42cf4376c38dbbb8f60a7d980be',1,'File']]],
+  ['getfilechildren',['getFileChildren',['../classFolder.html#a9de4d5c93c7e7ad34d1057e6393c33b6',1,'Folder']]],
+  ['getfolderchildren',['getFolderChildren',['../classFolder.html#a0d7433dcb57c294f1ce2321a259a0398',1,'Folder']]],
+  ['getid',['getId',['../classFile.html#a8720574d54b42e10cb94ee6cae4e23d3',1,'File::getId()'],['../classFolder.html#a97a16ee0db181013d3700e6dd2dd83d5',1,'Folder::getId()'],['../classVersion.html#a86ff034c5e2dd9fab2c2bd662695ab46',1,'Version::getId()']]],
+  ['getjson',['getJson',['../classFile.html#ad1f9ed6fbe115e51d4f230d868a772bb',1,'File::getJson()'],['../classFolder.html#a67fb400a62902584887e50160dba11ea',1,'Folder::getJson()'],['../classVersion.html#a0c3e4980482c3db2c847c28052638d25',1,'Version::getJson()']]],
+  ['getjsonprofile',['getJsonProfile',['../classUser.html#abbe86da427b2f69f75522974dd988cd9',1,'User']]],
+  ['getjsonprofilewithtoken',['getJsonProfileWithToken',['../classUser.html#a7815ddcb5d4a1be24286b37707762556',1,'User']]],
+  ['getjsonstring',['getJsonString',['../classFile.html#a6df7d3228b9b0929cb4bc00966a68a3a',1,'File::getJsonString()'],['../classFolder.html#aee5fde008023f7fca4fe929b055a1d54',1,'Folder::getJsonString()'],['../classUser.html#aa6722feef062bf71703251d99f0a946e',1,'User::getJsonString()']]],
+  ['getname',['getName',['../classFile.html#a5a26da86b5d5eeede78a339a13dc9eb1',1,'File::getName()'],['../classFolder.html#a47e5c77548fe49840a5ef435c3ed580c',1,'Folder::getName()']]],
+  ['getowner',['getOwner',['../classFile.html#a146265a821a1632be796c2abc11e08aa',1,'File']]],
+  ['getpassword',['getPassword',['../classUser.html#af2dfea6b6d0d39e5d459e308211fc8f2',1,'User']]],
+  ['getspace',['getSpace',['../classUser.html#a22a43a661216546f986064445abd2bff',1,'User']]],
+  ['gettoken',['getToken',['../classUser.html#af2fc0dbab8ed16d8afd6ee4162a0c86f',1,'User']]],
+  ['getusername',['getUsername',['../classUser.html#ad9533b2f3adaa2467e66e14b7bf58e29',1,'User']]],
+  ['getusers',['getUsers',['../classFile.html#a583bcdadc5e56872e3bd668ff7184e72',1,'File']]],
+  ['getvalue',['getValue',['../classDatabase.html#af86544de07686cbc3cef59fa73c4162c',1,'Database::getValue()'],['../classRocksDatabase.html#a36ed8fae8d4ce2f8f8b27e553298b60f',1,'RocksDatabase::getValue()']]],
+  ['getversion',['getVersion',['../classFile.html#a1a8d259e55ebfae92a751dc7bae8b352',1,'File']]]
+];

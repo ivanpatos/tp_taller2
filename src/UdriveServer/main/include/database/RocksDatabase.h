@@ -15,6 +15,9 @@
 #include "rocksdb/options.h"
 #include "Database.h"
 
+/**
+ * Define el manejo de una base de datos generada con Rocksdb.
+ */
 class RocksDatabase: public Database {
 
 private:
@@ -23,8 +26,17 @@ private:
 
 public:
 	RocksDatabase();
+
+	/**
+	 * Inicializa la base de datos a partir del path.
+	 * @param path Path de la base de datos a generar.
+	 */
 	RocksDatabase(const std::string& path);
 	virtual ~RocksDatabase();
+
+	/**
+	 * Inicializa la base de datos a partir del path. Si existe la abre, sino la crea.
+	 */
 	virtual void init();
 	virtual std::string getValue(const std::string& key) const;
 	virtual bool saveValue(const std::string& key, const std::string& value);
