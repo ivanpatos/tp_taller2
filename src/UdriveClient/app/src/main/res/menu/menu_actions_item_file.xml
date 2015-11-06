@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/view_metadata" android:title="@string/home.menu.actions.view.metadata" android:icon="@drawable/view"/>
+    <item android:id="@+id/modify_name" android:title="@string/home.menu.actions.modify.name" android:icon="@drawable/modify"/>
+    <item android:id="@+id/invite_users" android:title="@string/home.menu.actions.invite.users" android:icon="@drawable/add_user"/>
+    <item android:id="@+id/delete" android:title="@string/home.menu.actions.delete" android:icon="@drawable/trash"/>
+
+</menu>

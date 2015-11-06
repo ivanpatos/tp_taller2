@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view.metadata.label.name"
+        android:id="@+id/metadataNameLabel"
+        style="@style/AppTheme.LabelDialog"
+        android:layout_gravity="left" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Un Nombre"
+        android:id="@+id/metadataNameValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view.metadata.label.own"
+        android:id="@+id/metadataOwnLabel"
+        style="@style/AppTheme.LabelDialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Un Nombre"
+        android:id="@+id/metadataOwnValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view.metadata.label.last.modified"
+        android:id="@+id/metadataLastModifiedLabel"
+        style="@style/AppTheme.LabelDialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ultima fecha"
+        android:id="@+id/metadataLastModifiedValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view.metadata.label.last.user"
+        android:id="@+id/metadataLastUserLabel"
+        style="@style/AppTheme.LabelDialog"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ultimo usuario"
+        android:id="@+id/metadataLastUserValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view.metadata.label.version"
+        android:id="@+id/metadataVersionLabel"
+        style="@style/AppTheme.LabelDialog" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version"
+        android:id="@+id/metadataVersionValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view.metadata.label.labels"
+        android:id="@+id/metadataLabelsLabel"
+        style="@style/AppTheme.LabelDialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Etiquetas"
+        android:id="@+id/metadataLabelsValue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view.metadata.label.permissions"
+        android:id="@+id/metadataPermissionsLabel"
+        style="@style/AppTheme.LabelDialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Permisos"
+        android:id="@+id/metadataPermissionsValue" />
+</LinearLayout>

@@ -14,6 +14,11 @@
         <item name="background">@color/lightBlue</item>
     </style>
 
+
+    <style name="AppTheme.LabelDialog"  parent="AppTheme">
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:textSize">14dp</item>
+    </style>
 </resources>
 
 

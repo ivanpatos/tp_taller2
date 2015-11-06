@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
@@ -29,6 +30,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -146,28 +148,47 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         documentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long arg3) {
                 final DocumentChildResponseDTO documentChildSelected = documentChildResponseDTOs.get(position);
-                new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item).listener(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case R.id.modify_name:
-                                Toast.makeText(activity, "Modificar nombre", Toast.LENGTH_SHORT).show();
-                                break;
-                            case R.id.invite_users:
-                                Toast.makeText(activity,  "Invitar usuarios", Toast.LENGTH_SHORT).show();
-                                break;
-                            case R.id.delete:
-                                if(documentChildSelected.getType().equals("file")){
+                if(documentChildSelected.getType().equals("file")){
+                    new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_file).listener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case R.id.view_metadata:
+                                    GetMetadataFileAsyncTask getMetadataFileAsyncTask = new GetMetadataFileAsyncTask(activity);
+                                    getMetadataFileAsyncTask.execute(documentChildSelected.getId());
+                                case R.id.modify_name:
+                                    Toast.makeText(activity, "Modificar nombre", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case R.id.invite_users:
+                                    Toast.makeText(activity,  "Invitar usuarios", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case R.id.delete:
                                     DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
                                     deleteFileAsyncTask.execute();
-                                }else{
+                                    break;
+                            }
+                        }
+                    }).show();
+                }else{
+                    new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_folder).listener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+
+                                case R.id.modify_name:
+                                    Toast.makeText(activity, "Modificar nombre", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case R.id.invite_users:
+                                    Toast.makeText(activity, "Invitar usuarios", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case R.id.delete:
                                     DeleteFolderAsyncTask deleteFolderAsyncTask = new DeleteFolderAsyncTask(activity, documentChildSelected);
                                     deleteFolderAsyncTask.execute();
-                                }
-                                break;
+                                    break;
+                            }
                         }
-                    }
-                }).show();
+                    }).show();
+                }
                 return true;
             }
         });

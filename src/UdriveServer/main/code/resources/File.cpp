@@ -168,7 +168,7 @@ Json::Value File::getJson() const{
 		json["labels"] = jsonLabels;
 	}
 	else
-		json["labels"] = "";
+		json["labels"] = Json::Value(Json::arrayValue);
 
 	if (this->users.size() > 0){
 		Json::Value users;
@@ -180,7 +180,7 @@ Json::Value File::getJson() const{
 		json["users"] = users;
 	}
 	else
-		json["users"] = "";
+		json["users"] = Json::Value(Json::arrayValue);
 	return json;
 }
 

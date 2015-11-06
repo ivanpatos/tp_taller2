@@ -1,7 +1,9 @@
 package com.fiuba.taller2.UdriveClient.task;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -9,6 +11,10 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Base64;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
@@ -27,13 +33,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class GetFileAsyncTask extends AsyncTask<String, String, JSONObject> {
+public class GetMetadataFileAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     private Activity activity;
     private ProgressDialog dialog;
     private String errorMessage = "";
 
-    public GetFileAsyncTask(Activity activity) {
+    public GetMetadataFileAsyncTask(Activity activity) {
         this.activity = activity;
     }
 
@@ -44,14 +50,12 @@ public class GetFileAsyncTask extends AsyncTask<String, String, JSONObject> {
         String serverUrl = sharedPreferences.getString("serverUrl", propertyManager.getProperty("url.server"));
         String fileUrl = propertyManager.getProperty("url.file");
         String idFile = params[0];
-        String version = params[1];
-
         JSONObject response = null;
         RestConnectionDTO restConnectionDTO = new RestConnectionDTO();
         String username = sharedPreferences.getString("username", "null");
         String token = sharedPreferences.getString("token", "null");
         try {
-            URL url = new URL(serverUrl + fileUrl + "/" + idFile + "?version=" + version);
+            URL url = new URL(serverUrl + fileUrl + "/" + idFile);
             restConnectionDTO.setUrl(url);
             restConnectionDTO.setRequestMethod("GET");
             restConnectionDTO.addAttributeHeader("Content-Type", "application/json; charset=UTF-8");
@@ -93,43 +97,73 @@ public class GetFileAsyncTask extends AsyncTask<String, String, JSONObject> {
             }
 
             Gson gson = new Gson();
+            Log.d("jsonObjetc", jsonObject.get("data").toString());
             FileResponseDTO fileResponseDTO = gson.fromJson(jsonObject.get("data").toString(), FileResponseDTO.class);
 
-            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-            if (!dir.exists()) {
-               dir.mkdirs();
+            LayoutInflater li = LayoutInflater.from(activity);
+            View promptsView = li.inflate(R.layout.dialog_view_metadata, null);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    activity).setTitle(R.string.view_metadata_title);
+            TextView nameText = (TextView) promptsView
+                    .findViewById(R.id.metadataNameValue);
+            nameText.setText(fileResponseDTO.getName() + "." + fileResponseDTO.getExtension());
+
+            TextView ownText = (TextView) promptsView
+                    .findViewById(R.id.metadataOwnValue);
+            ownText.setText(fileResponseDTO.getOwner());
+
+            String textLastModified = fileResponseDTO.getLastModified();
+            if(textLastModified.isEmpty()){
+                textLastModified = "-";
             }
+            TextView lastModifiedText = (TextView) promptsView
+                    .findViewById(R.id.metadataLastModifiedValue);
+            lastModifiedText.setText(textLastModified);
 
-            String filename = fileResponseDTO.getName();
-            String extension = fileResponseDTO.getExtension();
 
-            File file = new File(dir.getAbsolutePath(), filename + "." + extension);
-            if (!file.exists()) {
-               file.createNewFile();
+            String textLastUser= fileResponseDTO.getLastUser();
+            if(textLastUser.isEmpty()){
+                textLastUser = "-";
             }
-            FileOutputStream fop = new FileOutputStream(file);
+            TextView lastUserText = (TextView) promptsView
+                    .findViewById(R.id.metadataLastUserValue);
+            lastUserText.setText(textLastUser);
 
-            String fileBase64 = fileResponseDTO.getData();
-            byte[] contentInBytes = Base64.decode(fileBase64, Base64.DEFAULT);
-            fop.write(contentInBytes);
-            fop.flush();
-            fop.close();
+            TextView versionText = (TextView) promptsView
+                    .findViewById(R.id.metadataVersionValue);
+            versionText.setText(fileResponseDTO.getVersion());
 
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            String type = "*/*";
-            if(extension.equals("pdf")){
-                type = "application/pdf";
+            String textLabels = "-";
+            if(!fileResponseDTO.getLabels().isEmpty()){
+                textLabels = fileResponseDTO.getLabels().toString();
             }
-            if(extension.equals("jpg") || extension.equals("png") || extension.equals("jpeg") ){
-                type = "image/*";
+            TextView labelsText = (TextView) promptsView
+                    .findViewById(R.id.metadataLabelsValue);
+            labelsText.setText(textLabels);
 
+            String textPermissions= "-";
+            if(!fileResponseDTO.getUsers().isEmpty()){
+                textPermissions = fileResponseDTO.getUsers().toString();
             }
-            intent.setDataAndType(Uri.fromFile(file), type);
-            activity.startActivity(intent);
+            TextView permissionsText = (TextView) promptsView
+                    .findViewById(R.id.metadataPermissionsValue);
+            permissionsText.setText(textPermissions);
+
+            alertDialogBuilder.setView(promptsView);
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setNegativeButton(R.string.close,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
 
 
-        } catch (JSONException | IOException e) {
-            Toast.makeText(activity, activity.getString(R.string.error_open_file), Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
