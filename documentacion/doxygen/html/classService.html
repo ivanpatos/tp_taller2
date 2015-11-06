@@ -89,6 +89,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Service Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="Service_8h_source.html">Service.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Service:</div>
 <div class="dyncontent">
@@ -114,13 +116,98 @@ Inheritance diagram for Service:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a98f930a873accabd9c23d8786ca2e4bb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98f930a873accabd9c23d8786ca2e4bb"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const std::string &amp;username, const std::string &amp;token, const std::string &amp;data, const std::string &amp;query) const  =0</td></tr>
+<tr class="memitem:a98f930a873accabd9c23d8786ca2e4bb"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classService.html#a98f930a873accabd9c23d8786ca2e4bb">execute</a> (const std::string &amp;username, const std::string &amp;token, const std::string &amp;data, const std::string &amp;query) const  =0</td></tr>
 <tr class="separator:a98f930a873accabd9c23d8786ca2e4bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3df34a3c20a047bce9ab1fa011931e15"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3df34a3c20a047bce9ab1fa011931e15"></a>
-virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> () const  =0</td></tr>
+<tr class="memitem:a3df34a3c20a047bce9ab1fa011931e15"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classService.html#a3df34a3c20a047bce9ab1fa011931e15">name</a> () const  =0</td></tr>
 <tr class="separator:a3df34a3c20a047bce9ab1fa011931e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Interfaz de servicio ofrecido por el servidor. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a98f930a873accabd9c23d8786ca2e4bb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string Service::execute </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>query</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Ejecuta el servicio </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>Username del usuario que solicitió el servicio. </td></tr>
+    <tr><td class="paramname">token</td><td>Token del usuario que solicitió el servicio. </td></tr>
+    <tr><td class="paramname">data</td><td>Data a ser procesada por el servicio. </td></tr>
+    <tr><td class="paramname">query</td><td>Query a ser procesado por el servicio. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Mensaje generado por el servicio. </dd></dl>
+
+<p>Implemented in <a class="el" href="classCreateUserService.html#a2039d2a654b1bd604f302f76142c2286">CreateUserService</a>, <a class="el" href="classDeleteFolderService.html#a8e4ad94c5124698381fccce79e1f9570">DeleteFolderService</a>, <a class="el" href="classUpdateFolderService.html#adf8fc8855dbd9b584b0eb7c065168690">UpdateFolderService</a>, <a class="el" href="classDeleteFileService.html#abfa589330b6a30efcd257f61352e3f56">DeleteFileService</a>, <a class="el" href="classGetFileService.html#a3f8d62c8ef4ad5f11cb0e173617f7c6d">GetFileService</a>, <a class="el" href="classGetFolderService.html#afcd574b0285976ab4b985b65a45c6f3b">GetFolderService</a>, <a class="el" href="classGetUserService.html#ad4564cefcd6e2ee18d829e36fcbe471b">GetUserService</a>, <a class="el" href="classCreateFileService.html#a246e52a7d9421c15961ec1e559cb2600">CreateFileService</a>, <a class="el" href="classCreateFolderService.html#aa59b12ed821a7374300ea77086b85cdc">CreateFolderService</a>, <a class="el" href="classLoginService.html#a2e1a6672c2dd4425e1b48ece86c51eb5">LoginService</a>, <a class="el" href="classLogoutService.html#acbc978a9b227c06378923c42483f495e">LogoutService</a>, <a class="el" href="classUpdateFileService.html#a7350119abc16d2903018ec009ad937aa">UpdateFileService</a>, <a class="el" href="classUpdateUserService.html#a1afcf7024f1bb378312456d274f0c8f9">UpdateUserService</a>, and <a class="el" href="classNonExistentService.html#a7c827e36f144743222b785794426aee8">NonExistentService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3df34a3c20a047bce9ab1fa011931e15"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const char* Service::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Devuelve nombre del servicio. </dd></dl>
+
+<p>Implemented in <a class="el" href="classCreateUserService.html#a0af4942f4fd50a8c4ba8fa13d10184b4">CreateUserService</a>, <a class="el" href="classDeleteFolderService.html#afadcd006708afd91dc4d7d4c1edf98c3">DeleteFolderService</a>, <a class="el" href="classUpdateFolderService.html#ac0bc79c660d1e196d18d694032521d47">UpdateFolderService</a>, <a class="el" href="classDeleteFileService.html#aff4ee6f2db0a1cf66af981673bc5c0f1">DeleteFileService</a>, <a class="el" href="classGetFileService.html#a6b223535ee7fa70e1276761e89a83006">GetFileService</a>, <a class="el" href="classGetFolderService.html#af692e303a291074b24d52e7c4965a595">GetFolderService</a>, <a class="el" href="classGetUserService.html#a4ad9f3b5d1cbbbd21864c57f7b094ace">GetUserService</a>, <a class="el" href="classCreateFileService.html#a5b37f185a7d74a115ba0642d8171ce70">CreateFileService</a>, <a class="el" href="classCreateFolderService.html#a31cd54b2d86434665c5fc0d6d5733ca7">CreateFolderService</a>, <a class="el" href="classLoginService.html#abec89064f09b8121b3cfb6fc6e57a549">LoginService</a>, <a class="el" href="classLogoutService.html#ae2e63b65c99d62c567aa05014b1993aa">LogoutService</a>, <a class="el" href="classUpdateFileService.html#aaaa2050ac8f282e4b665e6e8bc551a91">UpdateFileService</a>, <a class="el" href="classUpdateUserService.html#aece11a75f8ef584c80bc58b276f57810">UpdateUserService</a>, and <a class="el" href="classNonExistentService.html#a55d8983cdc02e28efd78ef0429ba27c3">NonExistentService</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/soberon/Desktop/git/tp_taller2/src/UdriveServer/main/include/server/Services/<a class="el" href="Service_8h_source.html">Service.h</a></li>
 </ul>

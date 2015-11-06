@@ -5,7 +5,9 @@
 #include "Service.h"
 #include "../../database/Database.h"
 
-
+/**
+ * Servicio encargado de actualizar ya sea metadatos como datos físicos de un archivo.
+ */
 class UpdateFileService : public Service{
 private:
 	Database &userDB, &folderDB, &fileDB, &dataDB;

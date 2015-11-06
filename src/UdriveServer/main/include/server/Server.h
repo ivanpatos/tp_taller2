@@ -7,6 +7,9 @@
 #include "../utilities/WrapperMongoose.h"
 #include "ServiceFactory.h"
 
+/**
+ * Define el servidor http con interfaz del tipo restful api.
+ */
 class Server{
 
 private:
@@ -23,14 +26,30 @@ private:
 	std::string getQueryStringFromRequest(mg_connection *connection);
 
 public:
-	//este constructor esta pensando para Dependency Injection
+	/**
+	 * Constructor.
+	 * @param userDB Base de datos de usuarios.
+	 * @param folderDB Base de datos de carpetas.
+	 * @param fileDB Base de datos de archivos.
+	 * @param dataDB Base de datos de versiones de archivos.
+	 */
 	Server(Database& userDB,Database& folderDB,Database& fileDB,Database& dataDB);
 
-	//Server();
-	void setWrapperMongoose(WrapperMongoose &mg_w);
 	~Server();
 
+	/**
+	 * Wrapper de Mongoose
+	 */
+	void setWrapperMongoose(WrapperMongoose &mg_w);
+
+	/**
+	 * Arranca el servidor. Verifica que hayan requests a procesar.
+	 */
 	void start();
+
+	/**
+	 * Para el servidor.
+	 */
 	void stop();
 };
 

@@ -6,7 +6,9 @@
 #include "../../resources/Folder.h"
 #include "../../database/Database.h"
 
-
+/**
+ * Servicio encargado de eliminar una carpeta y su contenido.
+ */
 class DeleteFolderService : public Service{
 private:
 	Database &userDB, &folderDB, &fileDB;

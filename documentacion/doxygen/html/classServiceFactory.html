@@ -89,16 +89,101 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">ServiceFactory Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="ServiceFactory_8h_source.html">ServiceFactory.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a581590657fb56fa7d5c011a31e0c8c43"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a581590657fb56fa7d5c011a31e0c8c43"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ServiceFactory</b> (<a class="el" href="classDatabase.html">Database</a> &amp;userDB, <a class="el" href="classDatabase.html">Database</a> &amp;folderDB, <a class="el" href="classDatabase.html">Database</a> &amp;fileDB, <a class="el" href="classDatabase.html">Database</a> &amp;dataDB)</td></tr>
+<tr class="memitem:a581590657fb56fa7d5c011a31e0c8c43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServiceFactory.html#a581590657fb56fa7d5c011a31e0c8c43">ServiceFactory</a> (<a class="el" href="classDatabase.html">Database</a> &amp;userDB, <a class="el" href="classDatabase.html">Database</a> &amp;folderDB, <a class="el" href="classDatabase.html">Database</a> &amp;fileDB, <a class="el" href="classDatabase.html">Database</a> &amp;dataDB)</td></tr>
 <tr class="separator:a581590657fb56fa7d5c011a31e0c8c43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31f9c3ca2564611502a9344dc370f10f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31f9c3ca2564611502a9344dc370f10f"></a>
-<a class="el" href="classService.html">Service</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createService</b> (const std::string &amp;resource, const std::string &amp;method) const </td></tr>
+<tr class="memitem:a31f9c3ca2564611502a9344dc370f10f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classService.html">Service</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServiceFactory.html#a31f9c3ca2564611502a9344dc370f10f">createService</a> (const std::string &amp;resource, const std::string &amp;method) const </td></tr>
 <tr class="separator:a31f9c3ca2564611502a9344dc370f10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Clase que encapsula la instanciación de un servicio a partir del recurso y el método solicitados. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a581590657fb56fa7d5c011a31e0c8c43"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ServiceFactory::ServiceFactory </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>userDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>folderDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>fileDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>dataDB</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userDB</td><td>Base de datos de usuarios. </td></tr>
+    <tr><td class="paramname">folderDB</td><td>Base de datos de carpetas. </td></tr>
+    <tr><td class="paramname">fileDB</td><td>Base de datos de archivos. </td></tr>
+    <tr><td class="paramname">dataDB</td><td>Base de datos de versiones de archivos. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a31f9c3ca2564611502a9344dc370f10f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classService.html">Service</a>* ServiceFactory::createService </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>resource</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>method</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Devuelve una instancia de servicio a partir del recurso y el método. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resource</td><td>Recurso definido en la restful api. </td></tr>
+    <tr><td class="paramname">method</td><td>Método definido en la restful api. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Servicio solicitado. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/soberon/Desktop/git/tp_taller2/src/UdriveServer/main/include/server/<a class="el" href="ServiceFactory_8h_source.html">ServiceFactory.h</a></li>
 </ul>

@@ -89,6 +89,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">CreateFolderService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="CreateFolderService_8h_source.html">CreateFolderService.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CreateFolderService:</div>
 <div class="dyncontent">
@@ -104,13 +106,98 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acadcf6363e5dc27990307212702301da"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acadcf6363e5dc27990307212702301da"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>CreateFolderService</b> (<a class="el" href="classDatabase.html">Database</a> &amp;userDB, <a class="el" href="classDatabase.html">Database</a> &amp;folderDB, <a class="el" href="classDatabase.html">Database</a> &amp;fileDB)</td></tr>
 <tr class="separator:acadcf6363e5dc27990307212702301da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa59b12ed821a7374300ea77086b85cdc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa59b12ed821a7374300ea77086b85cdc"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const std::string &amp;username, const std::string &amp;token, const std::string &amp;data, const std::string &amp;query) const </td></tr>
+<tr class="memitem:aa59b12ed821a7374300ea77086b85cdc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCreateFolderService.html#aa59b12ed821a7374300ea77086b85cdc">execute</a> (const std::string &amp;username, const std::string &amp;token, const std::string &amp;data, const std::string &amp;query) const </td></tr>
 <tr class="separator:aa59b12ed821a7374300ea77086b85cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31cd54b2d86434665c5fc0d6d5733ca7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31cd54b2d86434665c5fc0d6d5733ca7"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> () const </td></tr>
+<tr class="memitem:a31cd54b2d86434665c5fc0d6d5733ca7"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCreateFolderService.html#a31cd54b2d86434665c5fc0d6d5733ca7">name</a> () const </td></tr>
 <tr class="separator:a31cd54b2d86434665c5fc0d6d5733ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Servicio encargado de crear una carpeta. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aa59b12ed821a7374300ea77086b85cdc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string CreateFolderService::execute </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>query</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Ejecuta el servicio </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>Username del usuario que solicitió el servicio. </td></tr>
+    <tr><td class="paramname">token</td><td>Token del usuario que solicitió el servicio. </td></tr>
+    <tr><td class="paramname">data</td><td>Data a ser procesada por el servicio. </td></tr>
+    <tr><td class="paramname">query</td><td>Query a ser procesado por el servicio. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Mensaje generado por el servicio. </dd></dl>
+
+<p>Implements <a class="el" href="classService.html#a98f930a873accabd9c23d8786ca2e4bb">Service</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a31cd54b2d86434665c5fc0d6d5733ca7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* CreateFolderService::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Devuelve nombre del servicio. </dd></dl>
+
+<p>Implements <a class="el" href="classService.html#a3df34a3c20a047bce9ab1fa011931e15">Service</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/soberon/Desktop/git/tp_taller2/src/UdriveServer/main/include/server/Services/<a class="el" href="CreateFolderService_8h_source.html">CreateFolderService.h</a></li>
 </ul>

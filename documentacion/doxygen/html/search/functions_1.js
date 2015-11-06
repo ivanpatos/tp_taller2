@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['deleterecord',['deleteRecord',['../classDatabase.html#a15b28f371873d93d7f88a49ff321aedf',1,'Database::deleteRecord()'],['../classRocksDatabase.html#aa08dbcef56d973e84b0842a94cef0c9c',1,'RocksDatabase::deleteRecord()']]]
+  ['createservice',['createService',['../classServiceFactory.html#a31f9c3ca2564611502a9344dc370f10f',1,'ServiceFactory']]]
 ];

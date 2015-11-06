@@ -4,7 +4,9 @@
 #include <string>
 #include "../../others/json/json.h"
 
-
+/**
+ * Clase que define la respuesta generada por el servidor.
+ */
 class HttpResponse{
 
 public:
@@ -30,7 +32,18 @@ public:
 		ERROR_NOT_ENOUGH_SPACE
 	};
 
+	/**
+	 * Respuesta OK
+	 * @param data Json del mensaje a enviar.
+	 * @return Mensaje en formato string a ser enviado por el servidor con los datos correspondientes.
+	 */
 	static std::string GetHttpOkResponse(const Json::Value& data);
+
+	/**
+	 * Respuesta Error
+	 * @param errorCode Código de error.
+	 * @return Mensaje en formato string a ser enviado por el servidor indicando el error que se generó.
+	 */
 	static std::string GetHttpErrorResponse(const errorCode& errorCode);
 };
 

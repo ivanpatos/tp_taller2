@@ -5,7 +5,9 @@
 #include "Service.h"
 #include "../../database/Database.h"
 
-
+/**
+ * Servicio encargado de crear una carpeta.
+ */
 class CreateFolderService : public Service{
 private:
 	Database &userDB, &folderDB, &fileDB;

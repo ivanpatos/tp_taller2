@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['newfilestream',['newFileStream',['../classel_1_1base_1_1utils_1_1File.html#aa4bef1f2e00269d75c1c1eabb0ce4563',1,'el::base::utils::File']]]
+  ['removefilechildren',['removeFileChildren',['../classFolder.html#acd16c94941a38668b999ed1b9cbd1f51',1,'Folder']]],
+  ['removeuser',['removeUser',['../classFile.html#adae7ec323cc869f1bafb95a98f6396d2',1,'File']]],
+  ['rocksdatabase',['RocksDatabase',['../classRocksDatabase.html#afec7a569c025a8eaf32a4a46cad6471e',1,'RocksDatabase']]]
 ];

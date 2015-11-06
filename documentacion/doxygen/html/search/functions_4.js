@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['hasanylabel',['hasAnyLabel',['../classFile.html#ab9b86b0c4cc9f4d7311ebc12a4c805ee',1,'File']]],
-  ['hasfile',['hasFile',['../classFolder.html#aee3b28783cbab1deb31fd69d183db98f',1,'Folder']]],
-  ['hasfolder',['hasFolder',['../classFolder.html#a588b70a62b317eae556320462e1e722b',1,'Folder']]],
-  ['haspermission',['hasPermission',['../classFile.html#ad68aea825da6a7fea73f3f23b4193a23',1,'File']]]
+  ['file',['File',['../classFile.html#a78b4da21816196b80fb62b493e0c1e64',1,'File::File(const Json::Value &amp;json, Database &amp;userDB)'],['../classFile.html#a0835e5eee6f5b01811d519bf8bbfe401',1,'File::File(const std::string &amp;jsonString, Database &amp;userDB)']]],
+  ['folder',['Folder',['../classFolder.html#a42445c1c11b810850554078c82464a6e',1,'Folder::Folder(const Json::Value &amp;json)'],['../classFolder.html#ae3bb59b4ad22500baa9339d0836c47f9',1,'Folder::Folder(const std::string &amp;jsonString, Database &amp;userDB, Database &amp;folderDB, Database &amp;fileDB)']]]
 ];

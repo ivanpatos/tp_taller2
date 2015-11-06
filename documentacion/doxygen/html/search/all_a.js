@@ -1,16 +1,5 @@
 var searchData=
 [
-  ['savevalue',['saveValue',['../classDatabase.html#a03057bcff2b02c4c7ebaea45eb84aba2',1,'Database::saveValue()'],['../classRocksDatabase.html#ac3b640927a14aa280bde92ea756428f9',1,'RocksDatabase::saveValue()']]],
-  ['server',['Server',['../classServer.html',1,'']]],
-  ['serverthread',['ServerThread',['../classServerThread.html',1,'']]],
-  ['service',['Service',['../classService.html',1,'']]],
-  ['servicefactory',['ServiceFactory',['../classServiceFactory.html',1,'']]],
-  ['setdeleted',['setDeleted',['../classFile.html#aadbdfa4160cc22d50be4cc5ee26ab5fa',1,'File']]],
-  ['setextension',['setExtension',['../classFile.html#acf53c141e31d7bc549cde02cede8ef51',1,'File']]],
-  ['setlabels',['setLabels',['../classFile.html#a01dd3fb0afe64431a0c864bd949930b6',1,'File']]],
-  ['setname',['setName',['../classFile.html#a3d105b57401b36221446905e3a1145d6',1,'File::setName()'],['../classFolder.html#a3a9e270db481ff201c016d5c0be0924f',1,'Folder::setName()']]],
-  ['setpassword',['setPassword',['../classUser.html#a01ab77fe9cf8d75115b331983047ea82',1,'User']]],
-  ['setspace',['setSpace',['../classUser.html#ac696d0a99e38951446bb8fe0968e48da',1,'User']]],
-  ['settoken',['setToken',['../classUser.html#abe9c930160b2338e91616d822010acdd',1,'User']]],
-  ['setusername',['setUserName',['../classUser.html#a24a1be0ebf1c8a17af67eb7e92d11ba4',1,'User']]]
+  ['name',['name',['../classCreateFileService.html#a5b37f185a7d74a115ba0642d8171ce70',1,'CreateFileService::name()'],['../classCreateFolderService.html#a31cd54b2d86434665c5fc0d6d5733ca7',1,'CreateFolderService::name()'],['../classCreateUserService.html#a0af4942f4fd50a8c4ba8fa13d10184b4',1,'CreateUserService::name()'],['../classDeleteFileService.html#aff4ee6f2db0a1cf66af981673bc5c0f1',1,'DeleteFileService::name()'],['../classDeleteFolderService.html#afadcd006708afd91dc4d7d4c1edf98c3',1,'DeleteFolderService::name()'],['../classGetFileService.html#a6b223535ee7fa70e1276761e89a83006',1,'GetFileService::name()'],['../classGetFolderService.html#af692e303a291074b24d52e7c4965a595',1,'GetFolderService::name()'],['../classGetUserService.html#a4ad9f3b5d1cbbbd21864c57f7b094ace',1,'GetUserService::name()'],['../classLoginService.html#abec89064f09b8121b3cfb6fc6e57a549',1,'LoginService::name()'],['../classLogoutService.html#ae2e63b65c99d62c567aa05014b1993aa',1,'LogoutService::name()'],['../classNonExistentService.html#a55d8983cdc02e28efd78ef0429ba27c3',1,'NonExistentService::name()'],['../classService.html#a3df34a3c20a047bce9ab1fa011931e15',1,'Service::name()'],['../classUpdateFileService.html#aaaa2050ac8f282e4b665e6e8bc551a91',1,'UpdateFileService::name()'],['../classUpdateFolderService.html#ac0bc79c660d1e196d18d694032521d47',1,'UpdateFolderService::name()'],['../classUpdateUserService.html#aece11a75f8ef584c80bc58b276f57810',1,'UpdateUserService::name()']]],
+  ['nonexistentservice',['NonExistentService',['../classNonExistentService.html',1,'']]]
 ];

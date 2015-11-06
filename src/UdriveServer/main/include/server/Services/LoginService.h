@@ -5,7 +5,9 @@
 #include "Service.h"
 #include "../../database/Database.h"
 
-
+/**
+ * Servicio encargado de loguear un usuario.
+ */
 class LoginService : public Service{
 private:
 	Database &userDB;

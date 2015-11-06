@@ -89,22 +89,120 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Server Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="Server_8h_source.html">Server.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adc4fd450905d59b21be840960ac6d3ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc4fd450905d59b21be840960ac6d3ba"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Server</b> (<a class="el" href="classDatabase.html">Database</a> &amp;userDB, <a class="el" href="classDatabase.html">Database</a> &amp;folderDB, <a class="el" href="classDatabase.html">Database</a> &amp;fileDB, <a class="el" href="classDatabase.html">Database</a> &amp;dataDB)</td></tr>
+<tr class="memitem:adc4fd450905d59b21be840960ac6d3ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#adc4fd450905d59b21be840960ac6d3ba">Server</a> (<a class="el" href="classDatabase.html">Database</a> &amp;userDB, <a class="el" href="classDatabase.html">Database</a> &amp;folderDB, <a class="el" href="classDatabase.html">Database</a> &amp;fileDB, <a class="el" href="classDatabase.html">Database</a> &amp;dataDB)</td></tr>
 <tr class="separator:adc4fd450905d59b21be840960ac6d3ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03adca783d7ed1f1df96ec02eb80528e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a03adca783d7ed1f1df96ec02eb80528e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setWrapperMongoose</b> (WrapperMongoose &amp;mg_w)</td></tr>
+<tr class="memitem:a03adca783d7ed1f1df96ec02eb80528e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a03adca783d7ed1f1df96ec02eb80528e">setWrapperMongoose</a> (WrapperMongoose &amp;mg_w)</td></tr>
 <tr class="separator:a03adca783d7ed1f1df96ec02eb80528e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eac07d2582fa01c2671362efa955b31"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7eac07d2582fa01c2671362efa955b31"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr>
+<tr class="memitem:a7eac07d2582fa01c2671362efa955b31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a7eac07d2582fa01c2671362efa955b31">start</a> ()</td></tr>
 <tr class="separator:a7eac07d2582fa01c2671362efa955b31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07c45a7e101a3926d8f9685c3c5d14e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07c45a7e101a3926d8f9685c3c5d14e4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>stop</b> ()</td></tr>
+<tr class="memitem:a07c45a7e101a3926d8f9685c3c5d14e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServer.html#a07c45a7e101a3926d8f9685c3c5d14e4">stop</a> ()</td></tr>
 <tr class="separator:a07c45a7e101a3926d8f9685c3c5d14e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Define el servidor http con interfaz del tipo restful api. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="adc4fd450905d59b21be840960ac6d3ba"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Server::Server </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>userDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>folderDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>fileDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>dataDB</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userDB</td><td>Base de datos de usuarios. </td></tr>
+    <tr><td class="paramname">folderDB</td><td>Base de datos de carpetas. </td></tr>
+    <tr><td class="paramname">fileDB</td><td>Base de datos de archivos. </td></tr>
+    <tr><td class="paramname">dataDB</td><td>Base de datos de versiones de archivos. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a03adca783d7ed1f1df96ec02eb80528e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Server::setWrapperMongoose </td>
+          <td>(</td>
+          <td class="paramtype">WrapperMongoose &amp;&#160;</td>
+          <td class="paramname"><em>mg_w</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Wrapper de Mongoose </p>
+
+</div>
+</div>
+<a class="anchor" id="a7eac07d2582fa01c2671362efa955b31"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Server::start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Arranca el servidor. Verifica que hayan requests a procesar. </p>
+
+</div>
+</div>
+<a class="anchor" id="a07c45a7e101a3926d8f9685c3c5d14e4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Server::stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Para el servidor. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/soberon/Desktop/git/tp_taller2/src/UdriveServer/main/include/server/<a class="el" href="Server_8h_source.html">Server.h</a></li>
 </ul>

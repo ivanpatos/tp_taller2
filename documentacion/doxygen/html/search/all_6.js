@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['increaseversion',['increaseVersion',['../classFile.html#aa606410187876511d479167c6fa98961',1,'File']]],
-  ['init',['init',['../classDatabase.html#a9e01c1c1a9ff2867a8d7270338766105',1,'Database::init()'],['../classRocksDatabase.html#ac27eb43dfd358a1e0719191ea3db2b96',1,'RocksDatabase::init()']]],
-  ['isowner',['isOwner',['../classFile.html#ae2a3003582da497ca98d58075b3cdf45',1,'File']]]
+  ['hasanylabel',['hasAnyLabel',['../classFile.html#ab9b86b0c4cc9f4d7311ebc12a4c805ee',1,'File']]],
+  ['hasfile',['hasFile',['../classFolder.html#aee3b28783cbab1deb31fd69d183db98f',1,'Folder']]],
+  ['hasfolder',['hasFolder',['../classFolder.html#a588b70a62b317eae556320462e1e722b',1,'Folder']]],
+  ['haspermission',['hasPermission',['../classFile.html#ad68aea825da6a7fea73f3f23b4193a23',1,'File']]],
+  ['httpresponse',['HttpResponse',['../classHttpResponse.html',1,'']]]
 ];

@@ -89,6 +89,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">LogoutService Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="LogoutService_8h_source.html">LogoutService.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for LogoutService:</div>
 <div class="dyncontent">
@@ -104,13 +106,98 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a48a9e86e5abccd267e49334829a6f303"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48a9e86e5abccd267e49334829a6f303"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>LogoutService</b> (<a class="el" href="classDatabase.html">Database</a> &amp;userDB)</td></tr>
 <tr class="separator:a48a9e86e5abccd267e49334829a6f303"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbc978a9b227c06378923c42483f495e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acbc978a9b227c06378923c42483f495e"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>execute</b> (const std::string &amp;username, const std::string &amp;token, const std::string &amp;data, const std::string &amp;query) const </td></tr>
+<tr class="memitem:acbc978a9b227c06378923c42483f495e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogoutService.html#acbc978a9b227c06378923c42483f495e">execute</a> (const std::string &amp;username, const std::string &amp;token, const std::string &amp;data, const std::string &amp;query) const </td></tr>
 <tr class="separator:acbc978a9b227c06378923c42483f495e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2e63b65c99d62c567aa05014b1993aa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2e63b65c99d62c567aa05014b1993aa"></a>
-const char *&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> () const </td></tr>
+<tr class="memitem:ae2e63b65c99d62c567aa05014b1993aa"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogoutService.html#ae2e63b65c99d62c567aa05014b1993aa">name</a> () const </td></tr>
 <tr class="separator:ae2e63b65c99d62c567aa05014b1993aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Servicio encargado de desloguear un usuario. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="acbc978a9b227c06378923c42483f495e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string LogoutService::execute </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>username</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>query</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Ejecuta el servicio </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">username</td><td>Username del usuario que solicitió el servicio. </td></tr>
+    <tr><td class="paramname">token</td><td>Token del usuario que solicitió el servicio. </td></tr>
+    <tr><td class="paramname">data</td><td>Data a ser procesada por el servicio. </td></tr>
+    <tr><td class="paramname">query</td><td>Query a ser procesado por el servicio. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Mensaje generado por el servicio. </dd></dl>
+
+<p>Implements <a class="el" href="classService.html#a98f930a873accabd9c23d8786ca2e4bb">Service</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae2e63b65c99d62c567aa05014b1993aa"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* LogoutService::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Devuelve nombre del servicio. </dd></dl>
+
+<p>Implements <a class="el" href="classService.html#a3df34a3c20a047bce9ab1fa011931e15">Service</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/soberon/Desktop/git/tp_taller2/src/UdriveServer/main/include/server/Services/<a class="el" href="LogoutService_8h_source.html">LogoutService.h</a></li>
 </ul>

@@ -5,7 +5,9 @@
 #include "Service.h"
 #include "../../database/Database.h"
 
-
+/**
+ * Servicio encargado de crear un archivo.
+ */
 class CreateFileService : public Service{
 private:
 	Database &userDB, &folderDB, &fileDB, &dataDB;

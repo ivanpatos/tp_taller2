@@ -6,6 +6,9 @@
 #include "../../database/Database.h"
 
 
+/**
+ * Servicio encargado de devolver ya sea los metadatos como los datos físicos de un archivo.
+ */
 class GetFileService : public Service{
 private:
 	Database &userDB, &folderDB, &fileDB, &dataDB;

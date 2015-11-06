@@ -6,6 +6,9 @@
 #include "../../database/Database.h"
 
 
+/**
+ * Servicio encargado de actualizar el perfil de un usuario.
+ */
 class UpdateUserService : public Service{
 public:
 	UpdateUserService(Database &userDB);

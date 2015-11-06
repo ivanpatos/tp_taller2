@@ -6,6 +6,9 @@
 #include "../../database/Database.h"
 
 
+/**
+ * Servicio encargado de devolver el contenido de una carpeta (metadatos).
+ */
 class GetFolderService : public Service{
 private:
 	Database &userDB, &folderDB, &fileDB;

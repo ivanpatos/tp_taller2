@@ -90,6 +90,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">HttpResponse Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="HttpResponse_8h_source.html">HttpResponse.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -122,13 +124,76 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab8c0460c23ca4a307365515981e21b9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8c0460c23ca4a307365515981e21b9d"></a>
-static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetHttpOkResponse</b> (const Json::Value &amp;data)</td></tr>
+<tr class="memitem:ab8c0460c23ca4a307365515981e21b9d"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHttpResponse.html#ab8c0460c23ca4a307365515981e21b9d">GetHttpOkResponse</a> (const Json::Value &amp;data)</td></tr>
 <tr class="separator:ab8c0460c23ca4a307365515981e21b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c598f65ed4406afd7c7a70465cd20ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9c598f65ed4406afd7c7a70465cd20ac"></a>
-static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetHttpErrorResponse</b> (const errorCode &amp;errorCode)</td></tr>
+<tr class="memitem:a9c598f65ed4406afd7c7a70465cd20ac"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHttpResponse.html#a9c598f65ed4406afd7c7a70465cd20ac">GetHttpErrorResponse</a> (const errorCode &amp;errorCode)</td></tr>
 <tr class="separator:a9c598f65ed4406afd7c7a70465cd20ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Clase que define la respuesta generada por el servidor. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a9c598f65ed4406afd7c7a70465cd20ac"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::string HttpResponse::GetHttpErrorResponse </td>
+          <td>(</td>
+          <td class="paramtype">const errorCode &amp;&#160;</td>
+          <td class="paramname"><em>errorCode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Respuesta Error </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">errorCode</td><td>Código de error. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Mensaje en formato string a ser enviado por el servidor indicando el error que se generó. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab8c0460c23ca4a307365515981e21b9d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::string HttpResponse::GetHttpOkResponse </td>
+          <td>(</td>
+          <td class="paramtype">const Json::Value &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Respuesta OK </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Json del mensaje a enviar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Mensaje en formato string a ser enviado por el servidor con los datos correspondientes. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/soberon/Desktop/git/tp_taller2/src/UdriveServer/main/include/server/<a class="el" href="HttpResponse_8h_source.html">HttpResponse.h</a></li>
 </ul>

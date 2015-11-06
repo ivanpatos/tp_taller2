@@ -90,25 +90,131 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">ServerThread Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="ServerThread_8h_source.html">ServerThread.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abdb6efc082b7c764e91443667cbfb140"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abdb6efc082b7c764e91443667cbfb140"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>ServerThread</b> (<a class="el" href="classDatabase.html">Database</a> &amp;userDB, <a class="el" href="classDatabase.html">Database</a> &amp;folderDB, <a class="el" href="classDatabase.html">Database</a> &amp;fileDB, <a class="el" href="classDatabase.html">Database</a> &amp;dataDB)</td></tr>
+<tr class="memitem:abdb6efc082b7c764e91443667cbfb140"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServerThread.html#abdb6efc082b7c764e91443667cbfb140">ServerThread</a> (<a class="el" href="classDatabase.html">Database</a> &amp;userDB, <a class="el" href="classDatabase.html">Database</a> &amp;folderDB, <a class="el" href="classDatabase.html">Database</a> &amp;fileDB, <a class="el" href="classDatabase.html">Database</a> &amp;dataDB)</td></tr>
 <tr class="separator:abdb6efc082b7c764e91443667cbfb140"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8547050d16eafae6c1dad84fa886bacd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8547050d16eafae6c1dad84fa886bacd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>start</b> ()</td></tr>
+<tr class="memitem:a8547050d16eafae6c1dad84fa886bacd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServerThread.html#a8547050d16eafae6c1dad84fa886bacd">start</a> ()</td></tr>
 <tr class="separator:a8547050d16eafae6c1dad84fa886bacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6688789d46029ba67306cd2116033429"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6688789d46029ba67306cd2116033429"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>join</b> ()</td></tr>
+<tr class="memitem:a6688789d46029ba67306cd2116033429"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServerThread.html#a6688789d46029ba67306cd2116033429">join</a> ()</td></tr>
 <tr class="separator:a6688789d46029ba67306cd2116033429"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a480e0e509824ca7d04f8db34e2e04ea2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a480e0e509824ca7d04f8db34e2e04ea2"></a>
-static void *&#160;</td><td class="memItemRight" valign="bottom"><b>startServer</b> (void *serverThread)</td></tr>
+<tr class="memitem:a480e0e509824ca7d04f8db34e2e04ea2"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServerThread.html#a480e0e509824ca7d04f8db34e2e04ea2">startServer</a> (void *serverThread)</td></tr>
 <tr class="separator:a480e0e509824ca7d04f8db34e2e04ea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Clase que encapsula la ejecución del servidor. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="abdb6efc082b7c764e91443667cbfb140"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ServerThread::ServerThread </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>userDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>folderDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>fileDB</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classDatabase.html">Database</a> &amp;&#160;</td>
+          <td class="paramname"><em>dataDB</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userDB</td><td>Base de datos de usuarios. </td></tr>
+    <tr><td class="paramname">folderDB</td><td>Base de datos de carpetas. </td></tr>
+    <tr><td class="paramname">fileDB</td><td>Base de datos de archivos. </td></tr>
+    <tr><td class="paramname">dataDB</td><td>Base de datos de versiones de archivos. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a6688789d46029ba67306cd2116033429"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ServerThread::join </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Para el servidor y joinea el thread. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8547050d16eafae6c1dad84fa886bacd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ServerThread::start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Crear el thread y dispara el servidor. </p>
+
+</div>
+</div>
+<a class="anchor" id="a480e0e509824ca7d04f8db34e2e04ea2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void* ServerThread::startServer </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>serverThread</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Arranca el servidor. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/soberon/Desktop/git/tp_taller2/src/UdriveServer/main/include/server/<a class="el" href="ServerThread_8h_source.html">ServerThread.h</a></li>
 </ul>

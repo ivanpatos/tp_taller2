@@ -5,7 +5,7 @@
 #include "../../others/json/json.h"
 
 /**
- * Define a un usuario.
+ * Define un usuario.
  */
 class User {
 

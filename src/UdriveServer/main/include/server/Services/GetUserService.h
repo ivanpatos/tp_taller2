@@ -6,6 +6,9 @@
 #include "../../database/Database.h"
 
 
+/**
+ * Servicio encargado de devolver metadatos de uno o más usuarios.
+ */
 class GetUserService : public Service{
 private:
 	Database &userDB;

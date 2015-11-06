@@ -7,6 +7,9 @@
 #include "../../../include/resources/Folder.h"
 
 
+/**
+ * Servicio encargado de actualizar metadatos de una carpeta y su contenido.
+ */
 class UpdateFolderService : public Service{
 private:
 	Database &userDB, &folderDB, &fileDB, &dataDB;

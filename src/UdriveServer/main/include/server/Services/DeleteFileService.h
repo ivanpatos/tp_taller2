@@ -6,7 +6,9 @@
 #include "../../resources/Folder.h"
 #include "../../database/Database.h"
 
-
+/**
+ * Servicio encargado de eliminar un archivo (borrado lógico).
+ */
 class DeleteFileService : public Service{
 private:
 	Database &userDB, &folderDB, &fileDB;

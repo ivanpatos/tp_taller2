@@ -5,6 +5,9 @@
 #include "Service.h"
 
 
+/**
+ * Servicio que representa un servicio inexistente.
+ */
 class NonExistentService : public Service{
 public:
 	NonExistentService();

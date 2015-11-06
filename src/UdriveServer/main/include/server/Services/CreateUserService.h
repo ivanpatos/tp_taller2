@@ -7,6 +7,9 @@
 #include "../../resources/User.h"
 
 
+/**
+ * Servicio encargado de crear un usuario.
+ */
 class CreateUserService : public Service{
 private:
 	Database &userDB, &folderDB;
