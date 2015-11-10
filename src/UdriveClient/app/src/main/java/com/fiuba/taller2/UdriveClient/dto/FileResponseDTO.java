@@ -7,10 +7,10 @@ public class FileResponseDTO implements Serializable {
 
     private String id;
     private String name;
-    private String deleted;
+    private boolean deleted;
     private String lastModified;
     private String lastUser;
-    private ArrayList<String> labels;
+    private ArrayList<LabelRequestDTO> labels;
     private String owner;
     private ArrayList<String> users;
     private String extension;
@@ -33,11 +33,11 @@ public class FileResponseDTO implements Serializable {
         this.name = name;
     }
 
-    public String getDeleted() {
+    public boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(String deleted) {
+    public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
 
@@ -57,11 +57,11 @@ public class FileResponseDTO implements Serializable {
         this.lastUser = lastUser;
     }
 
-    public ArrayList<String> getLabels() {
+    public ArrayList<LabelRequestDTO> getLabels() {
         return labels;
     }
 
-    public void setLabels(ArrayList<String> labels) {
+    public void setLabels(ArrayList<LabelRequestDTO> labels) {
         this.labels = labels;
     }
 

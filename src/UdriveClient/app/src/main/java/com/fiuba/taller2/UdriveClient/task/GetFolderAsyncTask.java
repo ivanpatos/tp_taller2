@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,12 +21,19 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
 import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
+import com.fiuba.taller2.UdriveClient.dto.FileRequestDTO;
+import com.fiuba.taller2.UdriveClient.dto.FileResponseDTO;
+import com.fiuba.taller2.UdriveClient.dto.FileUpdateRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderResponseDTO;
+import com.fiuba.taller2.UdriveClient.dto.FolderUpdateRequestDTO;
+import com.fiuba.taller2.UdriveClient.dto.LabelRequestDTO;
+import com.fiuba.taller2.UdriveClient.dto.RegisterRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
+import com.fiuba.taller2.UdriveClient.validator.RegisterValidator;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -35,6 +43,9 @@ import org.w3c.dom.Text;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
@@ -119,7 +130,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         activity.setTitle(folderResponseDTO.getName());
 
         final ArrayList<DocumentChildResponseDTO> documentChildResponseDTOs = folderResponseDTO.getChildren();
-
         final DocumentAdapter adapter = new DocumentAdapter(activity,
                 R.layout.listview_item_document, documentChildResponseDTOs);
 
@@ -148,7 +158,9 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         documentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long arg3) {
                 final DocumentChildResponseDTO documentChildSelected = documentChildResponseDTOs.get(position);
-                if(documentChildSelected.getType().equals("file")){
+                if (documentChildSelected.getType().equals("file")) {
+                    LoadMetadataFileAsyncTask loadMetadataFileAsyncTask = new LoadMetadataFileAsyncTask(activity, documentChildSelected);
+                    loadMetadataFileAsyncTask.execute(documentChildSelected.getId());
                     new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_file).listener(new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -156,27 +168,32 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                 case R.id.view_metadata:
                                     GetMetadataFileAsyncTask getMetadataFileAsyncTask = new GetMetadataFileAsyncTask(activity);
                                     getMetadataFileAsyncTask.execute(documentChildSelected.getId());
+                                    break;
                                 case R.id.modify_name:
-                                    Toast.makeText(activity, "Modificar nombre", Toast.LENGTH_SHORT).show();
+                                    actionOnUpdateNameFile(documentChildSelected);
+                                    break;
+                                case R.id.add_tags:
+                                    actionOnAddTagsFile(documentChildSelected);
                                     break;
                                 case R.id.invite_users:
-                                    Toast.makeText(activity,  "Invitar usuarios", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(activity, "Invitar usuarios", Toast.LENGTH_SHORT).show();
                                     break;
                                 case R.id.delete:
                                     DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
                                     deleteFileAsyncTask.execute();
+
                                     break;
                             }
                         }
                     }).show();
-                }else{
+                } else {
                     new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_folder).listener(new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which) {
 
                                 case R.id.modify_name:
-                                    Toast.makeText(activity, "Modificar nombre", Toast.LENGTH_SHORT).show();
+                                    actionOnUpdateNameFolder(documentChildSelected);
                                     break;
                                 case R.id.invite_users:
                                     Toast.makeText(activity, "Invitar usuarios", Toast.LENGTH_SHORT).show();
@@ -203,5 +220,130 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         editor.putInt("homeCycleLevel", cycleLevel);
         editor.apply();
     }
+
+
+    private void actionOnUpdateNameFolder(final DocumentChildResponseDTO documentChildSelected) {
+        LayoutInflater li = LayoutInflater.from(activity);
+        View promptsView = li.inflate(R.layout.dialog_update_name_folder, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                activity).setTitle(R.string.update_folder_name_title);
+
+        alertDialogBuilder.setView(promptsView);
+        final EditText nameFolder = (EditText) promptsView
+                .findViewById(R.id.folderNameInput);
+        nameFolder.setText(documentChildSelected.getName());
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                String name = nameFolder.getText().toString();
+                                FolderUpdateRequestDTO folderUpdateRequestDTO = new FolderUpdateRequestDTO();
+                                folderUpdateRequestDTO.setName(name);
+                                Gson gson = new Gson();
+                                String json = gson.toJson(folderUpdateRequestDTO);
+                                UpdateFolderAsyncTask updateFolderAsyncTask = new UpdateFolderAsyncTask(activity, documentChildSelected);
+                                updateFolderAsyncTask.execute(json, documentChildSelected.getId());
+                            }
+                        })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void actionOnUpdateNameFile(final DocumentChildResponseDTO documentChildSelected) {
+        LayoutInflater li = LayoutInflater.from(activity);
+        View promptsView = li.inflate(R.layout.dialog_update_name_file, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                activity).setTitle(R.string.update_file_name_title);
+
+        alertDialogBuilder.setView(promptsView);
+        final EditText nameFile = (EditText) promptsView
+                .findViewById(R.id.fileNameInput);
+        nameFile.setText(documentChildSelected.getName());
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                String name = nameFile.getText().toString();
+                                FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
+                                fileUpdateRequestDTO.setName(name);
+                                fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
+                                fileUpdateRequestDTO.setDeleted(documentChildSelected.getDeleted());
+                                fileUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
+                                fileUpdateRequestDTO.setLabels(documentChildSelected.getLabels());
+                                Gson gson = new Gson();
+                                String json = gson.toJson(fileUpdateRequestDTO);
+                                UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
+                                updateFileAsyncTask.execute(json, documentChildSelected.getId());
+                            }
+                        })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void actionOnAddTagsFile(final DocumentChildResponseDTO documentChildSelected){
+        LayoutInflater li = LayoutInflater.from(activity);
+        View promptsView = li.inflate(R.layout.dialog_add_tags_file, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                activity).setTitle(R.string.add_tag_file_title);
+
+        alertDialogBuilder.setView(promptsView);
+        final EditText nameTag = (EditText) promptsView
+                .findViewById(R.id.tagInput);
+        nameTag.setText(android.text.TextUtils.join(",", documentChildSelected.getLabels()));
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String tags = nameTag.getText().toString();
+                                ArrayList<String> items = new ArrayList<String>(Arrays.asList(tags.split(",")));
+                                ArrayList<LabelRequestDTO> labels = new ArrayList<LabelRequestDTO>();
+                                for (String item : items) {
+                                    LabelRequestDTO labelRequestDTO = new LabelRequestDTO();
+                                    labelRequestDTO.setDescription(item);
+                                    labels.add(labelRequestDTO);
+                                }
+                                FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
+                                fileUpdateRequestDTO.setName(documentChildSelected.getName());
+                                fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
+                                fileUpdateRequestDTO.setDeleted(documentChildSelected.getDeleted());
+                                fileUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
+                                fileUpdateRequestDTO.setLabels(labels);
+                                Gson gson = new Gson();
+                                String json = gson.toJson(fileUpdateRequestDTO);
+                                UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
+                                updateFileAsyncTask.execute(json, documentChildSelected.getId());
+                            }
+                        })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+    }
+
 }
 

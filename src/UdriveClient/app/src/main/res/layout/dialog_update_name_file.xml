@@ -7,10 +7,10 @@
     android:padding="10dp" >
 
     <EditText
-        android:id="@+id/folderNameInput"
+        android:id="@+id/fileNameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/add_folder_input_hint">
+        android:hint="@string/update_file_input_hint">
 
         <requestFocus />
 

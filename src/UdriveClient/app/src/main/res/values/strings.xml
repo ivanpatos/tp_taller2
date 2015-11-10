@@ -15,9 +15,16 @@
     <string name="error_save_file">Error al guardar el archivo</string>
 
     <string name="add_folder_title">Agregar carpeta</string>
+    <string name="update_folder_name_title">Actualizar nombre de carpeta</string>
     <string name="add_file_title">Agregar archivo</string>
+    <string name="update_file_name_title">Actualizar nombre del archivo</string>
     <string name="view_metadata_title">Informacion del archivo</string>
-    <string name="add_file_input_hint">Ingrese el nombre de la carpeta</string>
+    <string name="add_folder_input_hint">Ingrese el nombre de la carpeta</string>
+    <string name="update_folder_input_hint">Ingrese el nombre de la carpeta</string>
+    <string name="update_file_input_hint">Ingrese el nombre del archivo</string>
+    <string name="add_tag_file_title">Personalizar tags</string>
+    <string name="add_tag_input_hint">Agregue los tags separados por ,</string>
+
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="close">Cerrar</string>
@@ -72,6 +79,7 @@
     <string name="home.menu.actions.view.metadata">Visualizar metadatos</string>
     <string name="home.menu.actions.modify.name">Cambiar nombre</string>
     <string name="home.menu.actions.invite.users">Invitar a otros usuarios</string>
+    <string name="home.menu.actions.add.tags">Modificar tags</string>
     <string name="home.menu.actions.delete">Eliminar</string>
 
     <!-- String Config Activity -->
