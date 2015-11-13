@@ -78,7 +78,7 @@ $ make
 
 $ ./udrive_server
 
-Para frenar el servidor, hacer ctrl+c (provisorio)
+Para frenar el servidor, ingresar "stop" (sin comillas) en la consola.
 
 
 #Compilacion y ejecución de servidor junto a tests#

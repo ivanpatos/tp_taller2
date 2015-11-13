@@ -202,6 +202,9 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 	si salio mal:
 	result : ERROR
 	errorCode: codigo de error
+	1 - ERROR_AUTHENTICATION
+	6 - ERROR_SAVING_DATA
+	10 - ERROR_INVALID_FOLDER
 
 **Delete Folder**::
 
