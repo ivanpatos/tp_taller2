@@ -86,7 +86,7 @@ url: /user
 method: PUT
 query string: -
 header: username, token
-json: name, mail, profilePicture, lastLocation, password
+json: name, mail, profilePicture, lastLocation
 
 - respuesta: 
 

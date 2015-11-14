@@ -101,7 +101,6 @@ void User::updateProfile(const std::string& jsonString){
 	this->mail = json.get("mail", "").asCString();
 	this->profilePicture = json.get("profilePicture", "").asCString();
 	this->lastLocation = json.get("lastLocation", "").asCString();
-	this->password = json.get("password", "").asCString();
 }
 
 void User::generateToken(){

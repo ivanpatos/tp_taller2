@@ -46,7 +46,7 @@ class TestRequests(unittest.TestCase):
 		jsonResponse = r.json()
 
 		headersUpdateUser = {'username': jsonResponse["data"]["username"], 'token': jsonResponse["data"]["token"]}
-		jsonUpdateUser = {'password': 'juanperez', 'name': 'Juan Perez Garcia', 'mail': 'juan_perez@gmail.com', 'profilePicture': 'qwdsad123123avvdsfdfd', 'lastLocation': 'asdsdasds'}
+		jsonUpdateUser = {'name': 'Juan Perez Garcia', 'mail': 'juan_perez@gmail.com', 'profilePicture': 'qwdsad123123avvdsfdfd', 'lastLocation': 'asdsdasds'}
 		r = requests.put('http://localhost:8080/user', headers=headersUpdateUser, json=jsonUpdateUser)
 		jsonResponse = r.json()
 		self.assertEqual("OK", jsonResponse["result"])

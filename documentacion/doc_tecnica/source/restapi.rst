@@ -80,7 +80,7 @@ A continuación se detalla cada uno de los mensajes http que puede realizar el c
 	method: PUT
 	query string: -
 	header: username, token
-	json: name, mail, profilePicture, lastLocation, password
+	json: name, mail, profilePicture, lastLocation
 
 	- respuesta: 
 
