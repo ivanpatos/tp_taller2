@@ -99,6 +99,9 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.action_logout:
                 onLogoutAction();
                 return true;
+            case R.id.action_update_profile:
+                onUpdateProfileAction();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -107,6 +110,11 @@ public class HomeActivity extends AppCompatActivity {
     private void onLogoutAction(){
         LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask(this);
         logoutAsyncTask.execute();
+    }
+
+    private void onUpdateProfileAction(){
+        Intent intent = new Intent(this, UpdateProfileActivity.class);
+        startActivity(intent);
     }
 
     public void onFloatingMenuAction(final View view){

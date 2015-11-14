@@ -33,6 +33,9 @@
         <activity
             android:name=".activity.ConfigServerActivity"
             android:label="@string/config.actionBar.title"></activity>
+        <activity
+            android:name=".activity.UpdateProfileActivity"
+            android:label="@string/update.profile.actionBar.title"></activity>
     </application>
 
 </manifest>

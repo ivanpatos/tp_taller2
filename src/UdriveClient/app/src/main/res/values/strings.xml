@@ -53,6 +53,11 @@
     <string name="register.error">Ha ocurrido un error. Intente nuevamente.</string>
     <string name="register.error.username.exists">El nombre de usuario ya existe.</string>
 
+    <!-- Strings Update Profile Activity -->
+    <string name="update.profile.actionBar.title">Perfil</string>
+    <string name="update.profile.button">Guardar</string>
+    <string name="update.profile.success">Perfil actualizado.</string>
+    <string name="update.profile.waiting">Actualizando perfil...</string>
 
     <!-- Strings Login Activity -->
     <string name="login.actionBar.title">LOGIN</string>
@@ -70,7 +75,7 @@
     <string name="home.actionBar.title">HOME</string>
     <string name="home.hello">HOME</string>
     <string name="home.menu.action.logout">Logout</string>
-    <string name="home.menu.action.config">Configuracion</string>
+    <string name="home.menu.action.update_profile">Perfil</string>
     <string name="home.logout.waiting">Desloguendo...</string>
     <string name="home.menu.bottom.title">Acciones</string>
     <string name="home.menu.bottom.new_folder">Agregar nueva carpeta</string>
