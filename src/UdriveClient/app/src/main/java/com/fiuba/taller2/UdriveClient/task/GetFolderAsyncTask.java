@@ -11,8 +11,11 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +33,12 @@ import com.fiuba.taller2.UdriveClient.dto.FolderUpdateRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.LabelRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.RegisterRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
+import com.fiuba.taller2.UdriveClient.dto.UserPermissionRequestDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
+import com.fiuba.taller2.UdriveClient.util.UserAdapter;
+import com.fiuba.taller2.UdriveClient.validator.AddUserPermissionValidator;
 import com.fiuba.taller2.UdriveClient.validator.RegisterValidator;
 import com.google.gson.Gson;
 
@@ -176,7 +182,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                     actionOnAddTagsFile(documentChildSelected);
                                     break;
                                 case R.id.invite_users:
-                                    Toast.makeText(activity, "Invitar usuarios", Toast.LENGTH_SHORT).show();
+                                    actionOnUpdateUsersFile(documentChildSelected);
                                     break;
                                 case R.id.delete:
                                     DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
@@ -196,7 +202,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                     actionOnUpdateNameFolder(documentChildSelected);
                                     break;
                                 case R.id.invite_users:
-                                    Toast.makeText(activity, "Invitar usuarios", Toast.LENGTH_SHORT).show();
+                                    actionOnUpdateUsersFolder(documentChildSelected);
                                     break;
                                 case R.id.delete:
                                     DeleteFolderAsyncTask deleteFolderAsyncTask = new DeleteFolderAsyncTask(activity, documentChildSelected);
@@ -241,6 +247,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                 String name = nameFolder.getText().toString();
                                 FolderUpdateRequestDTO folderUpdateRequestDTO = new FolderUpdateRequestDTO();
                                 folderUpdateRequestDTO.setName(name);
+                                folderUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
                                 Gson gson = new Gson();
                                 String json = gson.toJson(folderUpdateRequestDTO);
                                 UpdateFolderAsyncTask updateFolderAsyncTask = new UpdateFolderAsyncTask(activity, documentChildSelected);
@@ -343,6 +350,130 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
 
+    }
+
+    private void actionOnUpdateUsersFile(final DocumentChildResponseDTO documentChildSelected) {
+        LayoutInflater li = LayoutInflater.from(activity);
+        final View promptsView = li.inflate(R.layout.dialog_update_users, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                activity).setTitle(R.string.update_file_users_title);
+
+        alertDialogBuilder.setView(promptsView);
+
+        final ArrayList<UserPermissionRequestDTO> usersList = new ArrayList<>();
+        for(UserPermissionRequestDTO user : documentChildSelected.getUsers()){
+            usersList.add(user);
+        }
+        final UserAdapter adapter = new UserAdapter(activity,
+                R.layout.listview_item_user, usersList);
+
+        final ListView userPermissionListView = (ListView) promptsView.findViewById(R.id.userPermissionList);
+
+        userPermissionListView.setAdapter(adapter);
+
+
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
+                                fileUpdateRequestDTO.setName(documentChildSelected.getName());
+                                fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
+                                fileUpdateRequestDTO.setDeleted(documentChildSelected.getDeleted());
+                                fileUpdateRequestDTO.setUsers(usersList);
+                                fileUpdateRequestDTO.setLabels(documentChildSelected.getLabels());
+                                Gson gson = new Gson();
+                                String json = gson.toJson(fileUpdateRequestDTO);
+                                UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
+                                updateFileAsyncTask.execute(json, documentChildSelected.getId());
+                            }
+                        })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        final Button addUserButton = (Button) promptsView.findViewById(R.id.btnAddUser);
+        addUserButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                final TextView usernameView = (TextView) promptsView.findViewById(R.id.userNameInput);
+                UserPermissionRequestDTO userPermissionRequestDTO = new UserPermissionRequestDTO(usernameView.getText().toString());
+                AddUserPermissionValidator addUserPermissionValidator = new AddUserPermissionValidator(activity, usersList);
+                if(addUserPermissionValidator.validate(userPermissionRequestDTO)){
+                    usersList.add(userPermissionRequestDTO);
+                    adapter.notifyDataSetChanged();
+                    usernameView.setText("");
+                }
+            }
+        });
+
+
+        alertDialog.show();
+    }
+
+
+    private void actionOnUpdateUsersFolder(final DocumentChildResponseDTO documentChildSelected) {
+        LayoutInflater li = LayoutInflater.from(activity);
+        final View promptsView = li.inflate(R.layout.dialog_update_users, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                activity).setTitle(R.string.update_folder_users_title);
+
+        alertDialogBuilder.setView(promptsView);
+
+        final ArrayList<UserPermissionRequestDTO> usersList = new ArrayList<>();
+
+        final UserAdapter adapter = new UserAdapter(activity,
+                R.layout.listview_item_user, usersList);
+
+        final ListView userPermissionListView = (ListView) promptsView.findViewById(R.id.userPermissionList);
+
+        userPermissionListView.setAdapter(adapter);
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton(R.string.confirm,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                FolderUpdateRequestDTO folderUpdateRequestDTO = new FolderUpdateRequestDTO();
+                                folderUpdateRequestDTO.setName(documentChildSelected.getName());
+                                folderUpdateRequestDTO.setUsers(usersList);
+                                Gson gson = new Gson();
+                                String json = gson.toJson(folderUpdateRequestDTO);
+                                UpdateFolderAsyncTask updateFolderAsyncTask = new UpdateFolderAsyncTask(activity, documentChildSelected);
+                                updateFolderAsyncTask.execute(json, documentChildSelected.getId());
+                            }
+                        })
+                .setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        final Button addUserButton = (Button) promptsView.findViewById(R.id.btnAddUser);
+        addUserButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                final TextView usernameView = (TextView) promptsView.findViewById(R.id.userNameInput);
+                UserPermissionRequestDTO userPermissionRequestDTO = new UserPermissionRequestDTO(usernameView.getText().toString());
+                AddUserPermissionValidator addUserPermissionValidator = new AddUserPermissionValidator(activity, usersList);
+                if(addUserPermissionValidator.validate(userPermissionRequestDTO)){
+                    usersList.add(userPermissionRequestDTO);
+                    adapter.notifyDataSetChanged();
+                    usernameView.setText("");
+                }
+            }
+        });
+
+
+        alertDialog.show();
     }
 
 }
