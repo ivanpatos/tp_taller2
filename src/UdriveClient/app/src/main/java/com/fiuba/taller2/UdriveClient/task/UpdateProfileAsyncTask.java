@@ -93,6 +93,7 @@ public class UpdateProfileAsyncTask extends AsyncTask<String, String, JSONObject
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("name", userRequestDTO.getName());
             editor.putString("mail", userRequestDTO.getMail());
+            editor.putString("profilePicture", userRequestDTO.getProfilePicture());
             editor.apply();
         } catch (JSONException e) {
             e.printStackTrace();

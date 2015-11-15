@@ -7,13 +7,24 @@
     tools:context="com.fiuba.taller2.UdriveClient.activity.UpdateProfileActivity">
 
 
+    <ImageView
+        android:id="@+id/updateProfilePicture"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="ProfilePicture"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="fitXY"
+        android:onClick="onClickUpdateProfilePicture" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/updateProfileTextName"
         android:inputType="text"
         android:autoText="false"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/updateProfilePicture"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -28,8 +39,9 @@
         android:layout_below="@+id/updateProfileTextName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/updateProfileTextName"
-        android:layout_alignEnd="@+id/updateProfileTextName" />
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -38,10 +50,10 @@
         android:id="@+id/buttonUpdateProfile"
         android:onClick="onClickUpdateProfileButton"
         android:layout_below="@+id/updateProfileTextEmail"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/updateProfileTextEmail"
-        android:layout_alignEnd="@+id/updateProfileTextEmail"
         android:background="@color/lightBlue"
-        />
+        android:layout_alignRight="@+id/updateProfilePicture"
+        android:layout_alignEnd="@+id/updateProfilePicture"
+        android:layout_alignLeft="@+id/updateProfilePicture"
+        android:layout_alignStart="@+id/updateProfilePicture" />
+
 </RelativeLayout>

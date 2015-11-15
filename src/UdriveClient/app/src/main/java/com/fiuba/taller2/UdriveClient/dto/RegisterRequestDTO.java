@@ -6,6 +6,7 @@ public class RegisterRequestDTO {
     String name;
     String mail;
     String password;
+    String profilePicture;
 
     public String getUsername() {
         return username;
@@ -37,6 +38,14 @@ public class RegisterRequestDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
 }
