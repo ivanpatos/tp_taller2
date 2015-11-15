@@ -17,31 +17,33 @@ bool CreateUserService::initUserFolders(const User& user) const{
 	std::string username = user.getUsername();
 	Json::Value json;
 
-	json["id"] = username;
-	json["name"] = "root";
-	Folder rootFolder(json);
-	if (!this->folderDB.saveValue(rootFolder.getId(), rootFolder.getJsonString()))
-		return false;
-
 	json["id"] = "sharedwith_" + username;
 	json["name"] = "sharedwith";
-	Folder sharedWithFolder(json);
-	if (!this->folderDB.saveValue(sharedWithFolder.getId(), sharedWithFolder.getJsonString()))
+	Folder *sharedWithFolder = new Folder(json);
+	if (!this->folderDB.saveValue(sharedWithFolder->getId(), sharedWithFolder->getJsonString()))
 			return false;
 
 	json["id"] = "trash_" + username;
 	json["name"] = "trash";
-	Folder trashFolder(json);
-	if (!this->folderDB.saveValue(trashFolder.getId(), trashFolder.getJsonString()))
+	Folder *trashFolder = new Folder(json);
+	if (!this->folderDB.saveValue(trashFolder->getId(), trashFolder->getJsonString()))
 			return false;
 
 
 	json["id"] = "recovered_" + username;
 	json["name"] = "recovered";
-	Folder recoveredFolder(json);
-	if (!this->folderDB.saveValue(recoveredFolder.getId(), recoveredFolder.getJsonString()))
+	Folder *recoveredFolder = new Folder(json);
+	if (!this->folderDB.saveValue(recoveredFolder->getId(), recoveredFolder->getJsonString()))
 			return false;
 
+	json["id"] = username;
+	json["name"] = "root";
+	Folder rootFolder(json);
+	rootFolder.addFolderChildren(sharedWithFolder);
+	rootFolder.addFolderChildren(trashFolder);
+	rootFolder.addFolderChildren(recoveredFolder);
+	if (!this->folderDB.saveValue(rootFolder.getId(), rootFolder.getJsonString()))
+		return false;
 
 	return true;
 }

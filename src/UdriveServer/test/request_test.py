@@ -109,7 +109,10 @@ class TestRequests(unittest.TestCase):
 		self.assertEqual("OK", jsonResponse["result"])
 		self.assertEqual("root", jsonResponse["data"]["name"])
 		self.assertEqual("file1", jsonResponse["data"]["children"][0]["name"])
-		self.assertEqual("folder1", jsonResponse["data"]["children"][1]["name"])
+		self.assertEqual("sharedwith", jsonResponse["data"]["children"][1]["name"])
+		self.assertEqual("trash", jsonResponse["data"]["children"][2]["name"])
+		self.assertEqual("recovered", jsonResponse["data"]["children"][3]["name"])
+		self.assertEqual("folder1", jsonResponse["data"]["children"][4]["name"])
 
 	#obtencion de archivo (metadatos)
 	def test_get_file(self):
