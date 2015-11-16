@@ -17,7 +17,7 @@ public class DocumentChildResponseDTO implements Serializable {
     private String lastUser;
     private ArrayList<LabelRequestDTO> labels;
     private String owner;
-    private ArrayList<String> users;
+    private ArrayList<UserPermissionRequestDTO> users;
     private String version;
 
     public String getId() {
@@ -92,11 +92,11 @@ public class DocumentChildResponseDTO implements Serializable {
         this.owner = owner;
     }
 
-    public ArrayList<String> getUsers() {
+    public ArrayList<UserPermissionRequestDTO> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<String> users) {
+    public void setUsers(ArrayList<UserPermissionRequestDTO> users) {
         this.users = users;
     }
 

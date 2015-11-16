@@ -4,5 +4,6 @@
     <item android:id="@+id/invite_users" android:title="@string/home.menu.actions.invite.users" android:icon="@drawable/add_user"/>
     <item android:id="@+id/add_tags" android:title="@string/home.menu.actions.add.tags" android:icon="@drawable/ic_add_black_48dp"/>
     <item android:id="@+id/delete" android:title="@string/home.menu.actions.delete" android:icon="@drawable/trash"/>
+    <item android:id="@+id/recover" android:title="@string/home.menu.actions.recover" android:icon="@drawable/ic_add_black_48dp"/>
 
 </menu>

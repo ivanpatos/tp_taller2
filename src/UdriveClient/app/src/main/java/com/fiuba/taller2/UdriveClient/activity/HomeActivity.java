@@ -12,26 +12,32 @@ import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
+import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.FileRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderRequestDTO;
 import com.fiuba.taller2.UdriveClient.task.AddFileAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.AddFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
+import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -64,14 +70,16 @@ public class HomeActivity extends AppCompatActivity {
         }
         GetFolderAsyncTask getFolderAsyncTask = new GetFolderAsyncTask(this);
         getFolderAsyncTask.execute(idFolder);
+        initPermissionsEvents(idFolder);
 
     }
+
+
 
     @Override
     public void onBackPressed() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0);
-
         if(cycleLevel <= 1){
             resetCycleLevel();
             moveTaskToBack(true);
@@ -244,6 +252,7 @@ public class HomeActivity extends AppCompatActivity {
         int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0) - 1;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("homeCycleLevel", cycleLevel);
+
         editor.apply();
     }
 
@@ -254,6 +263,47 @@ public class HomeActivity extends AppCompatActivity {
         editor.apply();
     }
 
+
+    private void initPermissionsEvents(String id){
+        String sharedWithCode = "sharedwith";
+        String trashCode = "trash";
+        String recoveredCode = "recovered";
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Set<String> notPermissionsFile = new HashSet<>();
+        notPermissionsFile.clear();
+        notPermissionsFile.add(String.valueOf(R.id.recover));
+
+
+        Set<String> notPermissionsFolder = new HashSet<>();
+        notPermissionsFolder.clear();
+        notPermissionsFolder.add(String.valueOf(R.id.recover));
+
+        if(id.startsWith(sharedWithCode)){
+
+        }
+        if(id.startsWith(trashCode)){
+            notPermissionsFile.clear();
+            notPermissionsFile.add(String.valueOf(R.id.delete));
+            notPermissionsFile.add(String.valueOf(R.id.add_tags));
+            notPermissionsFile.add(String.valueOf(R.id.modify_name));
+            notPermissionsFile.add(String.valueOf(R.id.invite_users));
+
+            notPermissionsFolder.clear();
+            notPermissionsFolder.add(String.valueOf(R.id.delete));
+            notPermissionsFolder.add(String.valueOf(R.id.modify_name));
+            notPermissionsFolder.add(String.valueOf(R.id.invite_users));
+        }
+        if(id.startsWith(recoveredCode)){
+
+        }
+        editor.putStringSet("notPermissionsFile", notPermissionsFile);
+        editor.putStringSet("notPermissionsFolder", notPermissionsFolder);
+        editor.apply();
+
+    }
 
 
 

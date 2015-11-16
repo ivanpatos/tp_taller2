@@ -25,6 +25,16 @@
     <string name="add_tag_file_title">Personalizar tags</string>
     <string name="add_tag_input_hint">Agregue los tags separados por ,</string>
 
+    <string name="update_file_users_title">Actualizar permisos del archivo</string>
+    <string name="update_folder_users_title">Actualizar permisos de la carpeta</string>
+    <string name="add_user_input_hint">Ingrese el nombre de usuario</string>
+    <string name="add_user_button">OK</string>
+    <string name="current_users_permission_title">Permisos actuales</string>
+
+    <string name="user_permission_invalid_user">El nombre de usuario es invalido</string>
+    <string name="user_permission_existent_user">El nombre de usuario ya existe</string>
+
+
     <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="close">Cerrar</string>
@@ -102,5 +112,6 @@
     <string name="view.metadata.label.version">Version: </string>
     <string name="view.metadata.label.labels">Etiquetas: </string>
     <string name="view.metadata.label.permissions">Permisos: </string>
+    <string name="home.menu.actions.recover">Recuperar</string>
 
 </resources>
