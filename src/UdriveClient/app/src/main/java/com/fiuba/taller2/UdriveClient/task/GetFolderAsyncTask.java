@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.v7.internal.view.menu.MenuView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -51,7 +53,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
@@ -151,6 +155,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                     intent.putExtra("idFolder", idFolderSelected);
                     activity.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
                 } else {
                     String idFileSelected = documentChildSelected.getId();
                     GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
@@ -167,7 +172,21 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                 if (documentChildSelected.getType().equals("file")) {
                     LoadMetadataFileAsyncTask loadMetadataFileAsyncTask = new LoadMetadataFileAsyncTask(activity, documentChildSelected);
                     loadMetadataFileAsyncTask.execute(documentChildSelected.getId());
-                    new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_file).listener(new DialogInterface.OnClickListener() {
+                    BottomSheet.Builder builder = new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_file);
+                    BottomSheet sheet = builder.build();
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+                    Set<String> notPermissionsFile = sharedPreferences.getStringSet("notPermissionsFile",null);
+                    if(notPermissionsFile != null){
+                        for(String id : notPermissionsFile){
+                            Integer idInt = Integer.parseInt(id);
+                            MenuItem item = sheet.getMenu().findItem(idInt);
+                            item.setVisible(false);
+                        }
+
+                    }
+
+                    builder.listener(new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             switch (which) {
@@ -187,30 +206,55 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                 case R.id.delete:
                                     DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
                                     deleteFileAsyncTask.execute();
-
+                                case R.id.recover:
+                                /*    DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
+                                    deleteFileAsyncTask.execute();*/
                                     break;
                             }
                         }
                     }).show();
                 } else {
-                    new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_folder).listener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
+                    if(!isSpecialFolder(documentChildSelected)){
 
-                                case R.id.modify_name:
-                                    actionOnUpdateNameFolder(documentChildSelected);
-                                    break;
-                                case R.id.invite_users:
-                                    actionOnUpdateUsersFolder(documentChildSelected);
-                                    break;
-                                case R.id.delete:
-                                    DeleteFolderAsyncTask deleteFolderAsyncTask = new DeleteFolderAsyncTask(activity, documentChildSelected);
-                                    deleteFolderAsyncTask.execute();
-                                    break;
+                        BottomSheet.Builder builder =  new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_folder);
+                        BottomSheet sheet = builder.build();
+
+
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+                        Set<String> notPermissionsFolder = sharedPreferences.getStringSet("notPermissionsFolder",null);
+                        if(notPermissionsFolder != null){
+                            for(String id : notPermissionsFolder){
+                                Integer idInt = Integer.parseInt(id);
+                                MenuItem item = sheet.getMenu().findItem(idInt);
+                                item.setVisible(false);
                             }
+
                         }
-                    }).show();
+
+                        builder.listener(new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+
+                                    case R.id.modify_name:
+                                        actionOnUpdateNameFolder(documentChildSelected);
+                                        break;
+                                    case R.id.invite_users:
+                                        actionOnUpdateUsersFolder(documentChildSelected);
+                                        break;
+                                    case R.id.delete:
+                                        DeleteFolderAsyncTask deleteFolderAsyncTask = new DeleteFolderAsyncTask(activity, documentChildSelected);
+                                        deleteFolderAsyncTask.execute();
+                                        break;
+                                    case R.id.recover:
+                                /*    DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
+                                    deleteFileAsyncTask.execute();*/
+                                        break;
+                                }
+                            }
+                        }).show();
+                    }
+
                 }
                 return true;
             }
@@ -475,6 +519,20 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         alertDialog.show();
     }
+
+    private boolean isSpecialFolder(DocumentChildResponseDTO documentChildSelected){
+        String sharedWithCode = "sharedwith";
+        String trashCode = "trash";
+        String recoveredCode = "recovered";
+        String id = documentChildSelected.getId();
+        if(id.startsWith(sharedWithCode) || id.startsWith(trashCode) || id.startsWith(recoveredCode)){
+            return true;
+        }
+        return false;
+
+    }
+
+
 
 }
 
