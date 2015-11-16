@@ -37,7 +37,7 @@ TEST(UserTest, updateProfile ) {
 
 	std::string inputUpdate = "{\n\t\"lastLocation\" : \"\",\n\t\"mail\" : \"nestorcarlos@gmail.com\",\n\t\"name\" : \"\",\n\t\"password\" : \"newpassword\",\n\t\"profilePicture\" : \"\",\n\t\"token\" : \"othertoken\",\n\t\"username\" : \"NestorCarlos\"\n}";
 	user.updateProfile(inputUpdate);
-	EXPECT_EQ(user.getPassword(), "newpassword");
+	EXPECT_EQ(user.getEmail(), "nestorcarlos@gmail.com");
 }
 
 

@@ -95,6 +95,9 @@ TEST_F(CreateFileServiceFixture, errorSavingData) {
 	EXPECT_CALL(folderDB,getValue(jsonFileHeader.get("idFolder", "").asCString()) )
 					.WillOnce(Return( folderBuscada.getJsonString() ));
 
+	EXPECT_CALL(userDB,saveValue( _ , _ ))
+		.WillOnce(Return(true));
+
 	EXPECT_CALL(fileDB,saveValue( _ , _ ))
 		.WillOnce(Return(true));
 
@@ -141,6 +144,10 @@ TEST_F(CreateFileServiceFixture,createFileServiceOK) {
 
 	EXPECT_CALL(folderDB,getValue(jsonFileHeader.get("idFolder", "").asCString()) )
 					.WillOnce(Return( folderBuscada.getJsonString() ));
+
+
+	EXPECT_CALL( userDB, saveValue( username , _ ) )
+	.WillOnce(Return( true ));
 
 	EXPECT_CALL( folderDB, saveValue( _ , _ ) )
 	.WillOnce(Return( true ));

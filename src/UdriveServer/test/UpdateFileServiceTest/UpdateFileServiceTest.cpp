@@ -98,6 +98,9 @@ TEST_F(UpdateFileServiceFixture, updateFisicoOk) {
 	EXPECT_CALL(dataDB,saveValue( fileId + "_" + versionAumentada , _ ))
 					.WillOnce(Return( true ));
 
+	EXPECT_CALL(userDB,saveValue( username , _ ))
+					.WillOnce(Return( true ));
+
 	std::string responseFromService = updateFileService->execute( username, token, fileChange , fileId );
 
 	Json::Value jsonData;
@@ -264,11 +267,11 @@ TEST_F(UpdateFileServiceFixture, sacarFileDeLaCarpetaTrash) {
 	EXPECT_CALL(fileDB,saveValue( fileId , _ ))
 		.WillOnce(Return( true ));
 
-	std::cout << jsonFileChange << std::endl;
+	//std::cout << jsonFileChange << std::endl;
 
 	std::string responseFromService = updateFileService->execute( username, token, fileChange , fileId );
 
-	std::cout << responseFromService << std::endl;
+	//std::cout << responseFromService << std::endl;
 
 	Json::Value jsonData;
 	Json::Reader reader;

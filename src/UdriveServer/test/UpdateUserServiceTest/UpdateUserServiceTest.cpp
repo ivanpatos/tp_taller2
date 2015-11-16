@@ -9,7 +9,7 @@ using ::testing::_;
 
 TEST_F(UpdateUserServiceFixture,updateUserServiceOK) {
 
-	User originalUser( getJsonUser( username, "999", "xxx@xxxx.com"));
+	User originalUser( getJsonUser( username, "123456", "xxx@xxxx.com"));
 	originalUser.setToken(token);
 
 	EXPECT_CALL(userDB,getValue( username ) )
@@ -68,7 +68,7 @@ TEST_F(UpdateUserServiceFixture,updateUserServiceUserWrongToken) {
 
 TEST_F(UpdateUserServiceFixture,updateUserServiceUserFailureAtSaving) {
 
-	User originalUser( getJsonUser( username, "999", "xxx@xxxx.com"));
+	User originalUser( getJsonUser( username, "123456", "xxx@xxxx.com"));
 	originalUser.setToken(token);
 
 	EXPECT_CALL(userDB,getValue( username ) )
