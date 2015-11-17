@@ -92,6 +92,10 @@ std::string UpdateFileService::execute(const std::string& username, const std::s
 									folderSharedWith.removeFileChildren(&file);
 									if (!this->folderDB.saveValue(folderSharedWith.getId(), folderSharedWith.getJsonString()))
 										return response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
+									Folder folderRecovered(this->folderDB.getValue("recovered_" + (*it)->getUsername()), this->userDB, this->folderDB, this->fileDB);
+									folderRecovered.removeFileChildren(&file);
+									if (!this->folderDB.saveValue(folderRecovered.getId(), folderRecovered.getJsonString()))
+										return response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
 									file.removeUser(**it);
 								}
 							}
