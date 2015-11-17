@@ -176,9 +176,9 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                     BottomSheet sheet = builder.build();
 
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                    Set<String> notPermissionsFile = sharedPreferences.getStringSet("notPermissionsFile",null);
-                    if(notPermissionsFile != null){
-                        for(String id : notPermissionsFile){
+                    Set<String> notPermissionsFile = sharedPreferences.getStringSet("notPermissionsFile", null);
+                    if (notPermissionsFile != null) {
+                        for (String id : notPermissionsFile) {
                             Integer idInt = Integer.parseInt(id);
                             MenuItem item = sheet.getMenu().findItem(idInt);
                             item.setVisible(false);
@@ -206,24 +206,24 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                 case R.id.delete:
                                     DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
                                     deleteFileAsyncTask.execute();
+                                    break;
                                 case R.id.recover:
-                                /*    DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
-                                    deleteFileAsyncTask.execute();*/
+                                    actionOnRecoverFile(documentChildSelected);
                                     break;
                             }
                         }
                     }).show();
                 } else {
-                    if(!isSpecialFolder(documentChildSelected)){
+                    if (!isSpecialFolder(documentChildSelected)) {
 
-                        BottomSheet.Builder builder =  new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_folder);
+                        BottomSheet.Builder builder = new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_folder);
                         BottomSheet sheet = builder.build();
 
 
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                        Set<String> notPermissionsFolder = sharedPreferences.getStringSet("notPermissionsFolder",null);
-                        if(notPermissionsFolder != null){
-                            for(String id : notPermissionsFolder){
+                        Set<String> notPermissionsFolder = sharedPreferences.getStringSet("notPermissionsFolder", null);
+                        if (notPermissionsFolder != null) {
+                            for (String id : notPermissionsFolder) {
                                 Integer idInt = Integer.parseInt(id);
                                 MenuItem item = sheet.getMenu().findItem(idInt);
                                 item.setVisible(false);
@@ -245,10 +245,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                     case R.id.delete:
                                         DeleteFolderAsyncTask deleteFolderAsyncTask = new DeleteFolderAsyncTask(activity, documentChildSelected);
                                         deleteFolderAsyncTask.execute();
-                                        break;
-                                    case R.id.recover:
-                                /*    DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
-                                    deleteFileAsyncTask.execute();*/
                                         break;
                                 }
                             }
@@ -508,7 +504,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                 final TextView usernameView = (TextView) promptsView.findViewById(R.id.userNameInput);
                 UserPermissionRequestDTO userPermissionRequestDTO = new UserPermissionRequestDTO(usernameView.getText().toString());
                 AddUserPermissionValidator addUserPermissionValidator = new AddUserPermissionValidator(activity, usersList);
-                if(addUserPermissionValidator.validate(userPermissionRequestDTO)){
+                if (addUserPermissionValidator.validate(userPermissionRequestDTO)) {
                     usersList.add(userPermissionRequestDTO);
                     adapter.notifyDataSetChanged();
                     usernameView.setText("");
@@ -519,6 +515,26 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         alertDialog.show();
     }
+
+
+
+    private void actionOnRecoverFile(final DocumentChildResponseDTO documentChildSelected) {
+        FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
+        fileUpdateRequestDTO.setName(documentChildSelected.getName());
+        fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
+        fileUpdateRequestDTO.setDeleted(false);
+        fileUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
+        fileUpdateRequestDTO.setLabels(documentChildSelected.getLabels());
+        Gson gson = new Gson();
+        String json = gson.toJson(fileUpdateRequestDTO);
+        UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
+        updateFileAsyncTask.execute(json, documentChildSelected.getId());
+        ListView documentList = (ListView) activity.findViewById(R.id.documentList);
+        DocumentAdapter adapter = (DocumentAdapter) documentList.getAdapter();
+        adapter.remove(documentChildSelected);
+        adapter.notifyDataSetChanged();
+    }
+
 
     private boolean isSpecialFolder(DocumentChildResponseDTO documentChildSelected){
         String sharedWithCode = "sharedwith";

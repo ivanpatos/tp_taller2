@@ -285,7 +285,6 @@ public class HomeActivity extends AppCompatActivity {
         notPermissionsFolder.add(String.valueOf(R.id.recover));
         final FloatingActionButton floatingAddButton = (FloatingActionButton) findViewById(R.id.floatingButtonMenu);
 
-    Log.d("visibility antes: ", String.valueOf(floatingAddButton.getVisibility()));
         if(id.startsWith(sharedWithCode)){
             floatingAddButton.setVisibility(View.GONE);
         }
@@ -302,13 +301,12 @@ public class HomeActivity extends AppCompatActivity {
             notPermissionsFolder.add(String.valueOf(R.id.delete));
             notPermissionsFolder.add(String.valueOf(R.id.modify_name));
             notPermissionsFolder.add(String.valueOf(R.id.invite_users));
+            notPermissionsFolder.add(String.valueOf(R.id.recover));
+
         }
         if(id.startsWith(recoveredCode)){
             floatingAddButton.setVisibility(View.GONE);
-
-
         }
-        Log.d("visibility desp: ", String.valueOf(floatingAddButton.getVisibility()));
 
         editor.putStringSet("notPermissionsFile", notPermissionsFile);
         editor.putStringSet("notPermissionsFolder", notPermissionsFolder);
