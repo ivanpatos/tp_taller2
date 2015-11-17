@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -280,11 +283,15 @@ public class HomeActivity extends AppCompatActivity {
         Set<String> notPermissionsFolder = new HashSet<>();
         notPermissionsFolder.clear();
         notPermissionsFolder.add(String.valueOf(R.id.recover));
+        final FloatingActionButton floatingAddButton = (FloatingActionButton) findViewById(R.id.floatingButtonMenu);
 
+    Log.d("visibility antes: ", String.valueOf(floatingAddButton.getVisibility()));
         if(id.startsWith(sharedWithCode)){
-
+            floatingAddButton.setVisibility(View.GONE);
         }
         if(id.startsWith(trashCode)){
+            floatingAddButton.setVisibility(View.GONE);
+
             notPermissionsFile.clear();
             notPermissionsFile.add(String.valueOf(R.id.delete));
             notPermissionsFile.add(String.valueOf(R.id.add_tags));
@@ -297,8 +304,12 @@ public class HomeActivity extends AppCompatActivity {
             notPermissionsFolder.add(String.valueOf(R.id.invite_users));
         }
         if(id.startsWith(recoveredCode)){
+            floatingAddButton.setVisibility(View.GONE);
+
 
         }
+        Log.d("visibility desp: ", String.valueOf(floatingAddButton.getVisibility()));
+
         editor.putStringSet("notPermissionsFile", notPermissionsFile);
         editor.putStringSet("notPermissionsFolder", notPermissionsFolder);
         editor.apply();
