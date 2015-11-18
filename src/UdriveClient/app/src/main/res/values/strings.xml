@@ -120,5 +120,6 @@
     <string name="current_tags_title">Tags actuales</string>
     <string name="label_invalid">Etiqueta invalida</string>
     <string name="label_existent">Etiqueta existente</string>
+    <string name="folder_no_action">Carpetas especiales sin acciones</string>
 
 </resources>

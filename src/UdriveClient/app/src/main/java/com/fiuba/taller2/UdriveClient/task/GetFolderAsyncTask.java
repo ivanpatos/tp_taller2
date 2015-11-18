@@ -1,44 +1,29 @@
 package com.fiuba.taller2.UdriveClient.task;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
 import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
-import com.fiuba.taller2.UdriveClient.dto.FileUpdateRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderResponseDTO;
-import com.fiuba.taller2.UdriveClient.dto.FolderUpdateRequestDTO;
-import com.fiuba.taller2.UdriveClient.dto.LabelDTO;
 import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
-import com.fiuba.taller2.UdriveClient.dto.UserPermissionRequestDTO;
-import com.fiuba.taller2.UdriveClient.dto.VersionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
-import com.fiuba.taller2.UdriveClient.util.LabelAdapter;
+import com.fiuba.taller2.UdriveClient.util.FileActionService;
+import com.fiuba.taller2.UdriveClient.util.FolderActionService;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
-import com.fiuba.taller2.UdriveClient.util.UserAdapter;
-import com.fiuba.taller2.UdriveClient.util.VersionAdapter;
-import com.fiuba.taller2.UdriveClient.validator.AddLabelValidator;
-import com.fiuba.taller2.UdriveClient.validator.AddUserPermissionValidator;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -47,7 +32,6 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Set;
 
 public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
@@ -168,9 +152,10 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         documentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long arg3) {
                 documentChildSelected = documentChildResponseDTOs.get(position);
-                LoadMetadataFileAsyncTask loadMetadataFileAsyncTask = new LoadMetadataFileAsyncTask(activity, documentChildSelected);
-                loadMetadataFileAsyncTask.execute(documentChildSelected.getId());
+
                 if (documentChildSelected.getType().equals("file")) {
+                    LoadMetadataFileAsyncTask loadMetadataFileAsyncTask = new LoadMetadataFileAsyncTask(activity, documentChildSelected);
+                    loadMetadataFileAsyncTask.execute(documentChildSelected.getId());
                     BottomSheet.Builder builder = new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_file);
 
                     BottomSheet sheet = builder.build();
@@ -188,34 +173,8 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                     builder.listener(new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which) {
-                                case R.id.view_metadata:
-                                    GetMetadataFileAsyncTask getMetadataFileAsyncTask = new GetMetadataFileAsyncTask(activity);
-                                    getMetadataFileAsyncTask.execute(documentChildSelected.getId());
-                                    break;
-                                case R.id.modify_name:
-                                    actionOnUpdateNameFile(documentChildSelected);
-                                    break;
-                                case R.id.add_new_version:
-                                    actionOnAddNewVersion();
-                                    break;
-                                case R.id.download_version:
-                                    actionOnDownloadVersion();
-                                    break;
-                                case R.id.add_tags:
-                                    actionOnAddTagsFile(documentChildSelected);
-                                    break;
-                                case R.id.invite_users:
-                                    actionOnUpdateUsersFile(documentChildSelected);
-                                    break;
-                                case R.id.delete:
-                                    DeleteFileAsyncTask deleteFileAsyncTask = new DeleteFileAsyncTask(activity, documentChildSelected);
-                                    deleteFileAsyncTask.execute();
-                                    break;
-                                case R.id.recover:
-                                    actionOnRecoverFile(documentChildSelected);
-                                    break;
-                            }
+                            FileActionService fileActionService = new FileActionService(activity);
+                            fileActionService.execute(documentChildSelected, which);
                         }
                     }).show();
                 } else {
@@ -239,21 +198,13 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                         builder.listener(new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-
-                                    case R.id.modify_name:
-                                        actionOnUpdateNameFolder(documentChildSelected);
-                                        break;
-                                    case R.id.invite_users:
-                                        actionOnUpdateUsersFolder(documentChildSelected);
-                                        break;
-                                    case R.id.delete:
-                                        DeleteFolderAsyncTask deleteFolderAsyncTask = new DeleteFolderAsyncTask(activity, documentChildSelected);
-                                        deleteFolderAsyncTask.execute();
-                                        break;
-                                }
+                                FolderActionService folderActionService = new FolderActionService(activity);
+                                folderActionService.execute(documentChildSelected, which);
                             }
                         }).show();
+                    }else{
+                        Toast.makeText(activity, activity.getString(R.string.folder_no_action), Toast.LENGTH_SHORT).show();
+
                     }
 
                 }
@@ -264,7 +215,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     }
 
-
     private void increaseCycleLevel(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         int cycleLevel = sharedPreferences.getInt("homeCycleLevel", 0) + 1;
@@ -272,291 +222,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         editor.putInt("homeCycleLevel", cycleLevel);
         editor.apply();
     }
-
-
-    private void actionOnUpdateNameFolder(final DocumentChildResponseDTO documentChildSelected) {
-        LayoutInflater li = LayoutInflater.from(activity);
-        View promptsView = li.inflate(R.layout.dialog_update_name_folder, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                activity).setTitle(R.string.update_folder_name_title);
-
-        alertDialogBuilder.setView(promptsView);
-        final EditText nameFolder = (EditText) promptsView
-                .findViewById(R.id.folderNameInput);
-        nameFolder.setText(documentChildSelected.getName());
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(R.string.confirm,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                String name = nameFolder.getText().toString();
-                                FolderUpdateRequestDTO folderUpdateRequestDTO = new FolderUpdateRequestDTO();
-                                folderUpdateRequestDTO.setName(name);
-                                folderUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
-                                Gson gson = new Gson();
-                                String json = gson.toJson(folderUpdateRequestDTO);
-                                UpdateFolderAsyncTask updateFolderAsyncTask = new UpdateFolderAsyncTask(activity, documentChildSelected);
-                                updateFolderAsyncTask.execute(json, documentChildSelected.getId());
-                            }
-                        })
-                .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    private void actionOnUpdateNameFile(final DocumentChildResponseDTO documentChildSelected) {
-        LayoutInflater li = LayoutInflater.from(activity);
-        View promptsView = li.inflate(R.layout.dialog_update_name_file, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                activity).setTitle(R.string.update_file_name_title);
-
-        alertDialogBuilder.setView(promptsView);
-        final EditText nameFile = (EditText) promptsView
-                .findViewById(R.id.fileNameInput);
-        nameFile.setText(documentChildSelected.getName());
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(R.string.confirm,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                String name = nameFile.getText().toString();
-                                FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
-                                fileUpdateRequestDTO.setName(name);
-                                fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
-                                fileUpdateRequestDTO.setDeleted(documentChildSelected.getDeleted());
-                                fileUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
-                                fileUpdateRequestDTO.setLabels(documentChildSelected.getLabels());
-                                Gson gson = new Gson();
-                                String json = gson.toJson(fileUpdateRequestDTO);
-                                UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
-                                updateFileAsyncTask.execute(json, documentChildSelected.getId());
-                            }
-                        })
-                .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-    private void actionOnAddTagsFile(final DocumentChildResponseDTO documentChildSelected){
-        LayoutInflater li = LayoutInflater.from(activity);
-        final View promptsView = li.inflate(R.layout.dialog_add_tags_file, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                activity).setTitle(R.string.add_tag_file_title);
-
-        alertDialogBuilder.setView(promptsView);
-
-        final ArrayList<LabelDTO> labelsList = new ArrayList<>();
-        for(LabelDTO label: documentChildSelected.getLabels()){
-            labelsList.add(label);
-        }
-        final LabelAdapter adapter = new LabelAdapter(activity,
-                R.layout.listview_item_label, labelsList);
-
-        final ListView labelListView = (ListView) promptsView.findViewById(R.id.tagsList);
-
-        labelListView.setAdapter(adapter);
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(R.string.confirm,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                                FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
-                                fileUpdateRequestDTO.setName(documentChildSelected.getName());
-                                fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
-                                fileUpdateRequestDTO.setDeleted(documentChildSelected.getDeleted());
-                                fileUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
-                                fileUpdateRequestDTO.setLabels(labelsList);
-                                Gson gson = new Gson();
-                                String json = gson.toJson(fileUpdateRequestDTO);
-                                UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
-                                updateFileAsyncTask.execute(json, documentChildSelected.getId());
-                            }
-                        })
-                .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        final Button addTagButton = (Button) promptsView.findViewById(R.id.btnAddTag);
-        addTagButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                final TextView labelView = (TextView) promptsView.findViewById(R.id.tagInput);
-                LabelDTO labelDTO = new LabelDTO(labelView.getText().toString());
-                AddLabelValidator addTagValidator = new AddLabelValidator(activity, labelsList);
-                if(addTagValidator.validate(labelDTO)){
-                    labelsList.add(labelDTO);
-                    adapter.notifyDataSetChanged();
-                    labelView.setText("");
-                }
-            }
-
-        });
-        alertDialog.show();
-
-    }
-
-    private void actionOnUpdateUsersFile(final DocumentChildResponseDTO documentChildSelected) {
-        LayoutInflater li = LayoutInflater.from(activity);
-        final View promptsView = li.inflate(R.layout.dialog_update_users, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                activity).setTitle(R.string.update_file_users_title);
-
-        alertDialogBuilder.setView(promptsView);
-
-        final ArrayList<UserPermissionRequestDTO> usersList = new ArrayList<>();
-        for(UserPermissionRequestDTO user : documentChildSelected.getUsers()){
-            usersList.add(user);
-        }
-        final UserAdapter adapter = new UserAdapter(activity,
-                R.layout.listview_item_user, usersList);
-
-        final ListView userPermissionListView = (ListView) promptsView.findViewById(R.id.userPermissionList);
-
-        userPermissionListView.setAdapter(adapter);
-
-
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(R.string.confirm,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
-                                fileUpdateRequestDTO.setName(documentChildSelected.getName());
-                                fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
-                                fileUpdateRequestDTO.setDeleted(documentChildSelected.getDeleted());
-                                fileUpdateRequestDTO.setUsers(usersList);
-                                fileUpdateRequestDTO.setLabels(documentChildSelected.getLabels());
-                                Gson gson = new Gson();
-                                String json = gson.toJson(fileUpdateRequestDTO);
-                                UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
-                                updateFileAsyncTask.execute(json, documentChildSelected.getId());
-                            }
-                        })
-                .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        final Button addUserButton = (Button) promptsView.findViewById(R.id.btnAddUser);
-        addUserButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                final TextView usernameView = (TextView) promptsView.findViewById(R.id.userNameInput);
-                UserPermissionRequestDTO userPermissionRequestDTO = new UserPermissionRequestDTO(usernameView.getText().toString());
-                AddUserPermissionValidator addUserPermissionValidator = new AddUserPermissionValidator(activity, usersList);
-                if(addUserPermissionValidator.validate(userPermissionRequestDTO)){
-                    usersList.add(userPermissionRequestDTO);
-                    adapter.notifyDataSetChanged();
-                    usernameView.setText("");
-                }
-            }
-        });
-
-
-        alertDialog.show();
-    }
-
-
-    private void actionOnUpdateUsersFolder(final DocumentChildResponseDTO documentChildSelected) {
-        LayoutInflater li = LayoutInflater.from(activity);
-        final View promptsView = li.inflate(R.layout.dialog_update_users, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                activity).setTitle(R.string.update_folder_users_title);
-
-        alertDialogBuilder.setView(promptsView);
-
-        final ArrayList<UserPermissionRequestDTO> usersList = new ArrayList<>();
-
-        final UserAdapter adapter = new UserAdapter(activity,
-                R.layout.listview_item_user, usersList);
-
-        final ListView userPermissionListView = (ListView) promptsView.findViewById(R.id.userPermissionList);
-
-        userPermissionListView.setAdapter(adapter);
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton(R.string.confirm,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                FolderUpdateRequestDTO folderUpdateRequestDTO = new FolderUpdateRequestDTO();
-                                folderUpdateRequestDTO.setName(documentChildSelected.getName());
-                                folderUpdateRequestDTO.setUsers(usersList);
-                                Gson gson = new Gson();
-                                String json = gson.toJson(folderUpdateRequestDTO);
-                                UpdateFolderAsyncTask updateFolderAsyncTask = new UpdateFolderAsyncTask(activity, documentChildSelected);
-                                updateFolderAsyncTask.execute(json, documentChildSelected.getId());
-                            }
-                        })
-                .setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        final Button addUserButton = (Button) promptsView.findViewById(R.id.btnAddUser);
-        addUserButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                final TextView usernameView = (TextView) promptsView.findViewById(R.id.userNameInput);
-                UserPermissionRequestDTO userPermissionRequestDTO = new UserPermissionRequestDTO(usernameView.getText().toString());
-                AddUserPermissionValidator addUserPermissionValidator = new AddUserPermissionValidator(activity, usersList);
-                if (addUserPermissionValidator.validate(userPermissionRequestDTO)) {
-                    usersList.add(userPermissionRequestDTO);
-                    adapter.notifyDataSetChanged();
-                    usernameView.setText("");
-                }
-            }
-        });
-
-
-        alertDialog.show();
-    }
-
-
-
-    private void actionOnRecoverFile(final DocumentChildResponseDTO documentChildSelected) {
-        FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
-        fileUpdateRequestDTO.setName(documentChildSelected.getName());
-        fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
-        fileUpdateRequestDTO.setDeleted(false);
-        fileUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
-        fileUpdateRequestDTO.setLabels(documentChildSelected.getLabels());
-        Gson gson = new Gson();
-        String json = gson.toJson(fileUpdateRequestDTO);
-        UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
-        updateFileAsyncTask.execute(json, documentChildSelected.getId());
-        ListView documentList = (ListView) activity.findViewById(R.id.documentList);
-        DocumentAdapter adapter = (DocumentAdapter) documentList.getAdapter();
-        adapter.remove(documentChildSelected);
-        adapter.notifyDataSetChanged();
-    }
-
 
     private boolean isSpecialFolder(DocumentChildResponseDTO documentChildSelected){
         String sharedWithCode = "sharedwith";
@@ -571,61 +236,5 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
     }
 
 
-    private void actionOnAddNewVersion() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-        intent.putExtra("idFile", documentChildSelected.getId());
-        Integer RESULT_UPDATE_FILE = 2;
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("idFile", documentChildSelected.getId());
-        editor.apply();
-        activity.startActivityForResult(intent, RESULT_UPDATE_FILE);
-    }
-
-
-    private void actionOnDownloadVersion() {
-
-        final Integer version = Integer.valueOf(documentChildSelected.getVersion());
-        LayoutInflater li = LayoutInflater.from(activity);
-        final View promptsView = li.inflate(R.layout.dialog_versions_file, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                activity).setTitle(R.string.download_file_versions_title);
-
-        alertDialogBuilder.setView(promptsView);
-
-        final ArrayList<VersionDTO> versionsList = new ArrayList<>();
-        for(int i = version; i >= 1; i--){
-            VersionDTO versionRequest = new VersionDTO();
-            versionRequest.setVersion(String.valueOf(i));
-            versionsList.add(versionRequest);
-        }
-        final VersionAdapter adapter = new VersionAdapter(activity,
-                R.layout.listview_item_version, versionsList);
-
-        final ListView versionsListView = (ListView) promptsView.findViewById(R.id.versionsList);
-
-        versionsListView.setAdapter(adapter);
-
-
-
-        alertDialogBuilder
-                .setCancelable(true);
-        final AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-
-
-        versionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                VersionDTO versionSelected = versionsList.get(position);
-                String idFileSelected = documentChildSelected.getId();
-                GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
-                getFileAsyncTask.execute(idFileSelected, versionSelected.getVersion());
-                alertDialog.hide();
-            }
-        });
-    }
 }
 
