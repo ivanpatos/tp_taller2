@@ -19,7 +19,7 @@ Como se mencionó anteriormente (ver instalación del servidor), la ejecución d
 
 Si se desea ejecutar los tests individualmente ir a la correspondiente carpeta del test ubicada en la carpeta test y correr el ejecutable respectivo (también se puede ejecutar con el comando ctest).
 
-Para ver el informe de code coverage, abrir index.html ubicado en la carpeta donde se realizó el build del servidor.
+Para ver el informe de code coverage, abrir index.html ubicado en la carpeta test.
 
 Ejecución de tests python requests
 ----------------------------------

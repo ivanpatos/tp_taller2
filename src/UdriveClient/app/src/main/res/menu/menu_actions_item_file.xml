@@ -1,9 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/view_metadata" android:title="@string/home.menu.actions.view.metadata" android:icon="@drawable/view"/>
+    <item android:id="@+id/add_new_version" android:title="@string/home.menu.actions.add.version" android:icon="@drawable/add_version"/>
     <item android:id="@+id/modify_name" android:title="@string/home.menu.actions.modify.name" android:icon="@drawable/modify"/>
     <item android:id="@+id/invite_users" android:title="@string/home.menu.actions.invite.users" android:icon="@drawable/add_user"/>
     <item android:id="@+id/add_tags" android:title="@string/home.menu.actions.add.tags" android:icon="@drawable/ic_add_black_48dp"/>
     <item android:id="@+id/delete" android:title="@string/home.menu.actions.delete" android:icon="@drawable/trash"/>
-    <item android:id="@+id/recover" android:title="@string/home.menu.actions.recover" android:icon="@drawable/ic_add_black_48dp"/>
+    <item android:id="@+id/recover" android:title="@string/home.menu.actions.recover" android:icon="@drawable/recover"/>
 
 </menu>

@@ -31,15 +31,21 @@ std::string RocksDatabase::getValue(const std::string& key) const{
 }
 
 bool RocksDatabase::saveValue(const std::string& key, const std::string& value){
-	rocksdb::Status status = this->database->Put(rocksdb::WriteOptions(), key, value);
+
+	batch.Put(key, value);
+	rocksdb::Status status = this->database->Write(rocksdb::WriteOptions(),&batch);
 	if ( status!=rocksdb::Status::OK() ) {
 		LOG(ERROR) << "No se pudo guardar un dato en la base de datos:" << key << value << status.ToString();
 	}
+
 	return status.ok();
 }
 
 void RocksDatabase::deleteRecord(const std::string& key){
-	rocksdb::Status status = this->database->Delete(rocksdb::WriteOptions(), key);
+
+	batch.Delete(key);
+	rocksdb::Status status = this->database->Write(rocksdb::WriteOptions(), &batch);
+
 	if ( status!=rocksdb::Status::OK() ) {
 		LOG(ERROR) << "No se pudo borrar un dato de la base de datos:" << key << status.ToString();
 	}

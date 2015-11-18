@@ -113,5 +113,6 @@
     <string name="view.metadata.label.labels">Etiquetas: </string>
     <string name="view.metadata.label.permissions">Permisos: </string>
     <string name="home.menu.actions.recover">Recuperar</string>
+    <string name="home.menu.actions.add.version">Subir nueva version</string>
 
 </resources>
