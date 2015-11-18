@@ -12,4 +12,8 @@ documentacion/doc_proyecto/build
 documentacion/doc_server/build
 documentacion/doc_tecnica/build
 documentacion/manual_usuario/build
+src/UdriveServer/CMakeCache.txt
+src/UdriveServer/CMakeFiles/
+src/UdriveServer/DartConfiguration.tcl
+src/UdriveServer/main/logs/
 
