@@ -147,6 +147,10 @@ public:
 	 */
 	std::string getJsonString() const;
 
+	void setLastUser(User *user);
+
+	void setLastModified(const std::string& lastModified);
+
 };
 
 
