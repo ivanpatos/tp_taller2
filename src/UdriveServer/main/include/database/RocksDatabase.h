@@ -13,6 +13,7 @@
 #include "rocksdb/db.h"
 #include "rocksdb/slice.h"
 #include "rocksdb/options.h"
+#include "rocksdb/write_batch.h"
 #include "Database.h"
 
 /**
@@ -23,6 +24,8 @@ class RocksDatabase: public Database {
 private:
 	std::string path;
 	rocksdb::DB *database;
+	rocksdb::WriteBatch batch;
+
 
 public:
 	RocksDatabase();
@@ -42,6 +45,7 @@ public:
 	virtual bool saveValue(const std::string& key, const std::string& value);
 	virtual void deleteRecord(const std::string& key);
 	virtual std::vector<std::string> getAllValues() const;
+
 };
 
 
