@@ -71,15 +71,11 @@ public class LoadMetadataFileAsyncTask extends AsyncTask<String, String, JSONObj
 
     @Override
     protected void onPreExecute() {
-        dialog = new ProgressDialog(activity);
-        dialog.setMessage(activity.getString(R.string.loading));
-        dialog.setCancelable(false);
-        dialog.show();
+
     }
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
-        dialog.dismiss();
         if (!errorMessage.isEmpty()) {
             Toast.makeText(activity, errorMessage, Toast.LENGTH_SHORT).show();
             return;
@@ -99,6 +95,7 @@ public class LoadMetadataFileAsyncTask extends AsyncTask<String, String, JSONObj
             file.setDeleted(fileResponseDTO.getDeleted());
             file.setUsers(fileResponseDTO.getUsers());
             file.setLabels(fileResponseDTO.getLabels());
+            file.setVersion(fileResponseDTO.getVersion());
         } catch (JSONException e) {
             e.printStackTrace();
         }

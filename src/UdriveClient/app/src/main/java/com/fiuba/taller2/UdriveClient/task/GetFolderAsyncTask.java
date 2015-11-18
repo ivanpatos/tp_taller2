@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.support.v7.internal.view.menu.MenuView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,14 +23,10 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.activity.HomeActivity;
 import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
-import com.fiuba.taller2.UdriveClient.dto.FileRequestDTO;
-import com.fiuba.taller2.UdriveClient.dto.FileResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.FileUpdateRequestDTO;
-import com.fiuba.taller2.UdriveClient.dto.FolderRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderUpdateRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.LabelRequestDTO;
-import com.fiuba.taller2.UdriveClient.dto.RegisterRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.dto.UserPermissionRequestDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
@@ -41,20 +34,15 @@ import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 import com.fiuba.taller2.UdriveClient.util.UserAdapter;
 import com.fiuba.taller2.UdriveClient.validator.AddUserPermissionValidator;
-import com.fiuba.taller2.UdriveClient.validator.RegisterValidator;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
@@ -62,7 +50,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
     private Activity activity;
     private ProgressDialog dialog;
     private String errorMessage = "";
-
+    private DocumentChildResponseDTO documentChildSelected;
     public GetFolderAsyncTask(Activity activity) {
         this.activity = activity;
     }
@@ -145,10 +133,19 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         final ListView documentList = (ListView) activity.findViewById(R.id.documentList);
 
+
+        for(DocumentChildResponseDTO document : documentChildResponseDTOs){
+            if(document.getType().equals("file")){
+                LoadMetadataFileAsyncTask loadMetadataFileAsyncTask = new LoadMetadataFileAsyncTask(activity, document);
+                loadMetadataFileAsyncTask.execute(document.getId());
+            }
+        }
+
         documentList.setAdapter(adapter);
         documentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                DocumentChildResponseDTO documentChildSelected = documentChildResponseDTOs.get(position);
+                documentChildSelected = documentChildResponseDTOs.get(position);
+
                 if (documentChildSelected.getType().equals("folder")) {
                     String idFolderSelected = documentChildSelected.getId();
                     Intent intent = new Intent(activity, HomeActivity.class);
@@ -161,17 +158,15 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                     GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
 
                     // Cuando implementemos la version, no va hardcodeada
-                    String version = "1";
+                    String version = documentChildSelected.getVersion();
                     getFileAsyncTask.execute(idFileSelected, version);
                 }
             }
         });
         documentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                final DocumentChildResponseDTO documentChildSelected = documentChildResponseDTOs.get(position);
+                documentChildSelected = documentChildResponseDTOs.get(position);
                 if (documentChildSelected.getType().equals("file")) {
-                    LoadMetadataFileAsyncTask loadMetadataFileAsyncTask = new LoadMetadataFileAsyncTask(activity, documentChildSelected);
-                    loadMetadataFileAsyncTask.execute(documentChildSelected.getId());
                     BottomSheet.Builder builder = new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_file);
                     BottomSheet sheet = builder.build();
 
@@ -196,6 +191,9 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                     break;
                                 case R.id.modify_name:
                                     actionOnUpdateNameFile(documentChildSelected);
+                                    break;
+                                case R.id.add_new_version:
+                                    actionOnAddNewVersion();
                                     break;
                                 case R.id.add_tags:
                                     actionOnAddTagsFile(documentChildSelected);
@@ -548,6 +546,19 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     }
 
+
+    private void actionOnAddNewVersion() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        intent.putExtra("idFile", documentChildSelected.getId());
+        Integer RESULT_UPDATE_FILE = 2;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("idFile", documentChildSelected.getId());
+        editor.apply();
+        activity.startActivityForResult(intent, RESULT_UPDATE_FILE);
+    }
 
 
 }

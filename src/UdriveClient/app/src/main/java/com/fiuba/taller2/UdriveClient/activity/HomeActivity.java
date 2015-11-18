@@ -28,11 +28,13 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.fiuba.taller2.UdriveClient.R;
 import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.FileRequestDTO;
+import com.fiuba.taller2.UdriveClient.dto.FileUpdateDataRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderRequestDTO;
 import com.fiuba.taller2.UdriveClient.task.AddFileAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.AddFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.GetFolderAsyncTask;
 import com.fiuba.taller2.UdriveClient.task.LogoutAsyncTask;
+import com.fiuba.taller2.UdriveClient.task.UpdateFileAsyncTask;
 import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.google.gson.Gson;
 
@@ -47,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
     private String idFolder;
     private Activity context;
     private static final int RESULT_LOAD_FILE = 1;
+    private static final int RESULT_UPDATE_FILE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,6 +243,45 @@ public class HomeActivity extends AppCompatActivity {
                             AddFileAsyncTask addFileAsyncTask = new AddFileAsyncTask(context);
                             addFileAsyncTask.execute(json);
                         }
+                        break;
+                    case RESULT_UPDATE_FILE:
+                        if(data != null){
+                            Uri uri = data.getData();
+
+                            String fileName = "";
+                            Cursor cursor = getContentResolver().query(uri, null, null, null, null, null);
+                            try {
+                                if (cursor != null && cursor.moveToFirst()) {
+                                    fileName = cursor.getString(
+                                            cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+
+                                }
+                            } finally {
+                                cursor.close();
+                            }
+                            InputStream inputStream = getContentResolver().openInputStream(uri);
+                            byte[] buffer = new byte[8192];
+                            int bytesRead;
+                            ByteArrayOutputStream output = new ByteArrayOutputStream();
+                            while ((bytesRead = inputStream.read(buffer)) != -1)
+                            {
+                                output.write(buffer, 0, bytesRead);
+                            }
+                            byte[] fbytesFile = output.toByteArray();
+
+                            String fileEncoded = Base64.encodeToString(fbytesFile, Base64.DEFAULT);
+
+                            FileUpdateDataRequestDTO fileRequestDTO = new FileUpdateDataRequestDTO();
+                            fileRequestDTO.setData(fileEncoded);
+                            Gson gson = new Gson();
+                            String json = gson.toJson(fileRequestDTO);
+                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                            String idFile = sharedPreferences.getString("idFile", "");
+                            UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(this, null);
+                            updateFileAsyncTask.execute(json, idFile);
+
+                        }
+                        break;
                 }
 
             }
@@ -296,6 +338,7 @@ public class HomeActivity extends AppCompatActivity {
             notPermissionsFile.add(String.valueOf(R.id.add_tags));
             notPermissionsFile.add(String.valueOf(R.id.modify_name));
             notPermissionsFile.add(String.valueOf(R.id.invite_users));
+            notPermissionsFile.add(String.valueOf(R.id.add_new_version));
 
             notPermissionsFolder.clear();
             notPermissionsFolder.add(String.valueOf(R.id.delete));

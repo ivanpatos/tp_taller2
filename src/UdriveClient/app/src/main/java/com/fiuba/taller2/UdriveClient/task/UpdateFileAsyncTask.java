@@ -49,10 +49,13 @@ public class UpdateFileAsyncTask extends AsyncTask<String, String, JSONObject> {
         String username = sharedPreferences.getString("username", "null");
         String token = sharedPreferences.getString("token", "null");
         String json = params[0];
-        String idFolder = params[1];
-
+        String idFile = params[1];
+        //String version = params[2];
         try {
-            URL url = new URL(serverUrl + fileUrl + "/" + idFolder);
+            URL url = new URL(serverUrl + fileUrl + "/" + idFile);
+            /*if(!version.isEmpty()){
+                url = new URL(serverUrl + fileUrl + "/" + idFile +  "?version=" + version);
+            }*/
             restConnectionDTO.setUrl(url);
             restConnectionDTO.setRequestMethod("PUT");
             restConnectionDTO.setJson(json);
@@ -99,11 +102,16 @@ public class UpdateFileAsyncTask extends AsyncTask<String, String, JSONObject> {
         }
 
         try {
+
             Gson gson = new Gson();
+
             FileResponseDTO fileResponseDTO = gson.fromJson(jsonObject.get("data").toString(), FileResponseDTO.class);
             ListView documentList = (ListView) activity.findViewById(R.id.documentList);
             DocumentAdapter adapter = (DocumentAdapter) documentList.getAdapter();
-            documentUpdate.setName(fileResponseDTO.getName());
+           // fileResponseDTO.getData()
+            if(documentUpdate != null){
+                documentUpdate.setName(fileResponseDTO.getName());
+            }
             adapter.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();
