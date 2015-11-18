@@ -3,7 +3,7 @@ package com.fiuba.taller2.UdriveClient.dto;
 /**
  * Created by jscialabba on 03/10/15.
  */
-public class VersionRequestDTO {
+public class VersionDTO {
     private String version;
 
     public String getVersion() {

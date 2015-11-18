@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,15 +27,17 @@ import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.FileUpdateRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.FolderUpdateRequestDTO;
-import com.fiuba.taller2.UdriveClient.dto.LabelRequestDTO;
+import com.fiuba.taller2.UdriveClient.dto.LabelDTO;
 import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.dto.UserPermissionRequestDTO;
-import com.fiuba.taller2.UdriveClient.dto.VersionRequestDTO;
+import com.fiuba.taller2.UdriveClient.dto.VersionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
+import com.fiuba.taller2.UdriveClient.util.LabelAdapter;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 import com.fiuba.taller2.UdriveClient.util.UserAdapter;
 import com.fiuba.taller2.UdriveClient.util.VersionAdapter;
+import com.fiuba.taller2.UdriveClient.validator.AddLabelValidator;
 import com.fiuba.taller2.UdriveClient.validator.AddUserPermissionValidator;
 import com.google.gson.Gson;
 
@@ -147,7 +150,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         documentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
                 documentChildSelected = documentChildResponseDTOs.get(position);
-
                 if (documentChildSelected.getType().equals("folder")) {
                     String idFolderSelected = documentChildSelected.getId();
                     Intent intent = new Intent(activity, HomeActivity.class);
@@ -158,8 +160,6 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                 } else {
                     String idFileSelected = documentChildSelected.getId();
                     GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
-
-                    // Cuando implementemos la version, no va hardcodeada
                     String version = documentChildSelected.getVersion();
                     getFileAsyncTask.execute(idFileSelected, version);
                 }
@@ -168,6 +168,8 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
         documentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> arg0, View v, int position, long arg3) {
                 documentChildSelected = documentChildResponseDTOs.get(position);
+                LoadMetadataFileAsyncTask loadMetadataFileAsyncTask = new LoadMetadataFileAsyncTask(activity, documentChildSelected);
+                loadMetadataFileAsyncTask.execute(documentChildSelected.getId());
                 if (documentChildSelected.getType().equals("file")) {
                     BottomSheet.Builder builder = new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_file);
 
@@ -350,35 +352,36 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
     private void actionOnAddTagsFile(final DocumentChildResponseDTO documentChildSelected){
         LayoutInflater li = LayoutInflater.from(activity);
-        View promptsView = li.inflate(R.layout.dialog_add_tags_file, null);
+        final View promptsView = li.inflate(R.layout.dialog_add_tags_file, null);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 activity).setTitle(R.string.add_tag_file_title);
 
         alertDialogBuilder.setView(promptsView);
-        final EditText nameTag = (EditText) promptsView
-                .findViewById(R.id.tagInput);
-        nameTag.setText(android.text.TextUtils.join(",", documentChildSelected.getLabels()));
+
+        final ArrayList<LabelDTO> labelsList = new ArrayList<>();
+        for(LabelDTO label: documentChildSelected.getLabels()){
+            labelsList.add(label);
+        }
+        final LabelAdapter adapter = new LabelAdapter(activity,
+                R.layout.listview_item_label, labelsList);
+
+        final ListView labelListView = (ListView) promptsView.findViewById(R.id.tagsList);
+
+        labelListView.setAdapter(adapter);
 
         alertDialogBuilder
                 .setCancelable(false)
                 .setPositiveButton(R.string.confirm,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                String tags = nameTag.getText().toString();
-                                ArrayList<String> items = new ArrayList<String>(Arrays.asList(tags.split(",")));
-                                ArrayList<LabelRequestDTO> labels = new ArrayList<LabelRequestDTO>();
-                                for (String item : items) {
-                                    LabelRequestDTO labelRequestDTO = new LabelRequestDTO();
-                                    labelRequestDTO.setDescription(item);
-                                    labels.add(labelRequestDTO);
-                                }
+
                                 FileUpdateRequestDTO fileUpdateRequestDTO = new FileUpdateRequestDTO();
                                 fileUpdateRequestDTO.setName(documentChildSelected.getName());
                                 fileUpdateRequestDTO.setExtension(documentChildSelected.getExtension());
                                 fileUpdateRequestDTO.setDeleted(documentChildSelected.getDeleted());
                                 fileUpdateRequestDTO.setUsers(documentChildSelected.getUsers());
-                                fileUpdateRequestDTO.setLabels(labels);
+                                fileUpdateRequestDTO.setLabels(labelsList);
                                 Gson gson = new Gson();
                                 String json = gson.toJson(fileUpdateRequestDTO);
                                 UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(activity, documentChildSelected);
@@ -392,6 +395,21 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                             }
                         });
         AlertDialog alertDialog = alertDialogBuilder.create();
+
+        final Button addTagButton = (Button) promptsView.findViewById(R.id.btnAddTag);
+        addTagButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                final TextView labelView = (TextView) promptsView.findViewById(R.id.tagInput);
+                LabelDTO labelDTO = new LabelDTO(labelView.getText().toString());
+                AddLabelValidator addTagValidator = new AddLabelValidator(activity, labelsList);
+                if(addTagValidator.validate(labelDTO)){
+                    labelsList.add(labelDTO);
+                    adapter.notifyDataSetChanged();
+                    labelView.setText("");
+                }
+            }
+
+        });
         alertDialog.show();
 
     }
@@ -578,9 +596,9 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         alertDialogBuilder.setView(promptsView);
 
-        final ArrayList<VersionRequestDTO> versionsList = new ArrayList<>();
+        final ArrayList<VersionDTO> versionsList = new ArrayList<>();
         for(int i = version; i >= 1; i--){
-            VersionRequestDTO versionRequest = new VersionRequestDTO();
+            VersionDTO versionRequest = new VersionDTO();
             versionRequest.setVersion(String.valueOf(i));
             versionsList.add(versionRequest);
         }
@@ -601,7 +619,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
         versionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                VersionRequestDTO versionSelected = versionsList.get(position);
+                VersionDTO versionSelected = versionsList.get(position);
                 String idFileSelected = documentChildSelected.getId();
                 GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
                 getFileAsyncTask.execute(idFileSelected, versionSelected.getVersion());

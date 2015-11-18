@@ -337,6 +337,7 @@ public class HomeActivity extends AppCompatActivity {
             notPermissionsFile.add(String.valueOf(R.id.modify_name));
             notPermissionsFile.add(String.valueOf(R.id.invite_users));
             notPermissionsFile.add(String.valueOf(R.id.add_new_version));
+            notPermissionsFile.add(String.valueOf(R.id.download_version));
 
             notPermissionsFolder.clear();
             notPermissionsFolder.add(String.valueOf(R.id.delete));

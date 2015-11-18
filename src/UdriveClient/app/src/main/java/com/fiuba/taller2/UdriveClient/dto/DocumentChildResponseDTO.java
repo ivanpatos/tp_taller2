@@ -15,7 +15,7 @@ public class DocumentChildResponseDTO implements Serializable {
     private boolean deleted;
     private String lastModified;
     private String lastUser;
-    private ArrayList<LabelRequestDTO> labels;
+    private ArrayList<LabelDTO> labels;
     private String owner;
     private ArrayList<UserPermissionRequestDTO> users;
     private String version;
@@ -76,11 +76,11 @@ public class DocumentChildResponseDTO implements Serializable {
         this.lastUser = lastUser;
     }
 
-    public ArrayList<LabelRequestDTO> getLabels() {
+    public ArrayList<LabelDTO> getLabels() {
         return labels;
     }
 
-    public void setLabels(ArrayList<LabelRequestDTO> labels) {
+    public void setLabels(ArrayList<LabelDTO> labels) {
         this.labels = labels;
     }
 
