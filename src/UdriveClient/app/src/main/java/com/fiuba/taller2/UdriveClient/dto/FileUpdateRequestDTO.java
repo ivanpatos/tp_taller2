@@ -8,7 +8,7 @@ public class FileUpdateRequestDTO implements Serializable {
     private String name;
     private String extension;
     private ArrayList<UserPermissionRequestDTO> users;
-    private ArrayList<LabelRequestDTO> labels;
+    private ArrayList<LabelDTO> labels;
     private boolean deleted;
 
     public FileUpdateRequestDTO() {
@@ -41,11 +41,11 @@ public class FileUpdateRequestDTO implements Serializable {
         this.users = users;
     }
 
-    public ArrayList<LabelRequestDTO> getLabels() {
+    public ArrayList<LabelDTO> getLabels() {
         return labels;
     }
 
-    public void setLabels(ArrayList<LabelRequestDTO> labels) {
+    public void setLabels(ArrayList<LabelDTO> labels) {
         this.labels = labels;
     }
 

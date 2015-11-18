@@ -23,7 +23,7 @@
     <string name="update_folder_input_hint">Ingrese el nombre de la carpeta</string>
     <string name="update_file_input_hint">Ingrese el nombre del archivo</string>
     <string name="add_tag_file_title">Personalizar tags</string>
-    <string name="add_tag_input_hint">Agregue los tags separados por ,</string>
+    <string name="add_tag_input_hint">Ingrese el nombre del tag</string>
 
     <string name="update_file_users_title">Actualizar permisos del archivo</string>
     <string name="update_folder_users_title">Actualizar permisos de la carpeta</string>
@@ -114,5 +114,11 @@
     <string name="view.metadata.label.permissions">Permisos: </string>
     <string name="home.menu.actions.recover">Recuperar</string>
     <string name="home.menu.actions.add.version">Subir nueva version</string>
+    <string name="home.menu.actions.download.version">Descargar version</string>
+    <string name="download_file_versions_title">Descargar version</string>
+    <string name="add_tag_button">Ok</string>
+    <string name="current_tags_title">Tags actuales</string>
+    <string name="label_invalid">Etiqueta invalida</string>
+    <string name="label_existent">Etiqueta existente</string>
 
 </resources>

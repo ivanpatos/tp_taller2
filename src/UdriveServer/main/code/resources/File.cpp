@@ -193,3 +193,11 @@ std::string File::getJsonString() const{
 	builder.settings_["indentation"] = "\t";
 	return Json::writeString(builder,json);
 }
+
+void File::setLastUser(User *user){
+	this->lastUser = user;
+}
+
+void File::setLastModified(const std::string& lastModified){
+	this->lastModified = lastModified;
+}

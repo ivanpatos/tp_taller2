@@ -4,6 +4,7 @@
 #include "../../../include/resources/File.h"
 #include "../../../include/resources/Folder.h"
 #include "../../../include/resources/Version.h"
+#include "../../../include/utilities/Time.h"
 #include "../../../others/json/json.h"
 #include <sstream>
 
@@ -43,6 +44,8 @@ std::string UpdateFileService::execute(const std::string& username, const std::s
 						else{
 							user.setSpace(user.getSpace()-dataString.length());
 							file.increaseVersion();
+							file.setLastUser(new User(userJsonString));
+							file.setLastModified(Time::getCurrentTime());
 							std::ostringstream ss;
 							ss << file.getVersion();
 							Version version(file.getId() + "_" + ss.str(), dataString);
