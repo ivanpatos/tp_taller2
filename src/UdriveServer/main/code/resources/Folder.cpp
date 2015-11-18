@@ -100,16 +100,19 @@ void Folder::setName(const std::string& name){
 
 void Folder::addFolderChildren(Folder *folder){
 	this->folderChildren.push_back(folder);
+	LOG(TRACE) << this->id << " se agrego carpeta hija: " << folder->getName();
 }
 
 void Folder::addFileChildren(File *file){
 	this->fileChildren.push_back(file);
+	LOG(TRACE) << this->id + " se agrego archivo hijo: " + file->getName();
 }
 
 void Folder::removeFileChildren(File *file){
 	bool fin = false;
 	for(std::vector<File*>::iterator it = this->fileChildren.begin(); it != this->fileChildren.end() && !fin; ++it){
 		if((*it)->getId() == file->getId()){
+			LOG(TRACE) << this->id << " se removio archivo hijo: " << (*it)->getName();
 			delete *it;
 			it = this->fileChildren.erase(it);
 			fin = true;

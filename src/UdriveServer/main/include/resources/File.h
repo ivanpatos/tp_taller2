@@ -6,6 +6,8 @@
 #include "../database/Database.h"
 #include "User.h"
 
+#include "../../include/utilities/easylogging++.h"
+
 /**
  * Define un archivo.
  */

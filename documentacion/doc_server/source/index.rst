@@ -11,4 +11,5 @@ Documentación - Servidor Udrive
 	introduccion
 	instalacion
 	ejecucion
+	configuracion
 	docker

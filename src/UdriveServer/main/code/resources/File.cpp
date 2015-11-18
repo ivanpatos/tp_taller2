@@ -90,6 +90,7 @@ bool File::isOwner(const User& user) const{
 
 void File::increaseVersion(){
 	++this->version;
+	LOG(TRACE) << this->id << " nueva version: " << this->version;
 }
 
 bool File::hasAnyLabel(const std::vector<std::string>& labels) const{
@@ -129,12 +130,14 @@ void File::setLabels(const std::vector<std::string> &labels){
 
 void File::addUser(User *user){
 	this->users.push_back(user);
+	LOG(TRACE) << this->id << " se agrego usuario: " << user->getUsername();
 }
 
 void File::removeUser(const User& user){
 	bool fin = false;
 	for(std::vector<User*>::iterator it = this->users.begin(); it != this->users.end() && !fin; ++it){
 		if((*it)->getUsername() == user.getUsername()){
+			LOG(TRACE) << this->id << " se removio usuario: " << (*it)->getUsername();
 			delete *it;
 			it = this->users.erase(it);
 			fin = true;

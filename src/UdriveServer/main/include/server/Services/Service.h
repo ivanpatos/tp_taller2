@@ -2,6 +2,7 @@
 #define _SERVICE_H_
 
 #include <string>
+#include "../../../include/utilities/easylogging++.h"
 
 /**
  * Interfaz de servicio ofrecido por el servidor.

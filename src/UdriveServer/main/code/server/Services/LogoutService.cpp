@@ -22,8 +22,10 @@ std::string LogoutService::execute(const std::string& username, const std::strin
 		User user(userJsonString);
 		if (user.authenticateToken(token)){
 			user.generateToken();
-			if (this->userDB.saveValue(user.getUsername(), user.getJsonString()))
+			if (this->userDB.saveValue(user.getUsername(), user.getJsonString())){
 				response = HttpResponse::GetHttpOkResponse("");
+				LOG(INFO) << "Usuario se desloggeo de la app: " + user.getUsername() ;
+			}
 			else
 				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
 		}

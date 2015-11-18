@@ -68,7 +68,7 @@ if(BUILD_TESTING)
 
 				#http://swarminglogic.com/jotting/2014_05_lcov
 
-				COMMAND ${LCOV_PATH} --remove output.info /server/Server.cpp /test/* /others/* /code/utilities/* /include/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /*/include/gtest/* /*/include/gtest/internal/* -o output.info  > /dev/null
+				COMMAND ${LCOV_PATH} --remove output.info /server/Server.cpp /test/* /others/* /code/utilities/* /include/* /*/include/*/c++/*/bits/* /*/include/c++/*/* /*/include/c++/*/bits/* /*/include/c++/*/ext/* /*/include/gmock/* /*/include/gmock/internal/* /server/Services/DeleteFolderService.cpp /*/include/gtest/* /*/include/gtest/internal/* -o output.info
 				
 				COMMAND ${GENHTML_PATH} output.info
 	)

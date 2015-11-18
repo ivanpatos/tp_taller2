@@ -7,6 +7,7 @@
 #include "../utilities/WrapperMongoose.h"
 #include "ServiceFactory.h"
 
+#include "../../include/utilities/easylogging++.h"
 /**
  * Define el servidor http con interfaz del tipo restful api.
  */

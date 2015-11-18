@@ -8,6 +8,10 @@
 
 const unsigned int VERSION = 1;
 
+#include "../../main/include/utilities/easylogging++.h"
+INITIALIZE_EASYLOGGINGPP
+#define ELPP_DISABLE_LOGS
+
 using ::testing::_;
 TEST(FolderTest, addFolderChildren){
 
