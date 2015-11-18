@@ -29,10 +29,12 @@ import com.fiuba.taller2.UdriveClient.dto.FolderUpdateRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.LabelRequestDTO;
 import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.dto.UserPermissionRequestDTO;
+import com.fiuba.taller2.UdriveClient.dto.VersionRequestDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
 import com.fiuba.taller2.UdriveClient.util.DocumentAdapter;
 import com.fiuba.taller2.UdriveClient.util.PropertyManager;
 import com.fiuba.taller2.UdriveClient.util.UserAdapter;
+import com.fiuba.taller2.UdriveClient.util.VersionAdapter;
 import com.fiuba.taller2.UdriveClient.validator.AddUserPermissionValidator;
 import com.google.gson.Gson;
 
@@ -168,8 +170,8 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                 documentChildSelected = documentChildResponseDTOs.get(position);
                 if (documentChildSelected.getType().equals("file")) {
                     BottomSheet.Builder builder = new BottomSheet.Builder(activity).title(R.string.home_menu_bottom_title).sheet(R.menu.menu_actions_item_file);
-                    BottomSheet sheet = builder.build();
 
+                    BottomSheet sheet = builder.build();
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
                     Set<String> notPermissionsFile = sharedPreferences.getStringSet("notPermissionsFile", null);
                     if (notPermissionsFile != null) {
@@ -194,6 +196,9 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
                                     break;
                                 case R.id.add_new_version:
                                     actionOnAddNewVersion();
+                                    break;
+                                case R.id.download_version:
+                                    actionOnDownloadVersion();
                                     break;
                                 case R.id.add_tags:
                                     actionOnAddTagsFile(documentChildSelected);
@@ -256,6 +261,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
 
     }
+
 
     private void increaseCycleLevel(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
@@ -561,5 +567,47 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
     }
 
 
+    private void actionOnDownloadVersion() {
+
+        final Integer version = Integer.valueOf(documentChildSelected.getVersion());
+        LayoutInflater li = LayoutInflater.from(activity);
+        final View promptsView = li.inflate(R.layout.dialog_versions_file, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                activity).setTitle(R.string.download_file_versions_title);
+
+        alertDialogBuilder.setView(promptsView);
+
+        final ArrayList<VersionRequestDTO> versionsList = new ArrayList<>();
+        for(int i = version; i >= 1; i--){
+            VersionRequestDTO versionRequest = new VersionRequestDTO();
+            versionRequest.setVersion(String.valueOf(i));
+            versionsList.add(versionRequest);
+        }
+        final VersionAdapter adapter = new VersionAdapter(activity,
+                R.layout.listview_item_version, versionsList);
+
+        final ListView versionsListView = (ListView) promptsView.findViewById(R.id.versionsList);
+
+        versionsListView.setAdapter(adapter);
+
+
+
+        alertDialogBuilder
+                .setCancelable(true);
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
+        versionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+                VersionRequestDTO versionSelected = versionsList.get(position);
+                String idFileSelected = documentChildSelected.getId();
+                GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
+                getFileAsyncTask.execute(idFileSelected, versionSelected.getVersion());
+                alertDialog.hide();
+            }
+        });
+    }
 }
 
