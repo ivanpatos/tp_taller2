@@ -121,5 +121,6 @@
     <string name="label_invalid">Etiqueta invalida</string>
     <string name="label_existent">Etiqueta existente</string>
     <string name="folder_no_action">Carpetas especiales sin acciones</string>
+    <string name="has_upload_version">Has subido la version \u0020</string>
 
 </resources>

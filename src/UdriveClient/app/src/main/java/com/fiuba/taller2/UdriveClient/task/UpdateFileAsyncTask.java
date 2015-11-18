@@ -108,11 +108,22 @@ public class UpdateFileAsyncTask extends AsyncTask<String, String, JSONObject> {
             FileResponseDTO fileResponseDTO = gson.fromJson(jsonObject.get("data").toString(), FileResponseDTO.class);
             ListView documentList = (ListView) activity.findViewById(R.id.documentList);
             DocumentAdapter adapter = (DocumentAdapter) documentList.getAdapter();
-           // fileResponseDTO.getData()
             if(documentUpdate != null){
                 documentUpdate.setName(fileResponseDTO.getName());
             }
             adapter.notifyDataSetChanged();
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            String version =  sharedPreferences.getString("versionFile", "");
+            if(!version.isEmpty()){
+                if(!version.equals(fileResponseDTO.getVersion())){
+                    Toast.makeText(activity, activity.getString(R.string.has_upload_version) + fileResponseDTO.getVersion(), Toast.LENGTH_SHORT).show();
+                }
+                editor.remove("versionFile");
+                editor.apply();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
             }

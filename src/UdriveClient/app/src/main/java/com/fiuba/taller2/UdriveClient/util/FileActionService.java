@@ -264,11 +264,11 @@ public class FileActionService {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
-        intent.putExtra("idFile", documentChildSelected.getId());
         Integer RESULT_UPDATE_FILE = 2;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("idFile", documentChildSelected.getId());
+        editor.putString("versionFile", documentChildSelected.getVersion());
         editor.apply();
         activity.startActivityForResult(intent, RESULT_UPDATE_FILE);
     }
