@@ -2,7 +2,9 @@
 #include <gtest/gtest.h>
 #include "../../main/include/resources/User.h"
 
-
+#include "../../main/include/utilities/easylogging++.h"
+INITIALIZE_EASYLOGGINGPP
+#define ELPP_DISABLE_LOGS
 
 TEST(UserTest, fromJsonParameter){
 	Json::Value valueInput(Json::objectValue);

@@ -25,8 +25,10 @@ std::string LoginService::execute(const std::string& username, const std::string
 		User user(userJsonString);
 		if (user.getPassword() == jsonData.get("password", "").asCString()){
 			user.generateToken();
-			if (this->userDB.saveValue(user.getUsername(), user.getJsonString()))
+			if (this->userDB.saveValue(user.getUsername(), user.getJsonString())) {
 				response = HttpResponse::GetHttpOkResponse(user.getJsonProfileWithToken());
+				LOG(INFO) << "Usuario se loggeo en la app: " + user.getUsername() + " token:" + user.getToken() ;
+			}
 			else
 				response = HttpResponse::GetHttpErrorResponse(HttpResponse::ERROR_SAVING_DATA);
 		}

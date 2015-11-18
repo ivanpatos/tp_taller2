@@ -8,12 +8,6 @@
 //	mg.setOption(this->server, "listening_port", "8080");
 //}
 
-#ifndef _FLAG_TOM_
-#define _FLAG_TOM_
-#include "../../include/utilities/easylogging++.h"
-INITIALIZE_EASYLOGGINGPP
-#endif
-
 Server::Server(	Database& userDB,
 				Database& folderDB,
 				Database& fileDB,
@@ -71,12 +65,12 @@ void Server::handleRequest(mg_connection *connection){
 
 	Service* service = this->serviceFactory.createService(resource, method);
 
-	LOG(INFO) << std::string("Usuario: ") + username + " con token: " + token;
-	LOG(INFO) << std::string("Se ha pedido el servicio: ") + service->name() ;
+	LOG(INFO) << "Usuario: " << username << " con token: " << token;
+	LOG(INFO) << "Se ha pedido el servicio: " << service->name() ;
 
 	std::string response = service->execute(username, token, data, query);
 
-	LOG(INFO) << "respuesta: " + response;
+	LOG(DEBUG) << "respuesta: " + response;
 
 	mg.mgprintfData(connection, response.c_str());
 	delete service;

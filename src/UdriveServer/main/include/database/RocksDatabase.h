@@ -15,6 +15,8 @@
 #include "rocksdb/options.h"
 #include "Database.h"
 
+#include "../../include/utilities/easylogging++.h"
+
 /**
  * Define el manejo de una base de datos generada con Rocksdb.
  */

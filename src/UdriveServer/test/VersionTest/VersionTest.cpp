@@ -6,6 +6,10 @@
 const char* id = "id";
 const char* data = "data";
 
+#include "../../main/include/utilities/easylogging++.h"
+INITIALIZE_EASYLOGGINGPP
+#define ELPP_DISABLE_LOGS
+
 TEST(VersionTest, getJson) {
 	Version version(id,data);
 

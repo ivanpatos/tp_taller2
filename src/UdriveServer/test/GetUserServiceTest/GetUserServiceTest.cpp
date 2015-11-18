@@ -7,6 +7,10 @@
 using ::testing::Return;
 using ::testing::_;
 
+#include "../../main/include/utilities/easylogging++.h"
+INITIALIZE_EASYLOGGINGPP
+#define ELPP_DISABLE_LOGS
+
 TEST_F(GetUserServiceFixture,getUserQueryServiceOK) {
 
 	query = username;
