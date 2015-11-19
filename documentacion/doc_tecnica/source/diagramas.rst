@@ -17,4 +17,9 @@ Para ver con más detalle las clases, ver el siguiente `link`_.
 Flujo de actividades
 -----------------------------
 
+El presente diagrama refleja las actividades del cliente. Se pueden observar las principales pantallas de la aplicación y las relaciones entre dichas actividades.
+
+.. figure::  flujoactividades.png
+   :target: _images/flujoactividades.png
+
 
