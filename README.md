@@ -124,7 +124,7 @@ $ wget -qO- https://get.docker.com/ | sh
 
 Una vez instalado Docker, procedemos a crear la imagen:
 
-$ cd src/UdriveServer
+$ cd src/UdriveServer/mydockerbuild
 
 $ sudo docker build .
 

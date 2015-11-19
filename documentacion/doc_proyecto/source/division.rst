@@ -8,5 +8,5 @@ División de tareas
 * Integración continua: Leandro Tessore
 * Docker: Tomás Reale
 * Scripts cmake: Tomás Reale
-* Documentación sphinx: Iván Soberón
-
+* Documentación de proyecto, técnica y server: Iván Soberón
+* Manual de Usuario: Tomás Reale
