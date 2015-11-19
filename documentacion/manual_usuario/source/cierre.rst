@@ -4,9 +4,9 @@ Cierre de sesión
 Si se minimiza o se cambia el foco abriendo otra aplicación, Udrive queda ejecutandose en 2do plano.
 Al volver a maximizarla, se volvera a donde sea que se estaba antes.
 
-Para cerrar la aplicación, es necesario deslogearse.
+Para cerrar la aplicación, es necesario desloguearse.
 
-Para deslogearse , hacer click en los 3 puntos arriba a la derecha :
+Para desloguearse , hacer click en los 3 puntos arriba a la derecha :
 
 .. figure::  pantallaPrincipal3puntos.png
    :target: _images/pantallaPrincipal3puntos.png

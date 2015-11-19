@@ -1,10 +1,10 @@
 Perfil de usuario
 =================
 
-El perfil del usuario contiene el nombre de la persona y su imagen.
-Es posible modificar esas 2 cosas. El nombre de usuario no se puede cambiar.
+El perfil del usuario contiene el nombre de la persona , su mail y su imagen.
+Es posible modificar el nombre el mail y la imagen. **El nombre de usuario no se puede cambiar.**
 
-Estando en la pantalla general, si se hace click sobre los 3 puntos que se encuentran a la derecha arriba :
+Desde la pantalla general, click sobre los 3 puntos que se encuentran a la derecha arriba :
 
 .. figure::  pantallaPrincipal3puntos.png
    :target: _images/pantallaPrincipal3puntos.png
@@ -26,6 +26,8 @@ Haciendo click en la imagen de perfil, se nos abre un menu con opciones para sel
 .. figure::  perfilImagen.png
    :target: _images/perfilImagen.png
 
-Se puede modificar también el campo de nombre de persona.
+Aca tambien se pueden modificar el nombre de la persona y el mail.
+
+Recordar el formato del mail "xxx@yyy.com"
 
 Al hacer click en guardar, se vuelve a la pantalla principal. Un pop up nos indicara "perfil actualizado"
