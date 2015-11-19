@@ -44,6 +44,7 @@ if(BUILD_TESTING)
     add_subdirectory (UpdateFolderServiceTest)
 
 	#creo un target cuya dependencia son todos los unit tests ( deben ser agregados manualmente )
+	
 	add_custom_target( all_tests ALL
 		           DEPENDS ${UNIT_TEST_TARGETS}
 	)
