@@ -14,7 +14,7 @@ Para instalar Docker::
 
 Una vez instalado Docker, procedemos a crear la imagen::
 
-	$ cd src/UdriveServer
+	$ cd src/UdriveServer/mydockerbuild
 	$ sudo docker build .
 
 Para ver la nueva imagen creada, con su respectivo <IMAGE ID>::
