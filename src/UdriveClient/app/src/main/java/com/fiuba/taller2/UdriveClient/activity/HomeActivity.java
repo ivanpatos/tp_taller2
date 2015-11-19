@@ -280,6 +280,7 @@ public class HomeActivity extends AppCompatActivity {
                             UpdateFileAsyncTask updateFileAsyncTask = new UpdateFileAsyncTask(this, null);
                             updateFileAsyncTask.execute(json, idFile);
 
+
                         }
                         break;
                 }

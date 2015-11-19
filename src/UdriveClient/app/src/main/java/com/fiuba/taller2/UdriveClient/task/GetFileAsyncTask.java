@@ -12,6 +12,7 @@ import android.util.Base64;
 import android.widget.Toast;
 
 import com.fiuba.taller2.UdriveClient.R;
+import com.fiuba.taller2.UdriveClient.dto.DocumentChildResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.FileResponseDTO;
 import com.fiuba.taller2.UdriveClient.dto.RestConnectionDTO;
 import com.fiuba.taller2.UdriveClient.exception.ConnectionException;
@@ -32,9 +33,11 @@ public class GetFileAsyncTask extends AsyncTask<String, String, JSONObject> {
     private Activity activity;
     private ProgressDialog dialog;
     private String errorMessage = "";
-
-    public GetFileAsyncTask(Activity activity) {
+    private DocumentChildResponseDTO documentFile;
+    private String version = "1";
+    public GetFileAsyncTask(Activity activity, DocumentChildResponseDTO documentFile) {
         this.activity = activity;
+        this.documentFile = documentFile;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class GetFileAsyncTask extends AsyncTask<String, String, JSONObject> {
         String serverUrl = sharedPreferences.getString("serverUrl", propertyManager.getProperty("url.server"));
         String fileUrl = propertyManager.getProperty("url.file");
         String idFile = params[0];
-        String version = params[1];
+        version = params[1];
 
         JSONObject response = null;
         RestConnectionDTO restConnectionDTO = new RestConnectionDTO();
@@ -124,6 +127,11 @@ public class GetFileAsyncTask extends AsyncTask<String, String, JSONObject> {
                 type = "image/*";
 
             }
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(documentFile.getId(), version);
+            editor.apply();
             intent.setDataAndType(Uri.fromFile(file), type);
             activity.startActivity(intent);
 

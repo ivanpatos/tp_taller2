@@ -143,7 +143,7 @@ public class GetFolderAsyncTask extends AsyncTask<String, String, JSONObject> {
 
                 } else {
                     String idFileSelected = documentChildSelected.getId();
-                    GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
+                    GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity, documentChildSelected);
                     String version = documentChildSelected.getVersion();
                     getFileAsyncTask.execute(idFileSelected, version);
                 }

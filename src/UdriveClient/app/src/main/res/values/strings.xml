@@ -122,5 +122,7 @@
     <string name="label_existent">Etiqueta existente</string>
     <string name="folder_no_action">Carpetas especiales sin acciones</string>
     <string name="has_upload_version">Has subido la version \u0020</string>
+    <string name="warning_version_title">Colision de versiones</string>
+    <string name="warning_version_text">Esta sobrescribiendo una version aun no descargada. Desea continuar?</string>
 
 </resources>

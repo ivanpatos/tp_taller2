@@ -116,6 +116,8 @@ public class UpdateFileAsyncTask extends AsyncTask<String, String, JSONObject> {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             String version =  sharedPreferences.getString("versionFile", "");
+            editor.putString(fileResponseDTO.getId(), fileResponseDTO.getVersion());
+            editor.apply();
             if(!version.isEmpty()){
                 if(!version.equals(fileResponseDTO.getVersion())){
                     Toast.makeText(activity, activity.getString(R.string.has_upload_version) + fileResponseDTO.getVersion(), Toast.LENGTH_SHORT).show();

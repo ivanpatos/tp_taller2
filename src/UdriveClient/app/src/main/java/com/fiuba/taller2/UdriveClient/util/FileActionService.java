@@ -230,7 +230,7 @@ public class FileActionService {
                 final TextView usernameView = (TextView) promptsView.findViewById(R.id.userNameInput);
                 UserPermissionRequestDTO userPermissionRequestDTO = new UserPermissionRequestDTO(usernameView.getText().toString());
                 AddUserPermissionValidator addUserPermissionValidator = new AddUserPermissionValidator(activity, usersList);
-                if(addUserPermissionValidator.validate(userPermissionRequestDTO)){
+                if (addUserPermissionValidator.validate(userPermissionRequestDTO)) {
                     usersList.add(userPermissionRequestDTO);
                     adapter.notifyDataSetChanged();
                     usernameView.setText("");
@@ -260,7 +260,39 @@ public class FileActionService {
         adapter.notifyDataSetChanged();
     }
 
-    private void actionOnAddNewVersion(DocumentChildResponseDTO documentChildSelected) {
+    private void actionOnAddNewVersion(final DocumentChildResponseDTO documentChildSelected) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        String version = sharedPreferences.getString(documentChildSelected.getId(), null);
+        if(version != null && version.equals(documentChildSelected.getVersion())){
+            actionCallIntentAddNewVersion(documentChildSelected);
+        }else{
+            LayoutInflater li = LayoutInflater.from(activity);
+            final View promptsView = li.inflate(R.layout.dialog_warning_version, null);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    activity).setTitle(R.string.warning_version_title);
+
+            alertDialogBuilder.setView(promptsView);
+
+            alertDialogBuilder
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.confirm,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    actionCallIntentAddNewVersion(documentChildSelected);
+                                }
+                            })
+                    .setNegativeButton(R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+    }
+
+    private void actionCallIntentAddNewVersion(final DocumentChildResponseDTO documentChildSelected){
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
@@ -271,8 +303,8 @@ public class FileActionService {
         editor.putString("versionFile", documentChildSelected.getVersion());
         editor.apply();
         activity.startActivityForResult(intent, RESULT_UPDATE_FILE);
-    }
 
+    }
 
     private void actionOnDownloadVersion(final DocumentChildResponseDTO documentChildSelected) {
 
@@ -310,9 +342,14 @@ public class FileActionService {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
                 VersionDTO versionSelected = versionsList.get(position);
                 String idFileSelected = documentChildSelected.getId();
-                GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity);
+                GetFileAsyncTask getFileAsyncTask = new GetFileAsyncTask(activity, documentChildSelected);
                 getFileAsyncTask.execute(idFileSelected, versionSelected.getVersion());
                 alertDialog.hide();
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(documentChildSelected.getId(), documentChildSelected.getVersion());
+                editor.apply();
+
             }
         });
     }
