@@ -38,7 +38,13 @@ RUN echo "Descargando codigo del servidor" \
 	&& cmake /opt/tp_taller2/src/UdriveServer/main \
 	&& make
 
+COPY conf.conf "/opt/build_tptaller2/"
+
 ##################### INSTALLATION END #####################
+
+WORKDIR /opt/build_tptaller2/
+
+RUN cat conf.conf
 
 # Expose the default port
 EXPOSE 8080

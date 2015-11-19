@@ -1,4 +1,4 @@
-1) cd mydockerbuild ( esta carpeta tiene que tener el Dockerfile y NINGUN otro archivo mas )
+1) cd mydockerbuild ( esta carpeta tiene que tener el Dockerfile y NINGUN otro archivo mas... salvo conf.conf )
 
 2) sudo docker build .
 

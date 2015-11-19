@@ -12,6 +12,8 @@ Para instalar Docker::
 	$ sudo apt-get install wget
 	$ wget -qO- https://get.docker.com/ | sh
 
+.. warning:: En src/UdriveServer/mydockerbuild hay 2 archivos : **dockerfile** , **conf.conf**   .Editando conf.conf se determina que loggers van a estar activos y cuales no.
+
 Una vez instalado Docker, procedemos a crear la imagen::
 
 	$ cd src/UdriveServer/mydockerbuild
@@ -32,3 +34,11 @@ Ejecución del servidor
 Para ejecutar el servidor::
 
 	$ sudo docker run -p 8080:8080 server
+
+
+Extraer logs del servidor
+-------------------------
+
+Copiar los logs del container de docker al host (nuestra pc)::
+
+$sudo docker cp <IMAGE ID>:/opt/build_tptaller2/logs/myeasylog.log <PATH_DESTINO>
